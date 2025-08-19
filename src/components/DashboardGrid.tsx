@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 import { 
   Users, 
   Tag, 
@@ -63,6 +64,19 @@ const dashboardItems: DashboardItem[] = [
 ];
 
 const DashboardGrid = () => {
+  const navigate = useNavigate();
+
+  const handleItemClick = (itemId: string) => {
+    switch (itemId) {
+      case "usuarios":
+        navigate("/usuarios");
+        break;
+      default:
+        console.log(`Clicked on ${itemId}`);
+        break;
+    }
+  };
+
   return (
     <div className="container mx-auto px-6 py-8">
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
@@ -70,6 +84,7 @@ const DashboardGrid = () => {
           <Card 
             key={item.id}
             className="group cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg border border-gray-200 bg-card"
+            onClick={() => handleItemClick(item.id)}
           >
             <CardContent className="p-6 flex flex-col items-center text-center gap-4">
               <div className="flex-shrink-0">
