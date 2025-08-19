@@ -19,6 +19,7 @@ import Quotations from "./pages/Quotations";
 import SalesHistory from "./pages/SalesHistory";
 import Statistics from "./pages/Statistics";
 import ExpenseCategories from "./pages/ExpenseCategories";
+import Workers from "./pages/Workers";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,6 +47,7 @@ const App = () => (
           <Route path="/historial-ventas" element={<SalesHistory />} />
           <Route path="/estadisticas" element={<Statistics />} />
           <Route path="/categorias-gasto" element={<ExpenseCategories />} />
+          <Route path="/trabajadores" element={<Workers />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
