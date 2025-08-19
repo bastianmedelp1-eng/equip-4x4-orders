@@ -96,6 +96,9 @@ const DashboardGrid = () => {
       case "lista-racks":
         navigate("/lista-racks");
         break;
+      case "lista-especiales":
+        navigate("/lista-especiales");
+        break;
       default:
         console.log(`Clicked on ${itemId}`);
         break;
