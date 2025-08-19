@@ -23,6 +23,7 @@ import Workers from "./pages/Workers";
 import QRScanner from "./pages/QRScanner";
 import Expenses from "./pages/Expenses";
 import LaserCutting from "./pages/LaserCutting";
+import Tools from "./pages/Tools";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -54,6 +55,7 @@ const App = () => (
           <Route path="/escaner-qr" element={<QRScanner />} />
           <Route path="/gastos" element={<Expenses />} />
           <Route path="/corte-laser" element={<LaserCutting />} />
+          <Route path="/herramientas" element={<Tools />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
