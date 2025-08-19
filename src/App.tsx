@@ -16,6 +16,7 @@ import SpecialsList from "./pages/SpecialsList";
 import Calendar from "./pages/Calendar";
 import PriceSearch from "./pages/PriceSearch";
 import Quotations from "./pages/Quotations";
+import SalesHistory from "./pages/SalesHistory";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/calendario" element={<Calendar />} />
           <Route path="/buscador-precios" element={<PriceSearch />} />
           <Route path="/cotizacion" element={<Quotations />} />
+          <Route path="/historial-ventas" element={<SalesHistory />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

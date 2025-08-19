@@ -108,6 +108,9 @@ const DashboardGrid = () => {
       case "cotizacion":
         navigate("/cotizacion");
         break;
+      case "historial":
+        navigate("/historial-ventas");
+        break;
       default:
         console.log(`Clicked on ${itemId}`);
         break;
