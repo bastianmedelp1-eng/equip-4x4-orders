@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageCircle, Send, Minimize2, Maximize2, X } from "lucide-react";
+import { MessageCircle, Send, Paperclip } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Message {
@@ -14,8 +14,6 @@ interface Message {
 }
 
 const AIChat = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -29,6 +27,7 @@ const AIChat = () => {
   const [apiKey, setApiKey] = useState("");
   const [showApiKeyInput, setShowApiKeyInput] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   const scrollToBottom = () => {
@@ -38,6 +37,20 @@ const AIChat = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  const handleFileAttachment = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      toast({
+        title: "Archivo adjuntado",
+        description: `${file.name} - Funcionalidad en desarrollo`,
+      });
+    }
+  };
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
@@ -140,135 +153,115 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
     }
   };
 
-  if (!isOpen) {
-    return (
-      <div className="fixed bottom-6 right-6 z-50">
-        <Button
-          onClick={() => setIsOpen(true)}
-          className="rounded-full h-14 w-14 shadow-lg hover:scale-110 transition-all duration-200"
-          size="lg"
-        >
-          <MessageCircle className="h-6 w-6" />
-        </Button>
-      </div>
-    );
-  }
-
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <Card className={`w-80 shadow-xl transition-all duration-200 ${isMinimized ? 'h-16' : 'h-96'}`}>
+    <div className="w-full max-w-4xl mx-auto">
+      <Card className="h-[600px] shadow-xl">
         <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <MessageCircle className="h-5 w-5" />
-              Asistente IA
-            </CardTitle>
-            <div className="flex gap-1">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsMinimized(!isMinimized)}
-                className="h-8 w-8 p-0"
-              >
-                {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsOpen(false)}
-                className="h-8 w-8 p-0"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
+          <CardTitle className="text-xl flex items-center gap-2">
+            <MessageCircle className="h-6 w-6" />
+            Asistente IA - Equipers 4x4
+          </CardTitle>
         </CardHeader>
 
-        {!isMinimized && (
-          <CardContent className="p-0 flex flex-col h-80">
-            {showApiKeyInput && !apiKey && (
-              <div className="p-4 bg-muted">
-                <p className="text-sm mb-2">Ingresa tu OpenAI API Key:</p>
-                <div className="flex gap-2">
-                  <Input
-                    type="password"
-                    placeholder="sk-..."
-                    value={apiKey}
-                    onChange={(e) => setApiKey(e.target.value)}
-                    className="text-xs"
-                  />
-                  <Button
-                    size="sm"
-                    onClick={() => setShowApiKeyInput(false)}
-                    disabled={!apiKey}
-                  >
-                    OK
-                  </Button>
-                </div>
-              </div>
-            )}
-
-            <ScrollArea className="flex-1 px-4">
-              <div className="space-y-4 py-2">
-                {messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-                  >
-                    <div
-                      className={`max-w-[80%] p-3 rounded-lg text-sm ${
-                        message.isUser
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted text-foreground'
-                      }`}
-                    >
-                      <p className="whitespace-pre-wrap">{message.text}</p>
-                      <p className="text-xs opacity-70 mt-1">
-                        {message.timestamp.toLocaleTimeString('es-ES', { 
-                          hour: '2-digit', 
-                          minute: '2-digit' 
-                        })}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-                {isLoading && (
-                  <div className="flex justify-start">
-                    <div className="bg-muted text-foreground p-3 rounded-lg text-sm">
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-current rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                        <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                <div ref={messagesEndRef} />
-              </div>
-            </ScrollArea>
-
-            <div className="p-4 border-t">
+        <CardContent className="p-0 flex flex-col h-[520px]">
+          {showApiKeyInput && !apiKey && (
+            <div className="p-4 bg-muted">
+              <p className="text-sm mb-2">Ingresa tu OpenAI API Key:</p>
               <div className="flex gap-2">
                 <Input
-                  placeholder="Escribe tu pregunta..."
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  disabled={isLoading}
-                  className="flex-1"
+                  type="password"
+                  placeholder="sk-..."
+                  value={apiKey}
+                  onChange={(e) => setApiKey(e.target.value)}
+                  className="text-xs"
                 />
                 <Button
-                  onClick={handleSendMessage}
-                  disabled={isLoading || !inputValue.trim()}
                   size="sm"
-                  className="px-3"
+                  onClick={() => setShowApiKeyInput(false)}
+                  disabled={!apiKey}
                 >
-                  <Send className="h-4 w-4" />
+                  OK
                 </Button>
               </div>
             </div>
-          </CardContent>
-        )}
+          )}
+
+          <ScrollArea className="flex-1 px-4">
+            <div className="space-y-4 py-4">
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[80%] p-4 rounded-lg ${
+                      message.isUser
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-muted text-foreground'
+                    }`}
+                  >
+                    <p className="whitespace-pre-wrap text-sm leading-relaxed">{message.text}</p>
+                    <p className="text-xs opacity-70 mt-2">
+                      {message.timestamp.toLocaleTimeString('es-ES', { 
+                        hour: '2-digit', 
+                        minute: '2-digit' 
+                      })}
+                    </p>
+                  </div>
+                </div>
+              ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-muted text-foreground p-4 rounded-lg">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-current rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                      <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+          </ScrollArea>
+
+          <div className="p-4 border-t">
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleFileAttachment}
+                className="px-3"
+              >
+                <Paperclip className="h-4 w-4" />
+              </Button>
+              <Input
+                placeholder="Escribe tu pregunta sobre el sistema Equipers 4x4..."
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={handleKeyPress}
+                disabled={isLoading}
+                className="flex-1"
+              />
+              <Button
+                onClick={handleSendMessage}
+                disabled={isLoading || !inputValue.trim()}
+                size="sm"
+                className="px-4"
+              >
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            className="hidden"
+            accept=".txt,.pdf,.doc,.docx,.jpg,.jpeg,.png"
+          />
+        </CardContent>
       </Card>
     </div>
   );
