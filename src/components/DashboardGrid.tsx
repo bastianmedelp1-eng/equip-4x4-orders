@@ -120,6 +120,9 @@ const DashboardGrid = () => {
       case "trabajadores":
         navigate("/trabajadores");
         break;
+      case "qr":
+        navigate("/escaner-qr");
+        break;
       default:
         console.log(`Clicked on ${itemId}`);
         break;
