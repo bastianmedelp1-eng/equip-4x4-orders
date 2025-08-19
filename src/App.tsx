@@ -23,6 +23,9 @@ import Workers from "./pages/Workers";
 import QRScanner from "./pages/QRScanner";
 import Expenses from "./pages/Expenses";
 import LaserCutting from "./pages/LaserCutting";
+import Products from "./pages/Products";
+import ToolsView from "./pages/ToolsView";
+import WorkOrderSearch from "./pages/WorkOrderSearch";
 import Tools from "./pages/Tools";
 import NotFound from "./pages/NotFound";
 
@@ -56,6 +59,9 @@ const App = () => (
           <Route path="/gastos" element={<Expenses />} />
           <Route path="/corte-laser" element={<LaserCutting />} />
           <Route path="/herramientas" element={<Tools />} />
+          <Route path="/productos" element={<Products />} />
+          <Route path="/vista-herramientas" element={<ToolsView />} />
+          <Route path="/buscar-orden" element={<WorkOrderSearch />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

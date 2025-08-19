@@ -2,7 +2,11 @@ import { Button } from "@/components/ui/button";
 import { LogOut, User } from "lucide-react";
 import logo from "/lovable-uploads/ce13be00-df3c-4711-b669-77508ef1cd72.png";
 
-const Header = () => {
+interface HeaderProps {
+  title?: string;
+}
+
+const Header = ({ title }: HeaderProps) => {
   return (
     <header className="flex items-center justify-between bg-card border-b border-border px-6 py-4 shadow-sm">
       <div className="flex items-center gap-3">
@@ -13,7 +17,7 @@ const Header = () => {
         />
         <div>
           <h1 className="text-xl font-bold text-foreground">Equipers 4x4</h1>
-          <p className="text-sm text-muted-foreground">Sistema de Pedidos</p>
+          <p className="text-sm text-muted-foreground">{title || "Sistema de Pedidos"}</p>
         </div>
       </div>
       

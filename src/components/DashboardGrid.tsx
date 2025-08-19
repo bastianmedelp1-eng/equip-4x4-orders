@@ -40,31 +40,86 @@ interface DashboardItem {
   lucideIcon?: React.ComponentType<{ className?: string }>;
 }
 
-const dashboardItems: DashboardItem[] = [
-  { id: "usuarios", title: "Usuarios", icon: iconUsuarios },
-  { id: "marcas", title: "Marcas", icon: iconMarcas },
-  { id: "modelos", title: "Modelos", lucideIcon: Car },
-  { id: "vendedores", title: "Vendedores", lucideIcon: Users },
-  { id: "accesorios", title: "Accesorios", lucideIcon: Package },
-  { id: "pedido", title: "Pedido", icon: iconPedido },
-  { id: "lista-cupulas", title: "Lista cúpulas", lucideIcon: List },
-  { id: "lista-racks", title: "Lista racks", lucideIcon: List },
-  { id: "lista-especiales", title: "Lista especiales", lucideIcon: Star },
-  { id: "calendario", title: "Calendario", icon: iconCalendario },
-  { id: "buscador-precios", title: "Buscador de precios", lucideIcon: Search },
-  { id: "cotizacion", title: "Cotización", icon: iconCotizacion },
-  { id: "productos", title: "Productos", icon: iconProductos },
-  { id: "historial", title: "Historial de ventas", icon: iconHistorial },
-  { id: "estadisticas", title: "Estadísticas", icon: iconEstadisticas },
-  { id: "categorias-gasto", title: "Categorías de Gasto", lucideIcon: Tag },
-  { id: "gastos", title: "Gastos", lucideIcon: DollarSign },
-  { id: "trabajadores", title: "Trabajadores", lucideIcon: UserCheck },
-  { id: "qr", title: "Escanear QR", lucideIcon: QrCode },
-  { id: "asistencia", title: "Asistencia", lucideIcon: Clock },
-  { id: "corte", title: "Corte Laser", lucideIcon: Zap },
-  { id: "buscar-orden", title: "Buscar orden de trabajo", lucideIcon: SearchCheck },
-  { id: "herramientas", title: "Herramientas", lucideIcon: Wrench },
-  { id: "vista-herramientas", title: "Vista de Herramientas", lucideIcon: Wrench },
+interface DashboardSection {
+  id: string;
+  title: string;
+  icon: string;
+  items: DashboardItem[];
+}
+
+const dashboardSections: DashboardSection[] = [
+  {
+    id: "productos",
+    title: "Productos",
+    icon: "📦",
+    items: [
+      { id: "productos", title: "Productos", icon: iconProductos },
+      { id: "marcas", title: "Marcas", icon: iconMarcas },
+      { id: "modelos", title: "Modelos", lucideIcon: Car },
+      { id: "accesorios", title: "Accesorios", lucideIcon: Package },
+      { id: "lista-cupulas", title: "Cúpulas", lucideIcon: List },
+      { id: "lista-racks", title: "Racks", lucideIcon: List },
+      { id: "lista-especiales", title: "Especiales", lucideIcon: Star },
+    ]
+  },
+  {
+    id: "pedidos-ventas",
+    title: "Pedidos y Ventas",
+    icon: "🛒",
+    items: [
+      { id: "pedido", title: "Pedido", icon: iconPedido },
+      { id: "cotizacion", title: "Cotización", icon: iconCotizacion },
+      { id: "buscador-precios", title: "Buscador de precios", lucideIcon: Search },
+      { id: "historial", title: "Historial de ventas", icon: iconHistorial },
+    ]
+  },
+  {
+    id: "finanzas",
+    title: "Finanzas",
+    icon: "💰",
+    items: [
+      { id: "gastos", title: "Gastos", lucideIcon: DollarSign },
+      { id: "categorias-gasto", title: "Categorías de gasto", lucideIcon: Tag },
+      { id: "estadisticas", title: "Estadísticas", icon: iconEstadisticas },
+    ]
+  },
+  {
+    id: "personas",
+    title: "Personas",
+    icon: "👥",
+    items: [
+      { id: "usuarios", title: "Usuarios", icon: iconUsuarios },
+      { id: "vendedores", title: "Vendedores", lucideIcon: Users },
+      { id: "trabajadores", title: "Trabajadores", lucideIcon: UserCheck },
+    ]
+  },
+  {
+    id: "operaciones",
+    title: "Operaciones",
+    icon: "⚙️",
+    items: [
+      { id: "buscar-orden", title: "Buscar orden de trabajo", lucideIcon: SearchCheck },
+      { id: "corte", title: "Corte Láser", lucideIcon: Zap },
+      { id: "qr", title: "Escanear QR", lucideIcon: QrCode },
+    ]
+  },
+  {
+    id: "herramientas",
+    title: "Herramientas",
+    icon: "🔧",
+    items: [
+      { id: "herramientas", title: "Herramientas", lucideIcon: Wrench },
+      { id: "vista-herramientas", title: "Vista de Herramientas", lucideIcon: Wrench },
+    ]
+  },
+  {
+    id: "agenda",
+    title: "Agenda",
+    icon: "📅",
+    items: [
+      { id: "calendario", title: "Calendario", icon: iconCalendario },
+    ]
+  }
 ];
 
 const DashboardGrid = () => {
@@ -132,6 +187,12 @@ const DashboardGrid = () => {
       case "herramientas":
         navigate("/herramientas");
         break;
+      case "buscar-orden":
+        navigate("/buscar-orden");
+        break;
+      case "vista-herramientas":
+        navigate("/vista-herramientas");
+        break;
       default:
         console.log(`Clicked on ${itemId}`);
         break;
@@ -139,33 +200,44 @@ const DashboardGrid = () => {
   };
 
   return (
-    <div className="container mx-auto px-6 py-8">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-        {dashboardItems.map((item) => (
-          <Card 
-            key={item.id}
-            className="group cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg border border-gray-200 bg-card"
-            onClick={() => handleItemClick(item.id)}
-          >
-            <CardContent className="p-6 flex flex-col items-center text-center gap-4">
-              <div className="flex-shrink-0">
-                {item.icon ? (
-                  <img 
-                    src={item.icon} 
-                    alt={item.title}
-                    className="h-12 w-12 object-contain"
-                  />
-                ) : item.lucideIcon ? (
-                  <item.lucideIcon className="h-12 w-12 text-primary group-hover:text-accent transition-colors duration-200" />
-                ) : null}
-              </div>
-              <p className="text-sm font-medium text-foreground leading-tight">
-                {item.title}
-              </p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+    <div className="container mx-auto px-6 py-8 space-y-12">
+      {dashboardSections.map((section) => (
+        <div key={section.id} className="space-y-6">
+          {/* Section Header */}
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-2xl">{section.icon}</span>
+            <h2 className="text-2xl font-semibold text-foreground">{section.title}</h2>
+          </div>
+          
+          {/* Section Items Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+            {section.items.map((item) => (
+              <Card 
+                key={item.id}
+                className="group cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg border border-gray-200 bg-card"
+                onClick={() => handleItemClick(item.id)}
+              >
+                <CardContent className="p-6 flex flex-col items-center text-center gap-4">
+                  <div className="flex-shrink-0">
+                    {item.icon ? (
+                      <img 
+                        src={item.icon} 
+                        alt={item.title}
+                        className="h-12 w-12 object-contain"
+                      />
+                    ) : item.lucideIcon ? (
+                      <item.lucideIcon className="h-12 w-12 text-primary group-hover:text-accent transition-colors duration-200" />
+                    ) : null}
+                  </div>
+                  <p className="text-sm font-medium text-foreground leading-tight">
+                    {item.title}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
