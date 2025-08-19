@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, Home, CalendarIcon } from "lucide-react";
+import { Edit, Trash2, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Home, CalendarIcon } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useNavigate } from "react-router-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
@@ -14,6 +15,8 @@ const LaserCutting = () => {
   const navigate = useNavigate();
   const [selectedMonth, setSelectedMonth] = useState<Date | null>(null);
   const [activeTab, setActiveTab] = useState("racks");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
 
   const racksData = [
     { 
@@ -95,8 +98,102 @@ const LaserCutting = () => {
       fechaEntrega: "15/08/2025",
       accesorios: "1 Rack de techo | WRANGLER JK 4 PUERTAS JEEP 2013",
       ordenTrabajo: "ORDEN DE TRABAJO TALLER"
+    },
+    { 
+      id: 464, 
+      estado: "POR HACER", 
+      cliente: "DECAR SA", 
+      fechaEntrega: "15/08/2025",
+      accesorios: [
+        "1 Rack de techo | NEW JIMNY 5 PUERTAS SUZUKI 2025",
+        "1 Rack de techo | NEW JIMNY 3 PUERTAS SUZUKI 2025",
+        "1 Escalera | NEW JIMNY 5 PUERTAS SUZUKI 2025",
+        "1 Escalera | NEW JIMNY 3 PUERTAS SUZUKI 2025"
+      ],
+      ordenTrabajo: "ORDEN DE TRABAJO TALLER"
+    },
+    { 
+      id: 461, 
+      estado: "POR HACER", 
+      cliente: "Daniel Salamanca", 
+      fechaEntrega: "19/08/2025",
+      accesorios: "1 Rack de pick up TRIPLE ALTO MAX | WINGLE 7 WINGLE 2025",
+      ordenTrabajo: "ORDEN DE TRABAJO TALLER"
+    },
+    { 
+      id: 468, 
+      estado: "POR HACER", 
+      cliente: "INVERSIONES NETBEE LIMITADA", 
+      fechaEntrega: "20/08/2025",
+      accesorios: [
+        "1 Rack de techo | NEW JIMNY 3 PUERTAS SUZUKI 2025",
+        "1 Escalera | NEW JIMNY 3 PUERTAS SUZUKI 2025"
+      ],
+      ordenTrabajo: "ORDEN DE TRABAJO TALLER"
+    },
+    { 
+      id: 470, 
+      estado: "POR HACER", 
+      cliente: "Guillermo Johnson Barella", 
+      fechaEntrega: "22/08/2025",
+      accesorios: "1 Rack de techo | NEW JIMNY 3 PUERTAS SUZUKI 2023",
+      ordenTrabajo: "ORDEN DE TRABAJO TALLER"
+    },
+    { 
+      id: 474, 
+      estado: "POR HACER", 
+      cliente: "Lorenzo Lasagna", 
+      fechaEntrega: "22/08/2025",
+      accesorios: "1 Rack de pick up TRIPLE ALTO MAX | NAVARA NISSAN 2011",
+      ordenTrabajo: "ORDEN DE TRABAJO TALLER"
+    },
+    { 
+      id: 477, 
+      estado: "POR HACER", 
+      cliente: "Antonio Carrizo Cortes", 
+      fechaEntrega: "22/08/2025",
+      accesorios: "1 Escalera | NEW JIMNY 3 PUERTAS SUZUKI 2024",
+      ordenTrabajo: "ORDEN DE TRABAJO TALLER"
+    },
+    { 
+      id: 475, 
+      estado: "POR HACER", 
+      cliente: "TRUSTRU AUTOPARTES SPA", 
+      fechaEntrega: "25/08/2025",
+      accesorios: "1 Rack de techo | NEW JIMNY 5 PUERTAS SUZUKI 2025",
+      ordenTrabajo: "ORDEN DE TRABAJO TALLER"
+    },
+    { 
+      id: 460, 
+      estado: "POR HACER", 
+      cliente: "Jorge Rusconi", 
+      fechaEntrega: "26/08/2025",
+      accesorios: "1 Rack de techo | HILUX REVO TOYOTA 2016",
+      ordenTrabajo: "ORDEN DE TRABAJO TALLER"
+    },
+    { 
+      id: 476, 
+      estado: "POR HACER", 
+      cliente: "FRANCISCO PEDRERO MOCAYA", 
+      fechaEntrega: "26/08/2025",
+      accesorios: "1 Rack de pick up DOBLE ALTO MAX | HILUX REVO TOYOTA 2023",
+      ordenTrabajo: "ORDEN DE TRABAJO TALLER"
+    },
+    { 
+      id: 479, 
+      estado: "POR HACER", 
+      cliente: "CLAUDIO TRONCOSO", 
+      fechaEntrega: "26/08/2025",
+      accesorios: "1 Rack de pick up DOBLE ALTO | HILUX 1RA GENERACION TOYOTA 2000",
+      ordenTrabajo: "ORDEN DE TRABAJO TALLER"
     }
   ];
+
+  const totalItems = racksData.length;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+  const currentData = racksData.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const handleGoHome = () => {
     navigate("/");
@@ -108,6 +205,15 @@ const LaserCutting = () => {
 
   const handleWorkOrder = (id: number) => {
     console.log("Opening work order:", id);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleItemsPerPageChange = (value: string) => {
+    setItemsPerPage(Number(value));
+    setCurrentPage(1);
   };
 
   const renderAccessories = (accesorios: string | string[]) => {
@@ -225,7 +331,7 @@ const LaserCutting = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {racksData.map((rack, index) => (
+                      {currentData.map((rack, index) => (
                         <tr key={rack.id} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                           <td className="p-3 border-b font-semibold">{rack.id}</td>
                           <td className="p-3 border-b">
@@ -260,6 +366,49 @@ const LaserCutting = () => {
                       ))}
                     </tbody>
                   </table>
+                </div>
+
+                {/* Pagination */}
+                <div className="p-4 flex items-center justify-between border-t bg-white">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">Items per page:</span>
+                    <Select value={itemsPerPage.toString()} onValueChange={handleItemsPerPageChange}>
+                      <SelectTrigger className="w-20">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-background border shadow-lg z-50">
+                        <SelectItem value="10">10</SelectItem>
+                        <SelectItem value="20">20</SelectItem>
+                        <SelectItem value="50">50</SelectItem>
+                        <SelectItem value="100">100</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm text-muted-foreground">
+                      {startIndex + 1} - {endIndex} of {totalItems}
+                    </span>
+
+                    <div className="flex items-center gap-1">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                      >
+                        <ChevronRight className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
