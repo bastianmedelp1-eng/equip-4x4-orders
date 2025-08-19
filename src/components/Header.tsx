@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { LogOut, User } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "/lovable-uploads/ce13be00-df3c-4711-b669-77508ef1cd72.png";
 
 const Header = () => {
   return (
