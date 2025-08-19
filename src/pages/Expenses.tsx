@@ -513,6 +513,93 @@ const Expenses = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Expense Categories Management */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="text-xl font-semibold text-primary">
+              Gestión de Categorías de Gasto
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-end gap-4">
+              <div className="flex-1 space-y-2">
+                <Label htmlFor="categoryName">Nombre de la Categoría</Label>
+                <Input
+                  id="categoryName"
+                  placeholder="Ingrese nombre de categoría"
+                />
+              </div>
+              <div className="flex gap-2">
+                <Button className="bg-blue-500 hover:bg-blue-600 text-white">
+                  Crear Categoría
+                </Button>
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+                  Cancelar
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Expense Categories List */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-xl font-semibold text-primary">
+              Lista de Categorías de Gasto
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b">
+                    <th className="p-4 text-left font-medium bg-gray-100">
+                      Nombre
+                    </th>
+                    <th className="p-4 text-center font-medium bg-gray-100" colSpan={2}>
+                      Acciones
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    "VIATICOS",
+                    "ARRIENDO", 
+                    "LUZ",
+                    "INSUMOS Y MATERIALES",
+                    "NOMINAS Y ADELANTOS",
+                    "SERVICIOS",
+                    "ISMA Y DANI",
+                    "IMPOSICIONES, IVA, ETC",
+                    "MEJORAS TALLER",
+                    "DEVOLUCIONES"
+                  ].map((category, index) => (
+                    <tr key={category} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
+                      <td className="p-4 border-b">{category}</td>
+                      <td className="p-4 border-b text-center">
+                        <Button
+                          size="sm"
+                          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 mr-2"
+                        >
+                          Editar
+                        </Button>
+                      </td>
+                      <td className="p-4 border-b text-center">
+                        <Button
+                          size="sm"
+                          className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-1"
+                        >
+                          Eliminar
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
