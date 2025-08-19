@@ -13,6 +13,7 @@ import Orders from "./pages/Orders";
 import CupulasList from "./pages/CupulasList";
 import RacksList from "./pages/RacksList";
 import SpecialsList from "./pages/SpecialsList";
+import Calendar from "./pages/Calendar";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/lista-cupulas" element={<CupulasList />} />
           <Route path="/lista-racks" element={<RacksList />} />
           <Route path="/lista-especiales" element={<SpecialsList />} />
+          <Route path="/calendario" element={<Calendar />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
