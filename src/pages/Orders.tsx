@@ -40,6 +40,416 @@ const Orders = () => {
     setOrderType("");
   };
 
+  if (orderType === "cupula") {
+    return (
+      <div className="min-h-screen bg-background">
+        {/* Header */}
+        <div className="p-4 border-b">
+          <Button
+            variant="default"
+            size="sm"
+            onClick={() => navigate("/")}
+            className="bg-green-600 hover:bg-green-700 text-white mb-4"
+          >
+            <Home className="h-4 w-4 mr-2" />
+            INICIO
+          </Button>
+          <div className="mb-4">
+            <span className="text-sm text-muted-foreground">TIPO DE PEDIDO</span>
+            <div className="border rounded p-2 bg-muted/50">CUPULA</div>
+          </div>
+        </div>
+
+        <div className="p-6 space-y-8">
+          {/* LINK URL LOGO */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-4">LINK URL LOGO</h2>
+              <div>
+                <Label className="text-sm font-medium">URL o imagen elegida</Label>
+                <Input className="bg-background" />
+              </div>
+              <Button className="bg-blue-500 hover:bg-blue-600 text-white mt-4">
+                GENERAR COTIZ
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* DATOS DE VENTA */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-4">DATOS DE VENTA</h2>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div>
+                  <Label className="text-sm font-medium">VENDEDOR</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="miguel">MIGUEL</SelectItem>
+                      <SelectItem value="daniela">DANIELA</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">FECHA DE ENTREGA</Label>
+                  <Input type="date" className="bg-background" placeholder="dd-mm-aaaa" />
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">TIPO DE CLIENTE</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="particular">PARTICULAR</SelectItem>
+                      <SelectItem value="empresa">EMPRESA</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* DATOS DE VEHICULO */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-4">DATOS DE VEHICULO</h2>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div>
+                  <Label className="text-sm font-medium">MARCA</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="toyota">TOYOTA</SelectItem>
+                      <SelectItem value="ford">FORD</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">MODELO</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="hilux">HILUX</SelectItem>
+                      <SelectItem value="ranger">RANGER</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">AÑO</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="2023">2023</SelectItem>
+                      <SelectItem value="2022">2022</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* DATOS DE LA CUPULA */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-4">DATOS DE LA CUPULA</h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-sm font-medium">TIPO DE CUPULA</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="alta">ALTA</SelectItem>
+                      <SelectItem value="baja">BAJA</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">ALTURA DE CUPULA</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="standard">STANDARD</SelectItem>
+                      <SelectItem value="personalizada">PERSONALIZADA</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">ANCHO DE LA CUPULA</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="standard">STANDARD</SelectItem>
+                      <SelectItem value="ancho">ANCHO</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">COLOR DE LA CERRAJA</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="negro">NEGRO</SelectItem>
+                      <SelectItem value="plateado">PLATEADO</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* RACK DE TECHO DE LA CUPULA */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-4">RACK DE TECHO DE LA CUPULA</h2>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div>
+                  <Label className="text-sm font-medium">LARGO</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="corto">CORTO</SelectItem>
+                      <SelectItem value="largo">LARGO</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">ACCESORIOS</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="basico">BASICO</SelectItem>
+                      <SelectItem value="completo">COMPLETO</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">INSTALACION</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="incluida">INCLUIDA</SelectItem>
+                      <SelectItem value="sin-instalacion">SIN INSTALACION</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* COMPORTAMIENTOS INTERNOS */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-4">COMPORTAMIENTOS INTERNOS</h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-sm font-medium">BODEGA TRASERA</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="si">SI</SelectItem>
+                      <SelectItem value="no">NO</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">CAJON LATERAL</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="si">SI</SelectItem>
+                      <SelectItem value="no">NO</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">BOTELLA TRASERA</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="si">SI</SelectItem>
+                      <SelectItem value="no">NO</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">PUERTA EXTERIOR</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="si">SI</SelectItem>
+                      <SelectItem value="no">NO</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* LUCES */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-4">LUCES</h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-sm font-medium">LUCES INTERMITENTES</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="si">SI</SelectItem>
+                      <SelectItem value="no">NO</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">LUCES TRASERA</Label>
+                  <Select>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border shadow-lg z-50">
+                      <SelectItem value="si">SI</SelectItem>
+                      <SelectItem value="no">NO</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* DATOS CLIENTE */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-4">DATOS CLIENTE</h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-sm font-medium">RUT</Label>
+                  <Input className="bg-background" />
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">DIRECCION</Label>
+                  <Input className="bg-background" />
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">CIUDAD</Label>
+                  <Input className="bg-background" />
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">TELEFONO</Label>
+                  <Input className="bg-background" />
+                </div>
+                <div className="md:col-span-2">
+                  <Label className="text-sm font-medium">CORREO</Label>
+                  <Input type="email" className="bg-background" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* DATOS DE PAGO */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-4">DATOS DE PAGO</h2>
+              <div className="space-y-6">
+                <div>
+                  <Label className="text-sm font-medium">NOMBRE DE VENTA INICIAL</Label>
+                  <Input className="bg-background" />
+                </div>
+
+                {/* Payment installments */}
+                {[1, 2, 3].map((num) => (
+                  <div key={num} className="space-y-4 border-t pt-4">
+                    <h3 className="font-medium">ABONO {num}</h3>
+                    <div className="grid md:grid-cols-4 gap-4">
+                      <div>
+                        <Label className="text-sm">ABONO {num}</Label>
+                        <Input className="bg-background" />
+                      </div>
+                      <div>
+                        <Label className="text-sm">FECHA DE PAGO ABONO {num}</Label>
+                        <Input type="date" className="bg-background" placeholder="dd-mm-aaaa" />
+                      </div>
+                      <div>
+                        <Label className="text-sm">METODO DE PAGO ABONO {num}</Label>
+                        <Select>
+                          <SelectTrigger className="bg-background">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-background border shadow-lg z-50">
+                            <SelectItem value="efectivo">EFECTIVO</SelectItem>
+                            <SelectItem value="transferencia">TRANSFERENCIA</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label className="text-sm">MONEDA ABONO {num}</Label>
+                        <Select>
+                          <SelectTrigger className="bg-background">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-background border shadow-lg z-50">
+                            <SelectItem value="clp">CLP</SelectItem>
+                            <SelectItem value="usd">USD</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <div>
+                      <Label className="text-sm">URL FOTO ABONO {num}</Label>
+                      <Input className="bg-background" placeholder="URL de la foto" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Action buttons */}
+          <div className="flex gap-4 justify-start">
+            <Button onClick={handleCreateOrder} className="bg-cyan-500 hover:bg-cyan-600 text-white">
+              CREAR PEDIDO
+            </Button>
+            <Button onClick={handleCancel} variant="outline" className="bg-yellow-500 hover:bg-yellow-600 text-white border-yellow-500">
+              CANCELAR
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (orderType === "rack") {
     return (
       <div className="min-h-screen bg-background">
