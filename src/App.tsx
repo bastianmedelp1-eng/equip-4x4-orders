@@ -15,6 +15,7 @@ import RacksList from "./pages/RacksList";
 import SpecialsList from "./pages/SpecialsList";
 import Calendar from "./pages/Calendar";
 import PriceSearch from "./pages/PriceSearch";
+import Quotations from "./pages/Quotations";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/lista-especiales" element={<SpecialsList />} />
           <Route path="/calendario" element={<Calendar />} />
           <Route path="/buscador-precios" element={<PriceSearch />} />
+          <Route path="/cotizacion" element={<Quotations />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
