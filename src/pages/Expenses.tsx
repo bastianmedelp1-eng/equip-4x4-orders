@@ -514,34 +514,6 @@ const Expenses = () => {
           </CardContent>
         </Card>
 
-        {/* Expense Categories Management */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="text-xl font-semibold text-primary">
-              Gestión de Categorías de Gasto
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-end gap-4">
-              <div className="flex-1 space-y-2">
-                <Label htmlFor="categoryName">Nombre de la Categoría</Label>
-                <Input
-                  id="categoryName"
-                  placeholder="Ingrese nombre de categoría"
-                />
-              </div>
-              <div className="flex gap-2">
-                <Button className="bg-blue-500 hover:bg-blue-600 text-white">
-                  Crear Categoría
-                </Button>
-                <Button className="bg-orange-500 hover:bg-orange-600 text-white">
-                  Cancelar
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Expense Categories List */}
         <Card>
           <CardHeader>
