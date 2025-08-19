@@ -125,22 +125,10 @@ const Expenses = () => {
           <h1 className="text-2xl font-bold text-center flex-1">GASTOS</h1>
         </div>
 
-        {/* Filter Toggle */}
-        <div className="mb-6">
-          <Button
-            variant="outline"
-            onClick={() => setShowFilters(!showFilters)}
-            className="bg-gray-200 text-gray-700 hover:bg-gray-300"
-          >
-            Filtrar gastos
-          </Button>
-        </div>
-
-        {/* Filters Section */}
-        {showFilters && (
-          <Card className="mb-6">
-            <CardContent className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+        {/* Filters Section - Always Visible */}
+        <Card className="mb-6">
+          <CardContent className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
               <div className="space-y-2">
                 <Label>FILTRO CATEGORIA</Label>
                 <Select value={filters.categoria} onValueChange={(value) => handleFilterChange("categoria", value)}>
@@ -249,9 +237,8 @@ const Expenses = () => {
                 MOSTRAR TODO
               </Button>
             </div>
-            </CardContent>
-          </Card>
-        )}
+          </CardContent>
+        </Card>
 
         {/* Chart Section */}
         <Card className="mb-6">
