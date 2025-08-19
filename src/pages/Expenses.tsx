@@ -12,9 +12,13 @@ import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
+import { Edit, Trash2, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 
 const Expenses = () => {
   const navigate = useNavigate();
+  const [showFilters, setShowFilters] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [filters, setFilters] = useState({
     categoria: "",
     formaPago: "",
@@ -47,6 +51,24 @@ const Expenses = () => {
 
   const totalExpenses = expenseData.reduce((sum, item) => sum + item.value, 0);
 
+  const expensesList = [
+    { id: 989, fecha: "2025-08-14", categoria: "NOMINAS Y ADELANTOS", monto: 5057125, descripcion: "NOMINA QUINCENA AGOSTO", tipoPago: "TRANSFERENCIA", empresaPago: "SCOTIABANK" },
+    { id: 988, fecha: "2025-08-18", categoria: "INSUMOS Y MATERIALES", monto: 1156680, descripcion: "ACENOR PLANCHAS", tipoPago: "TRANSFERENCIA", empresaPago: "SANTANDER" },
+    { id: 987, fecha: "2025-08-18", categoria: "INSUMOS Y MATERIALES", monto: 298452, descripcion: "FERRETOOLS CORRUGADO", tipoPago: "TRANSFERENCIA", empresaPago: "SANTANDER" },
+    { id: 986, fecha: "2025-08-16", categoria: "SERVICIOS", monto: 247213, descripcion: "FACEBK", tipoPago: "TARJETA", empresaPago: "SANTANDER" },
+    { id: 985, fecha: "2025-08-17", categoria: "SERVICIOS", monto: 31034, descripcion: "MOVI", tipoPago: "TARJETA", empresaPago: "SANTANDER" },
+    { id: 984, fecha: "2025-08-16", categoria: "ISMA Y DANI", monto: 300000, descripcion: "ISMA Y DANI", tipoPago: "TRANSFERENCIA", empresaPago: "SANTANDER" },
+    { id: 983, fecha: "2025-08-16", categoria: "INSUMOS Y MATERIALES", monto: 3086, descripcion: "ALIEXPRESS", tipoPago: "TRANSFERENCIA", empresaPago: "SANTANDER" },
+    { id: 982, fecha: "2025-08-16", categoria: "SERVICIOS", monto: 234783, descripcion: "FACEBK", tipoPago: "TARJETA", empresaPago: "SANTANDER" },
+    { id: 981, fecha: "2025-08-14", categoria: "INSUMOS Y MATERIALES", monto: 299063, descripcion: "ALIBABA", tipoPago: "TRANSFERENCIA", empresaPago: "SANTANDER" },
+    { id: 980, fecha: "2025-08-14", categoria: "INSUMOS Y MATERIALES", monto: 860000, descripcion: "ORLEANS GOMAS", tipoPago: "TRANSFERENCIA", empresaPago: "SANTANDER" }
+  ];
+
+  const totalExpensesList = 976;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, totalExpensesList);
+  const totalPages = Math.ceil(totalExpensesList / itemsPerPage);
+
   const handleFilterChange = (field: string, value: any) => {
     setFilters(prev => ({ ...prev, [field]: value }));
   };
@@ -72,6 +94,23 @@ const Expenses = () => {
     navigate("/");
   };
 
+  const handleEditExpense = (id: number) => {
+    console.log("Editing expense:", id);
+  };
+
+  const handleDeleteExpense = (id: number) => {
+    console.log("Deleting expense:", id);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleItemsPerPageChange = (value: string) => {
+    setItemsPerPage(Number(value));
+    setCurrentPage(1);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-6 py-8">
@@ -86,10 +125,22 @@ const Expenses = () => {
           <h1 className="text-2xl font-bold text-center flex-1">GASTOS</h1>
         </div>
 
+        {/* Filter Toggle */}
+        <div className="mb-6">
+          <Button
+            variant="outline"
+            onClick={() => setShowFilters(!showFilters)}
+            className="bg-gray-200 text-gray-700 hover:bg-gray-300"
+          >
+            Filtrar gastos
+          </Button>
+        </div>
+
         {/* Filters Section */}
-        <Card className="mb-6">
-          <CardContent className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+        {showFilters && (
+          <Card className="mb-6">
+            <CardContent className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
               <div className="space-y-2">
                 <Label>FILTRO CATEGORIA</Label>
                 <Select value={filters.categoria} onValueChange={(value) => handleFilterChange("categoria", value)}>
@@ -197,6 +248,137 @@ const Expenses = () => {
               <Button className="bg-blue-500 hover:bg-blue-600 text-white">
                 MOSTRAR TODO
               </Button>
+            </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Expenses Table */}
+        <Card className="mb-6">
+          <CardContent className="p-0">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-blue-600 text-white">
+                    <th className="p-3 text-left font-medium">
+                      ID ↓
+                    </th>
+                    <th className="p-3 text-left font-medium">
+                      FECHA
+                    </th>
+                    <th className="p-3 text-left font-medium">
+                      CATEGORIA ↓
+                    </th>
+                    <th className="p-3 text-left font-medium">
+                      MONTO
+                    </th>
+                    <th className="p-3 text-left font-medium">
+                      DESCRIPCION
+                    </th>
+                    <th className="p-3 text-left font-medium">
+                      TIPO DE PAGO
+                    </th>
+                    <th className="p-3 text-left font-medium">
+                      EMPRESA DE PAGO
+                    </th>
+                    <th className="p-3 text-center font-medium">
+                      ACCIONES
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {expensesList.map((expense, index) => (
+                    <tr key={expense.id} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
+                      <td className="p-3 border-b">{expense.id}</td>
+                      <td className="p-3 border-b">{expense.fecha}</td>
+                      <td className="p-3 border-b">{expense.categoria}</td>
+                      <td className="p-3 border-b">{expense.monto.toLocaleString()}</td>
+                      <td className="p-3 border-b">{expense.descripcion}</td>
+                      <td className="p-3 border-b">{expense.tipoPago}</td>
+                      <td className="p-3 border-b">{expense.empresaPago}</td>
+                      <td className="p-3 border-b">
+                        <div className="flex gap-2 justify-center">
+                          <Button
+                            size="sm"
+                            onClick={() => handleEditExpense(expense.id)}
+                            className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1"
+                          >
+                            <Edit className="h-3 w-3 mr-1" />
+                            Editar
+                          </Button>
+                          <Button
+                            size="sm"
+                            onClick={() => handleDeleteExpense(expense.id)}
+                            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1"
+                          >
+                            <Trash2 className="h-3 w-3 mr-1" />
+                            Eliminar
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Pagination */}
+            <div className="p-4 flex items-center justify-between border-t">
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">Items per page:</span>
+                <Select value={itemsPerPage.toString()} onValueChange={handleItemsPerPageChange}>
+                  <SelectTrigger className="w-20">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-background border shadow-lg z-50">
+                    <SelectItem value="10">10</SelectItem>
+                    <SelectItem value="25">25</SelectItem>
+                    <SelectItem value="50">50</SelectItem>
+                    <SelectItem value="100">100</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">
+                  {startIndex + 1} - {endIndex} of {totalExpensesList}
+                </span>
+
+                <div className="flex items-center gap-1">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handlePageChange(1)}
+                    disabled={currentPage === 1}
+                  >
+                    <ChevronsLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handlePageChange(totalPages)}
+                    disabled={currentPage === totalPages}
+                  >
+                    <ChevronsRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
