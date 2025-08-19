@@ -253,8 +253,152 @@ const Expenses = () => {
           </Card>
         )}
 
-        {/* Expenses Table */}
+        {/* Chart Section */}
         <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="text-center">Gastos por categoría</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-96">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={expenseData} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
+                  <XAxis 
+                    dataKey="name" 
+                    angle={-45}
+                    textAnchor="end"
+                    height={100}
+                    fontSize={10}
+                  />
+                  <YAxis />
+                  <Tooltip 
+                    formatter={(value: number) => [`$${value.toLocaleString()}`, 'Gastos']}
+                    labelStyle={{ color: 'black' }}
+                    contentStyle={{ backgroundColor: 'white', border: '1px solid #ccc' }}
+                  />
+                  <Bar dataKey="value" fill="#87CEEB" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Total Section */}
+        <Card className="mb-6">
+          <CardContent className="p-4">
+            <div className="flex justify-between items-center">
+              <span className="text-lg font-medium">Total de gastos</span>
+              <span className="text-2xl font-bold">${totalExpenses.toLocaleString()}.00</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Expense Form */}
+        <Card className="mb-8">
+          <CardContent className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
+              <div className="space-y-2">
+                <Label>CATEGORIA</Label>
+                <Select value={expenseForm.categoria} onValueChange={(value) => handleExpenseFormChange("categoria", value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccione categoría" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-background border shadow-lg z-50">
+                    <SelectItem value="insumos">Insumos y Materiales</SelectItem>
+                    <SelectItem value="nominas">Nóminas y Adelantos</SelectItem>
+                    <SelectItem value="servicios">Servicios</SelectItem>
+                    <SelectItem value="viaticos">Viáticos</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label>MONTO</Label>
+                <Input
+                  type="number"
+                  value={expenseForm.monto}
+                  onChange={(e) => handleExpenseFormChange("monto", e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>FECHA</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !expenseForm.fecha && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {expenseForm.fecha ? format(expenseForm.fecha, "dd-MM-yyyy") : "dd-mm-aaaa"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0 bg-background border shadow-lg z-50" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={expenseForm.fecha}
+                      onSelect={(date) => handleExpenseFormChange("fecha", date)}
+                      initialFocus
+                      className="p-3 pointer-events-auto"
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+
+              <div className="space-y-2">
+                <Label>FORMA DE PAGO</Label>
+                <Select value={expenseForm.formaPago} onValueChange={(value) => handleExpenseFormChange("formaPago", value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccione forma" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-background border shadow-lg z-50">
+                    <SelectItem value="efectivo">Efectivo</SelectItem>
+                    <SelectItem value="transferencia">Transferencia</SelectItem>
+                    <SelectItem value="cheque">Cheque</SelectItem>
+                    <SelectItem value="tarjeta">Tarjeta</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label>EMPRESA DE PAGO</Label>
+                <Select value={expenseForm.empresaPago} onValueChange={(value) => handleExpenseFormChange("empresaPago", value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccione empresa" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-background border shadow-lg z-50">
+                    <SelectItem value="banco-chile">Banco de Chile</SelectItem>
+                    <SelectItem value="banco-estado">Banco Estado</SelectItem>
+                    <SelectItem value="santander">Santander</SelectItem>
+                    <SelectItem value="bci">BCI</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="space-y-2 mb-6">
+              <Label>DESCRIPCION</Label>
+              <Textarea
+                value={expenseForm.descripcion}
+                onChange={(e) => handleExpenseFormChange("descripcion", e.target.value)}
+                placeholder="Ingrese una descripción del gasto..."
+                rows={3}
+              />
+            </div>
+
+            <Button 
+              onClick={handleSaveExpense}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg"
+            >
+              GUARDAR
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Expenses Table */}
+        <Card>
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -380,150 +524,6 @@ const Expenses = () => {
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Chart Section */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="text-center">Gastos por categoría</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-96">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={expenseData} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
-                  <XAxis 
-                    dataKey="name" 
-                    angle={-45}
-                    textAnchor="end"
-                    height={100}
-                    fontSize={10}
-                  />
-                  <YAxis />
-                  <Tooltip 
-                    formatter={(value: number) => [`$${value.toLocaleString()}`, 'Gastos']}
-                    labelStyle={{ color: 'black' }}
-                    contentStyle={{ backgroundColor: 'white', border: '1px solid #ccc' }}
-                  />
-                  <Bar dataKey="value" fill="#87CEEB" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Total Section */}
-        <Card className="mb-6">
-          <CardContent className="p-4">
-            <div className="flex justify-between items-center">
-              <span className="text-lg font-medium">Total de gastos</span>
-              <span className="text-2xl font-bold">${totalExpenses.toLocaleString()}.00</span>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Expense Form */}
-        <Card>
-          <CardContent className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
-              <div className="space-y-2">
-                <Label>CATEGORIA</Label>
-                <Select value={expenseForm.categoria} onValueChange={(value) => handleExpenseFormChange("categoria", value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccione categoría" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-background border shadow-lg z-50">
-                    <SelectItem value="insumos">Insumos y Materiales</SelectItem>
-                    <SelectItem value="nominas">Nóminas y Adelantos</SelectItem>
-                    <SelectItem value="servicios">Servicios</SelectItem>
-                    <SelectItem value="viaticos">Viáticos</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label>MONTO</Label>
-                <Input
-                  type="number"
-                  value={expenseForm.monto}
-                  onChange={(e) => handleExpenseFormChange("monto", e.target.value)}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label>FECHA</Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className={cn(
-                        "w-full justify-start text-left font-normal",
-                        !expenseForm.fecha && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {expenseForm.fecha ? format(expenseForm.fecha, "dd-MM-yyyy") : "dd-mm-aaaa"}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0 bg-background border shadow-lg z-50" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={expenseForm.fecha}
-                      onSelect={(date) => handleExpenseFormChange("fecha", date)}
-                      initialFocus
-                      className="p-3 pointer-events-auto"
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-
-              <div className="space-y-2">
-                <Label>FORMA DE PAGO</Label>
-                <Select value={expenseForm.formaPago} onValueChange={(value) => handleExpenseFormChange("formaPago", value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccione forma" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-background border shadow-lg z-50">
-                    <SelectItem value="efectivo">Efectivo</SelectItem>
-                    <SelectItem value="transferencia">Transferencia</SelectItem>
-                    <SelectItem value="cheque">Cheque</SelectItem>
-                    <SelectItem value="tarjeta">Tarjeta</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label>EMPRESA DE PAGO</Label>
-                <Select value={expenseForm.empresaPago} onValueChange={(value) => handleExpenseFormChange("empresaPago", value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccione empresa" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-background border shadow-lg z-50">
-                    <SelectItem value="banco-chile">Banco de Chile</SelectItem>
-                    <SelectItem value="banco-estado">Banco Estado</SelectItem>
-                    <SelectItem value="santander">Santander</SelectItem>
-                    <SelectItem value="bci">BCI</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            <div className="space-y-2 mb-6">
-              <Label>DESCRIPCION</Label>
-              <Textarea
-                value={expenseForm.descripcion}
-                onChange={(e) => handleExpenseFormChange("descripcion", e.target.value)}
-                placeholder="Ingrese una descripción del gasto..."
-                rows={3}
-              />
-            </div>
-
-            <Button 
-              onClick={handleSaveExpense}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg"
-            >
-              GUARDAR
-            </Button>
           </CardContent>
         </Card>
       </div>
