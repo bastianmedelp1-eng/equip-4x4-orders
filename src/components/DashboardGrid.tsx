@@ -1,5 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { 
   Users, 
   Tag, 
@@ -19,7 +21,9 @@ import {
   Clock, 
   Zap, 
   SearchCheck, 
-  Wrench 
+  Wrench,
+  ChevronDown,
+  ChevronRight
 } from "lucide-react";
 
 // Import custom icons
@@ -124,6 +128,19 @@ const dashboardSections: DashboardSection[] = [
 
 const DashboardGrid = () => {
   const navigate = useNavigate();
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
+
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(sectionId)) {
+        newSet.delete(sectionId);
+      } else {
+        newSet.add(sectionId);
+      }
+      return newSet;
+    });
+  };
 
   const handleItemClick = (itemId: string) => {
     switch (itemId) {
@@ -200,44 +217,61 @@ const DashboardGrid = () => {
   };
 
   return (
-    <div className="container mx-auto px-6 py-8 space-y-12">
-      {dashboardSections.map((section) => (
-        <div key={section.id} className="space-y-6">
-          {/* Section Header */}
-          <div className="flex items-center gap-3 mb-6">
-            <span className="text-2xl">{section.icon}</span>
-            <h2 className="text-2xl font-semibold text-foreground">{section.title}</h2>
+    <div className="container mx-auto px-6 py-8 space-y-6">
+      {dashboardSections.map((section) => {
+        const isExpanded = expandedSections.has(section.id);
+        
+        return (
+          <div key={section.id} className="space-y-4">
+            {/* Section Header Button */}
+            <Button
+              variant="outline"
+              onClick={() => toggleSection(section.id)}
+              className="w-full justify-between h-16 text-lg font-semibold hover:bg-accent"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">{section.icon}</span>
+                <span>{section.title}</span>
+              </div>
+              {isExpanded ? (
+                <ChevronDown className="h-6 w-6" />
+              ) : (
+                <ChevronRight className="h-6 w-6" />
+              )}
+            </Button>
+            
+            {/* Section Items Grid - Only show when expanded */}
+            {isExpanded && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 pt-4">
+                {section.items.map((item) => (
+                  <Card 
+                    key={item.id}
+                    className="group cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg border border-gray-200 bg-card"
+                    onClick={() => handleItemClick(item.id)}
+                  >
+                    <CardContent className="p-6 flex flex-col items-center text-center gap-4">
+                      <div className="flex-shrink-0">
+                        {item.icon ? (
+                          <img 
+                            src={item.icon} 
+                            alt={item.title}
+                            className="h-12 w-12 object-contain"
+                          />
+                        ) : item.lucideIcon ? (
+                          <item.lucideIcon className="h-12 w-12 text-primary group-hover:text-accent transition-colors duration-200" />
+                        ) : null}
+                      </div>
+                      <p className="text-sm font-medium text-foreground leading-tight">
+                        {item.title}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
           </div>
-          
-          {/* Section Items Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-            {section.items.map((item) => (
-              <Card 
-                key={item.id}
-                className="group cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg border border-gray-200 bg-card"
-                onClick={() => handleItemClick(item.id)}
-              >
-                <CardContent className="p-6 flex flex-col items-center text-center gap-4">
-                  <div className="flex-shrink-0">
-                    {item.icon ? (
-                      <img 
-                        src={item.icon} 
-                        alt={item.title}
-                        className="h-12 w-12 object-contain"
-                      />
-                    ) : item.lucideIcon ? (
-                      <item.lucideIcon className="h-12 w-12 text-primary group-hover:text-accent transition-colors duration-200" />
-                    ) : null}
-                  </div>
-                  <p className="text-sm font-medium text-foreground leading-tight">
-                    {item.title}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
