@@ -545,9 +545,14 @@ const Expenses = () => {
         {/* Expense Categories List */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-xl font-semibold text-primary">
-              Lista de Categorías de Gasto
-            </CardTitle>
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-xl font-semibold text-primary">
+                Lista de Categorías de Gasto
+              </CardTitle>
+              <Button className="bg-green-600 hover:bg-green-700 text-white">
+                + Agregar Categoría
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className="p-0">
             <div className="overflow-x-auto">
