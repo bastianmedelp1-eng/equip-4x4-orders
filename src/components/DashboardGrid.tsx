@@ -90,6 +90,9 @@ const DashboardGrid = () => {
       case "pedido":
         navigate("/pedido");
         break;
+      case "lista-cupulas":
+        navigate("/lista-cupulas");
+        break;
       default:
         console.log(`Clicked on ${itemId}`);
         break;
