@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -107,6 +107,32 @@ const mockSalesData: SalesRecord[] = [
     payment3: "",
     remainingAmount: 0,
     date: "08/08/2025"
+  },
+  {
+    id: 430,
+    type: "rack",
+    status: "ENVIADO PAGADO",
+    statusColor: "bg-green-600",
+    clientName: "Richard Llanquiman",
+    accessory: "Escalera $150,000.00 PESOS CHILENOS",
+    payment1: "$75,000.00 2025-07-14 TRANSFERENCIA",
+    payment2: "$75,000.00 TRANSFERENCIA",
+    payment3: "",
+    remainingAmount: 0,
+    date: "FRANYELIS"
+  },
+  {
+    id: 429,
+    type: "rack",
+    status: "ENVIADO PAGADO",
+    statusColor: "bg-green-600",
+    clientName: "Sergio Escobar",
+    accessory: "Rack de techo $700,000.00 PESOS CHILENOS",
+    payment1: "$700,000.00 2025-07-11 TRANSFERENCIA",
+    payment2: "",
+    payment3: "",
+    remainingAmount: 0,
+    date: "06/08/2025"
   }
 ];
 
@@ -271,9 +297,15 @@ const SalesHistory = () => {
                       <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white px-2 py-1 text-xs">
                         VERIFICADO
                       </Button>
-                      <Button size="sm" variant="outline" className="px-2 py-1 text-xs">
-                        VERIFICAR
-                      </Button>
+                      {record.id === 429 ? (
+                        <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 text-xs">
+                          VERIFICAR
+                        </Button>
+                      ) : (
+                        <Button size="sm" variant="outline" className="px-2 py-1 text-xs">
+                          VERIFICAR
+                        </Button>
+                      )}
                     </div>
                   </TableCell>
                   <TableCell className="text-sm">
@@ -284,13 +316,24 @@ const SalesHistory = () => {
                           <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white px-2 py-1 text-xs">
                             VERIFICADO
                           </Button>
-                          <Button size="sm" variant="outline" className="px-2 py-1 text-xs">
-                            VERIFICAR
-                          </Button>
+                          {record.id === 430 ? (
+                            <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 text-xs">
+                              VERIFICAR
+                            </Button>
+                          ) : (
+                            <Button size="sm" variant="outline" className="px-2 py-1 text-xs">
+                              VERIFICAR
+                            </Button>
+                          )}
                         </div>
                       </>
                     )}
-                    {!record.payment2 && (
+                    {!record.payment2 && record.id === 429 && (
+                      <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 text-xs">
+                        VERIFICAR
+                      </Button>
+                    )}
+                    {!record.payment2 && record.id !== 429 && (
                       <Button size="sm" variant="outline" className="px-2 py-1 text-xs">
                         VERIFICAR
                       </Button>
@@ -305,7 +348,17 @@ const SalesHistory = () => {
                         </Button>
                       </>
                     )}
-                    {!record.payment3 && (
+                    {!record.payment3 && record.id === 430 && (
+                      <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 text-xs">
+                        VERIFICAR
+                      </Button>
+                    )}
+                    {!record.payment3 && record.id === 429 && (
+                      <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 text-xs">
+                        VERIFICAR
+                      </Button>
+                    )}
+                    {!record.payment3 && record.id !== 430 && record.id !== 429 && (
                       <Button size="sm" variant="outline" className="px-2 py-1 text-xs">
                         VERIFICAR
                       </Button>
@@ -323,6 +376,42 @@ const SalesHistory = () => {
               ))}
             </TableBody>
           </Table>
+        </div>
+
+        {/* Pagination */}
+        <div className="flex items-center justify-between mt-4">
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-muted-foreground">Items per page:</span>
+            <Select defaultValue="30">
+              <SelectTrigger className="w-16">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="10">10</SelectItem>
+                <SelectItem value="20">20</SelectItem>
+                <SelectItem value="30">30</SelectItem>
+                <SelectItem value="50">50</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-muted-foreground">1 - 30 of 494</span>
+            <div className="flex items-center gap-1">
+              <Button variant="outline" size="sm" disabled>
+                <ChevronsLeft className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="sm" disabled>
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="sm">
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="sm">
+                <ChevronsRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
