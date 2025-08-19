@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import DashboardGrid from "@/components/DashboardGrid";
+import AIChat from "@/components/AIChat";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -149,6 +150,9 @@ const Index = () => {
       <footer className="text-center py-6 text-sm text-muted-foreground border-t border-border mt-12">
         © 2024 Equipers 4x4. Todos los derechos reservados.
       </footer>
+
+      {/* AI Chat Component */}
+      <AIChat />
     </div>
   );
 };
