@@ -111,6 +111,9 @@ const DashboardGrid = () => {
       case "historial":
         navigate("/historial-ventas");
         break;
+      case "estadisticas":
+        navigate("/estadisticas");
+        break;
       default:
         console.log(`Clicked on ${itemId}`);
         break;
