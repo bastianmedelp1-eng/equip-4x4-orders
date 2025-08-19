@@ -11,6 +11,7 @@ import Sellers from "./pages/Sellers";
 import Accessories from "./pages/Accessories";
 import Orders from "./pages/Orders";
 import CupulasList from "./pages/CupulasList";
+import RacksList from "./pages/RacksList";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/accesorios" element={<Accessories />} />
           <Route path="/pedido" element={<Orders />} />
           <Route path="/lista-cupulas" element={<CupulasList />} />
+          <Route path="/lista-racks" element={<RacksList />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
