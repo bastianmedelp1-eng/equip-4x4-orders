@@ -27,6 +27,13 @@ const Orders = () => {
   const [orderType, setOrderType] = useState("");
   const [items, setItems] = useState([]);
 
+  const handleOrderTypeChange = (value: string) => {
+    setOrderType(value);
+    if (value === "cupula") {
+      navigate("/lista-cupulas");
+    }
+  };
+
   const handleAddItem = () => {
     // Add item logic here
     console.log("Add item clicked");
@@ -1033,7 +1040,7 @@ const Orders = () => {
           
           <Card className="border-2 border-blue-200">
             <CardContent className="p-6">
-              <Select value={orderType} onValueChange={setOrderType}>
+              <Select value={orderType} onValueChange={handleOrderTypeChange}>
                 <SelectTrigger className="w-full h-12 text-muted-foreground">
                   <SelectValue placeholder="SELECCIONE UNA OPCION" />
                 </SelectTrigger>
