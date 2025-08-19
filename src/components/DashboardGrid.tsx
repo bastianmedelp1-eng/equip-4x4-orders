@@ -128,18 +128,10 @@ const dashboardSections: DashboardSection[] = [
 
 const DashboardGrid = () => {
   const navigate = useNavigate();
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
   const toggleSection = (sectionId: string) => {
-    setExpandedSections(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(sectionId)) {
-        newSet.delete(sectionId);
-      } else {
-        newSet.add(sectionId);
-      }
-      return newSet;
-    });
+    setExpandedSection(prev => prev === sectionId ? null : sectionId);
   };
 
   const handleItemClick = (itemId: string) => {
@@ -223,12 +215,12 @@ const DashboardGrid = () => {
         {/* First row - 4 buttons */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {dashboardSections.slice(0, 4).map((section) => {
-            const isExpanded = expandedSections.has(section.id);
+            const isExpanded = expandedSection === section.id;
             
             return (
               <Button
                 key={section.id}
-                variant="outline"
+                variant={isExpanded ? "default" : "outline"}
                 onClick={() => toggleSection(section.id)}
                 className="h-20 flex flex-col items-center justify-center gap-2 text-base font-semibold hover:bg-accent"
               >
@@ -249,12 +241,12 @@ const DashboardGrid = () => {
         {/* Second row - 3 buttons */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
           {dashboardSections.slice(4, 7).map((section) => {
-            const isExpanded = expandedSections.has(section.id);
+            const isExpanded = expandedSection === section.id;
             
             return (
               <Button
                 key={section.id}
-                variant="outline"
+                variant={isExpanded ? "default" : "outline"}
                 onClick={() => toggleSection(section.id)}
                 className="h-20 flex flex-col items-center justify-center gap-2 text-base font-semibold hover:bg-accent"
               >
@@ -274,46 +266,49 @@ const DashboardGrid = () => {
       </div>
 
       {/* Expanded Section Content */}
-      {dashboardSections.map((section) => {
-        const isExpanded = expandedSections.has(section.id);
-        
-        return isExpanded ? (
-          <div key={`content-${section.id}`} className="space-y-4">
-            <h3 className="text-xl font-semibold text-foreground flex items-center gap-2">
-              <span className="text-2xl">{section.icon}</span>
-              {section.title}
-            </h3>
-            
-            {/* Section Items Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-              {section.items.map((item) => (
-                <Card 
-                  key={item.id}
-                  className="group cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg border border-gray-200 bg-card"
-                  onClick={() => handleItemClick(item.id)}
-                >
-                  <CardContent className="p-6 flex flex-col items-center text-center gap-4">
-                    <div className="flex-shrink-0">
-                      {item.icon ? (
-                        <img 
-                          src={item.icon} 
-                          alt={item.title}
-                          className="h-12 w-12 object-contain"
-                        />
-                      ) : item.lucideIcon ? (
-                        <item.lucideIcon className="h-12 w-12 text-primary group-hover:text-accent transition-colors duration-200" />
-                      ) : null}
-                    </div>
-                    <p className="text-sm font-medium text-foreground leading-tight">
-                      {item.title}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        ) : null;
-      })}
+      {expandedSection && (
+        <div className="space-y-4">
+          {(() => {
+            const section = dashboardSections.find(s => s.id === expandedSection);
+            return section ? (
+              <>
+                <h3 className="text-xl font-semibold text-foreground flex items-center gap-2">
+                  <span className="text-2xl">{section.icon}</span>
+                  {section.title}
+                </h3>
+                
+                {/* Section Items Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                  {section.items.map((item) => (
+                    <Card 
+                      key={item.id}
+                      className="group cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg border border-gray-200 bg-card"
+                      onClick={() => handleItemClick(item.id)}
+                    >
+                      <CardContent className="p-6 flex flex-col items-center text-center gap-4">
+                        <div className="flex-shrink-0">
+                          {item.icon ? (
+                            <img 
+                              src={item.icon} 
+                              alt={item.title}
+                              className="h-12 w-12 object-contain"
+                            />
+                          ) : item.lucideIcon ? (
+                            <item.lucideIcon className="h-12 w-12 text-primary group-hover:text-accent transition-colors duration-200" />
+                          ) : null}
+                        </div>
+                        <p className="text-sm font-medium text-foreground leading-tight">
+                          {item.title}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </>
+            ) : null;
+          })()}
+        </div>
+      )}
     </div>
   );
 };
