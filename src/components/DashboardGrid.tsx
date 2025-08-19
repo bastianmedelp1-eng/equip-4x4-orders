@@ -126,6 +126,9 @@ const DashboardGrid = () => {
       case "gastos":
         navigate("/gastos");
         break;
+      case "corte":
+        navigate("/corte-laser");
+        break;
       default:
         console.log(`Clicked on ${itemId}`);
         break;
