@@ -328,7 +328,7 @@ const Calendar = () => {
           </Button>
         </div>
 
-        {/* Calendar Grid - Horizontal optimized */}
+        {/* Calendar Grid - Horizontal event bars */}
         <div className="bg-card rounded-lg border border-border/50 overflow-hidden shadow-sm">
           {/* Days Header */}
           <div className="grid grid-cols-7 border-b border-border/30">
@@ -339,67 +339,67 @@ const Calendar = () => {
             ))}
           </div>
 
-          {/* Calendar Days */}
-          <div className="grid grid-cols-7">
-            {days.map((day, index) => (
-              <div
-                key={index}
-                className="min-h-[140px] max-h-[140px] p-4 border-r border-b border-border/20 last:border-r-0 hover:bg-muted/30 transition-colors overflow-hidden"
-              >
-                {day && (
-                  <>
-                    <div className="text-right mb-2 text-lg font-bold text-foreground">{day}</div>
-                    <div className="space-y-1 overflow-y-auto max-h-[110px]">
-                      {getFilteredEvents(events[day])?.map((event, eventIndex) => (
-                        <button
-                          key={eventIndex}
-                          onClick={() => handleOrderClick(event)}
-                          className="w-full p-3 rounded-md text-left transition-all cursor-pointer group hover:shadow-md border border-transparent hover:border-border/50 hover:scale-[1.01]"
-                          style={{
-                            backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.15)' :
-                                           event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.15)' :
-                                           event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.15)' :
-                                           'hsl(45 93% 47% / 0.15)'
-                          }}
-                        >
-                          {/* Pedido Number - Most prominent */}
-                          <div className="flex items-center gap-2 mb-1.5">
-                            <div 
-                              className="w-3 h-3 rounded-full flex-shrink-0"
-                              style={{
-                                backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36%)' :
-                                               event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60%)' :
-                                               event.type === 'ESPECIAL' ? 'hsl(0 84% 60%)' :
-                                               'hsl(45 93% 47%)'
-                              }}
-                            ></div>
-                            <span className="text-sm font-bold text-foreground">#{event.id}</span>
-                          </div>
-                          
-                          {/* Vehicle Model */}
-                          <div className="mb-1.5">
-                            <div className="text-sm font-semibold text-foreground leading-tight">
-                              {event.vehicle.length > 25 ? `${event.vehicle.substring(0, 25)}...` : event.vehicle}
-                            </div>
-                          </div>
-                          
-                          {/* Time */}
-                          <div className="flex items-center gap-1.5 mb-1">
-                            <Clock className="h-3.5 w-3.5 text-primary flex-shrink-0" />
-                            <span className="text-sm font-bold text-primary">{event.time}</span>
-                          </div>
+          {/* Calendar Body with Horizontal Events */}
+          <div className="relative">
+            {/* Day Numbers Grid */}
+            <div className="grid grid-cols-7">
+              {days.map((day, index) => (
+                <div
+                  key={index}
+                  className="h-[160px] p-3 border-r border-b border-border/20 last:border-r-0 hover:bg-muted/30 transition-colors"
+                >
+                  {day && (
+                    <div className="text-right text-lg font-bold text-foreground">{day}</div>
+                  )}
+                </div>
+              ))}
+            </div>
 
-                          {/* Client Name */}
-                          <div className="text-xs text-muted-foreground truncate">
-                            {event.client}
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </>
-                )}
-              </div>
-            ))}
+            {/* Horizontal Event Bars Overlay */}
+            <div className="absolute inset-0 pointer-events-none">
+              {Object.entries(events).map(([dayNum, dayEvents]) => {
+                const dayIndex = days.findIndex(d => d === parseInt(dayNum));
+                if (dayIndex === -1) return null;
+
+                const row = Math.floor(dayIndex / 7);
+                const col = dayIndex % 7;
+                
+                return getFilteredEvents(dayEvents).map((event, eventIndex) => {
+                  // Calculate position for horizontal bar
+                  const topOffset = row * 160 + 40 + (eventIndex * 35); // 160px per row, 40px offset, 35px per event
+                  const leftOffset = (col / 7) * 100; // Percentage based on column
+                  const eventWidth = Math.min(95, 25 + event.vehicle.length * 0.8); // Responsive width based on content
+                  
+                  return (
+                    <button
+                      key={`${dayNum}-${eventIndex}`}
+                      onClick={() => handleOrderClick(event)}
+                      className="absolute pointer-events-auto transition-all hover:scale-[1.02] hover:shadow-lg cursor-pointer z-10 rounded-lg p-2 text-left"
+                      style={{
+                        top: `${topOffset}px`,
+                        left: `${leftOffset}%`,
+                        width: `${Math.min(eventWidth, 95 - leftOffset)}%`, // Don't exceed grid boundary
+                        backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.9)' :
+                                       event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.9)' :
+                                       event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.9)' :
+                                       'hsl(45 93% 47% / 0.9)',
+                        minHeight: '28px'
+                      }}
+                    >
+                      <div className="flex items-center gap-2 text-white">
+                        <span className="text-sm font-bold">#{event.id}</span>
+                        <span className="text-xs font-medium truncate flex-1">
+                          {event.vehicle}
+                        </span>
+                        <span className="text-xs font-bold ml-auto">
+                          {event.time}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                });
+              })}
+            </div>
           </div>
         </div>
 
