@@ -8,6 +8,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { LogOut, User, Settings, Moon, Sun, Menu, TrendingUp, Shield, Wrench } from "lucide-react";
@@ -28,6 +35,7 @@ const Header = ({ title }: HeaderProps) => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [permissionsOpen, setPermissionsOpen] = useState(false);
   const [commissionOpen, setCommissionOpen] = useState(false);
+  const [sideMenuOpen, setSideMenuOpen] = useState(false);
   const navigate = useNavigate();
   
   const toggleTheme = () => {
@@ -37,36 +45,53 @@ const Header = ({ title }: HeaderProps) => {
   return (
     <header className="flex items-center justify-between bg-card border-b border-border px-6 py-4 shadow-sm relative">
       <div className="flex items-center">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+        <Sheet open={sideMenuOpen} onOpenChange={setSideMenuOpen}>
+          <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="h-10 w-10">
               <Menu className="h-5 w-5" />
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-48 bg-background border border-border shadow-lg z-50" align="start" sideOffset={4}>
-            <DropdownMenuItem 
-              className="cursor-pointer hover:bg-accent transition-colors"
-              onClick={() => setCommissionOpen(true)}
-            >
-              <TrendingUp className="mr-3 h-4 w-4" />
-              <span>MI COMISIÓN</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem 
-              className="cursor-pointer hover:bg-accent transition-colors"
-              onClick={() => setPermissionsOpen(true)}
-            >
-              <Shield className="mr-3 h-4 w-4" />
-              <span>PERMISOS</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem 
-              className="cursor-pointer hover:bg-accent transition-colors"
-              onClick={() => navigate('/herramientas')}
-            >
-              <Wrench className="mr-3 h-4 w-4" />
-              <span>HERRAMIENTAS</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-80 bg-background">
+            <SheetHeader>
+              <SheetTitle className="text-left">Menú de Opciones</SheetTitle>
+            </SheetHeader>
+            <div className="mt-6 space-y-4">
+              <Button
+                variant="outline"
+                className="w-full justify-start h-12 text-left"
+                onClick={() => {
+                  setCommissionOpen(true);
+                  setSideMenuOpen(false);
+                }}
+              >
+                <TrendingUp className="mr-3 h-5 w-5" />
+                <span>MI COMISIÓN</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full justify-start h-12 text-left"
+                onClick={() => {
+                  setPermissionsOpen(true);
+                  setSideMenuOpen(false);
+                }}
+              >
+                <Shield className="mr-3 h-5 w-5" />
+                <span>PERMISOS</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full justify-start h-12 text-left"
+                onClick={() => {
+                  navigate('/herramientas');
+                  setSideMenuOpen(false);
+                }}
+              >
+                <Wrench className="mr-3 h-5 w-5" />
+                <span>HERRAMIENTAS</span>
+              </Button>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
       
       <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
