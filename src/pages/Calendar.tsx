@@ -167,102 +167,138 @@ const Calendar = () => {
   const days = getDaysInMonth();
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background">
       <Header />
-      <div className="container mx-auto px-6 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-4">
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        {/* Top Action Bar - Gmail style */}
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
             <Button 
               onClick={handleBackToHome}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-6"
+              variant="ghost"
+              className="text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg px-3 py-2"
             >
-              INICIO
+              ← Inicio
             </Button>
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={handlePrevMonth} className="border-border hover:bg-accent">
+            <div className="h-6 w-px bg-border"></div>
+            <div className="flex items-center">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={handlePrevMonth}
+                className="h-8 w-8 p-0 hover:bg-accent rounded-full"
+              >
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="sm" onClick={handleNextMonth} className="border-border hover:bg-accent">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={handleNextMonth}
+                className="h-8 w-8 p-0 hover:bg-accent rounded-full"
+              >
                 <ChevronRight className="h-4 w-4" />
               </Button>
-              <Button variant="outline" onClick={handleToday} className="border-border hover:bg-accent">
+              <Button 
+                variant="ghost" 
+                onClick={handleToday}
+                className="ml-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg px-3 py-1.5"
+              >
                 Hoy
               </Button>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 px-3 py-1">
-              ENVÍO
-            </Badge>
-            <Badge variant="secondary" className="bg-blue-500/10 text-blue-600 border-blue-500/20 px-3 py-1">
-              INSTALACIÓN DE CÚPULA
-            </Badge>
-            <Badge variant="secondary" className="bg-destructive/10 text-destructive border-destructive/20 px-3 py-1">
-              ESPECIAL
-            </Badge>
-            <Badge variant="secondary" className="bg-amber-500/10 text-amber-600 border-amber-500/20 px-3 py-1">
-              INSTALACIÓN EN TALLER
-            </Badge>
+          <div className="flex items-center gap-6">
+            {["Mes", "Semana", "Día"].map((view) => (
+              <Button
+                key={view}
+                variant="ghost"
+                className={`text-sm px-3 py-1.5 rounded-lg transition-colors ${
+                  viewMode === view 
+                    ? "bg-primary/10 text-primary" 
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                }`}
+                onClick={() => setViewMode(view)}
+              >
+                {view}
+              </Button>
+            ))}
           </div>
         </div>
 
-        <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-foreground bg-gradient-primary bg-clip-text text-transparent">
-            {monthNames[currentDate.getMonth()]} de {currentDate.getFullYear()}
+        {/* Month Title */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-light text-foreground tracking-tight">
+            {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
           </h1>
         </div>
 
-        <div className="flex justify-end gap-2 mb-4">
-          {["Mes", "1 Semana", "2 Semanas", "3 Semanas"].map((view) => (
-            <Button
-              key={view}
-              variant={viewMode === view ? "default" : "outline"}
-              size="sm"
-              onClick={() => setViewMode(view)}
-            >
-              {view}
-            </Button>
-          ))}
+        {/* Legend - Minimal */}
+        <div className="flex items-center gap-6 mb-6 pb-4 border-b border-border/50">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-primary/80"></div>
+            <span className="text-sm text-muted-foreground">Envío</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-blue-500/80"></div>
+            <span className="text-sm text-muted-foreground">Instalación cúpula</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-amber-500/80"></div>
+            <span className="text-sm text-muted-foreground">Taller</span>
+          </div>
         </div>
 
-        <Card className="border-border shadow-lg bg-card/50 backdrop-blur">
-          {/* Calendar Header */}
-          <div className="grid grid-cols-7 bg-card border-b border-border">
+        {/* Calendar Grid - Gmail minimal style */}
+        <div className="bg-card rounded-lg border border-border/50 overflow-hidden shadow-sm">
+          {/* Days Header */}
+          <div className="grid grid-cols-7 border-b border-border/30">
             {dayNames.map((day) => (
-              <div key={day} className="p-4 text-center font-semibold border-r border-border last:border-r-0 text-primary">
+              <div key={day} className="p-4 text-center text-sm font-medium text-muted-foreground bg-muted/30">
                 {day}
               </div>
             ))}
           </div>
 
-          {/* Calendar Body */}
+          {/* Calendar Days */}
           <div className="grid grid-cols-7">
             {days.map((day, index) => (
               <div
                 key={index}
-                className="min-h-[120px] p-2 border-r border-b border-border last:border-r-0 bg-background hover:bg-accent/30 transition-colors"
+                className="min-h-[110px] p-3 border-r border-b border-border/20 last:border-r-0 hover:bg-muted/30 transition-colors"
               >
                 {day && (
                   <>
-                    <div className="text-right mb-2 text-foreground font-semibold">{day}</div>
-                    <div className="space-y-1">
+                    <div className="text-right mb-3 text-sm font-medium text-foreground">{day}</div>
+                    <div className="space-y-2">
                       {events[day]?.map((event, eventIndex) => (
                         <button
                           key={eventIndex}
                           onClick={() => handleOrderClick(event)}
-                          className={`w-full ${event.color} text-white text-xs p-2 rounded-md text-left font-medium transition-all cursor-pointer shadow-sm hover:shadow-md transform hover:scale-[1.02]`}
+                          className="w-full p-2 rounded-md text-left transition-all cursor-pointer group hover:shadow-sm border border-transparent hover:border-border/50"
+                          style={{
+                            backgroundColor: event.type === 'ENVÍO' ? 'hsl(var(--primary) / 0.1)' :
+                                           event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.1)' :
+                                           'hsl(45 93% 47% / 0.1)'
+                          }}
                         >
-                          <div className="flex items-center gap-1 mb-1">
-                            <Package className="h-3 w-3" />
-                            <span className="font-semibold">#{event.id}</span>
+                          <div className="flex items-center gap-1.5 mb-1">
+                            <div 
+                              className="w-2 h-2 rounded-full flex-shrink-0"
+                              style={{
+                                backgroundColor: event.type === 'ENVÍO' ? 'hsl(var(--primary))' :
+                                               event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60%)' :
+                                               'hsl(45 93% 47%)'
+                              }}
+                            ></div>
+                            <span className="text-xs font-medium text-foreground">#{event.id}</span>
                           </div>
-                          <div className="truncate text-xs opacity-90">
+                          <div className="text-xs text-muted-foreground truncate mb-1">
                             {event.vehicle}
                           </div>
-                          <div className="flex items-center gap-1 mt-1">
-                            <Clock className="h-2.5 w-2.5" />
-                            <span className="text-xs opacity-80">{event.time}</span>
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-3 w-3 text-muted-foreground" />
+                            <span className="text-xs text-muted-foreground">{event.time}</span>
                           </div>
                         </button>
                       ))}
@@ -272,98 +308,81 @@ const Calendar = () => {
               </div>
             ))}
           </div>
-        </Card>
+        </div>
 
-        {/* Order Detail Dialog */}
+        {/* Order Detail Modal - Minimal Gmail style */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="max-w-2xl bg-background border-border">
-            <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-foreground flex items-center gap-2">
-                <Package className="h-6 w-6 text-primary" />
-                Detalles del Pedido #{selectedOrder?.id}
+          <DialogContent className="max-w-2xl bg-background border border-border/50 shadow-xl">
+            <DialogHeader className="border-b border-border/30 pb-4">
+              <DialogTitle className="text-xl font-medium text-foreground flex items-center gap-2">
+                <div 
+                  className="w-3 h-3 rounded-full"
+                  style={{
+                    backgroundColor: selectedOrder?.type === 'ENVÍO' ? 'hsl(var(--primary))' :
+                                   selectedOrder?.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60%)' :
+                                   'hsl(45 93% 47%)'
+                  }}
+                ></div>
+                Pedido #{selectedOrder?.id}
               </DialogTitle>
-              <DialogDescription className="text-muted-foreground">
-                Información completa del pedido y programación
+              <DialogDescription className="text-muted-foreground text-sm">
+                {selectedOrder?.type}
               </DialogDescription>
             </DialogHeader>
             
             {selectedOrder && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <Card className="border-border bg-card/50">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-lg flex items-center gap-2 text-foreground">
-                      <User className="h-5 w-5 text-primary" />
-                      Información del Cliente
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
+              <div className="pt-6 space-y-6">
+                {/* Client Info */}
+                <div className="space-y-4">
+                  <h3 className="text-sm font-medium text-foreground border-b border-border/30 pb-2">
+                    Información del Cliente
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div>
-                      <label className="text-sm font-medium text-muted-foreground">Cliente:</label>
-                      <p className="text-foreground font-semibold">{selectedOrder.client}</p>
+                      <span className="text-muted-foreground">Cliente:</span>
+                      <p className="font-medium text-foreground mt-1">{selectedOrder.client}</p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-muted-foreground">Teléfono:</label>
-                      <p className="text-foreground">{selectedOrder.phone}</p>
+                      <span className="text-muted-foreground">Teléfono:</span>
+                      <p className="font-medium text-foreground mt-1">{selectedOrder.phone}</p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-muted-foreground">Ubicación:</label>
-                      <p className="text-foreground">{selectedOrder.location}</p>
+                      <span className="text-muted-foreground">Ubicación:</span>
+                      <p className="font-medium text-foreground mt-1">{selectedOrder.location}</p>
                     </div>
-                  </CardContent>
-                </Card>
+                    <div>
+                      <span className="text-muted-foreground">Hora:</span>
+                      <p className="font-medium text-foreground mt-1">{selectedOrder.time}</p>
+                    </div>
+                  </div>
+                </div>
 
-                <Card className="border-border bg-card/50">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-lg flex items-center gap-2 text-foreground">
-                      <CalendarIcon className="h-5 w-5 text-primary" />
-                      Programación
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div>
-                      <label className="text-sm font-medium text-muted-foreground">Tipo de Servicio:</label>
-                      <Badge 
-                        variant="secondary" 
-                        className={`
-                          ${selectedOrder.type === 'ENVÍO' ? 'bg-primary/10 text-primary border-primary/20' : ''}
-                          ${selectedOrder.type === 'INSTALACIÓN DE CÚPULA' ? 'bg-blue-500/10 text-blue-600 border-blue-500/20' : ''}
-                          ${selectedOrder.type === 'INSTALACIÓN EN TALLER' ? 'bg-amber-500/10 text-amber-600 border-amber-500/20' : ''}
-                          mt-1
-                        `}
-                      >
-                        {selectedOrder.type}
-                      </Badge>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-muted-foreground">Hora:</label>
-                      <p className="text-foreground font-semibold">{selectedOrder.time}</p>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-muted-foreground">Estado:</label>
-                      <Badge 
-                        variant={selectedOrder.status === 'Confirmado' ? 'default' : 'secondary'}
-                        className="mt-1"
-                      >
-                        {selectedOrder.status}
-                      </Badge>
-                    </div>
-                  </CardContent>
-                </Card>
+                {/* Vehicle Info */}
+                <div className="space-y-4">
+                  <h3 className="text-sm font-medium text-foreground border-b border-border/30 pb-2">
+                    Detalles del Vehículo
+                  </h3>
+                  <div className="text-sm">
+                    <span className="text-muted-foreground">Vehículo:</span>
+                    <p className="font-medium text-foreground mt-1 text-base">{selectedOrder.vehicle}</p>
+                  </div>
+                </div>
 
-                <Card className="md:col-span-2 border-border bg-card/50">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-lg flex items-center gap-2 text-foreground">
-                      <Package className="h-5 w-5 text-primary" />
-                      Detalles del Vehículo
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div>
-                      <label className="text-sm font-medium text-muted-foreground">Vehículo:</label>
-                      <p className="text-foreground font-semibold text-lg">{selectedOrder.vehicle}</p>
-                    </div>
-                  </CardContent>
-                </Card>
+                {/* Status */}
+                <div className="flex items-center justify-between pt-4 border-t border-border/30">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">Estado:</span>
+                    <Badge 
+                      variant="secondary"
+                      className={`text-xs ${
+                        selectedOrder.status === 'Confirmado' ? 'bg-primary/10 text-primary' : 
+                        'bg-muted text-muted-foreground'
+                      }`}
+                    >
+                      {selectedOrder.status}
+                    </Badge>
+                  </div>
+                </div>
               </div>
             )}
           </DialogContent>
