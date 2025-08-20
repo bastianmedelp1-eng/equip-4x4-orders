@@ -171,9 +171,16 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
       }`}>
         <CardHeader className="pb-3">
           <CardTitle className="text-xl flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <MessageCircle className="h-6 w-6" />
-              Asistente IA - Equipers 4x4
+            <div className="flex items-center gap-3">
+              <img 
+                src="/lovable-uploads/ce13be00-df3c-4711-b669-77508ef1cd72.png" 
+                alt="Equipers 4x4 Logo" 
+                className="h-8 w-8 object-contain"
+              />
+              <div className="flex items-center gap-2">
+                <MessageCircle className="h-6 w-6" />
+                <span>Asistente IA - Equipers 4x4</span>
+              </div>
             </div>
             <Button
               variant="ghost"
