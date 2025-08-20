@@ -443,6 +443,287 @@ const Statistics = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Currency Statistics Sections */}
+        
+        {/* CLP Pesos Chilenos */}
+        <Card className="mb-8 border-2 border-dashed border-gray-400">
+          <CardHeader>
+            <CardTitle className="text-xl font-bold text-center">CLP Pesos Chilenos</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <div className="bg-red-500 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">VENTAS SIN VERIFICAR</div>
+                <div className="text-lg font-bold">$55.607.500,00</div>
+              </div>
+              <div className="bg-green-500 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">MONTO DE VENTAS</div>
+                <div className="text-lg font-bold">$9.583.000,00</div>
+              </div>
+              <div className="bg-blue-500 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">GASTOS</div>
+                <div className="text-lg font-bold">$51.147.035,00</div>
+              </div>
+              <div className="bg-gray-600 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">GANANCIA</div>
+                <div className="text-lg font-bold">-$42.064.035,00</div>
+              </div>
+            </div>
+
+            {/* CLP Verified Sales Table */}
+            <div className="mb-6">
+              <div className="bg-green-600 text-white p-3 rounded-t">
+                <h3 className="font-bold text-center">TOTAL DE VENTAS VERIFICADAS POR VENDEDOR</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse bg-green-100">
+                  <thead>
+                    <tr className="bg-green-200">
+                      <th className="border border-gray-300 p-2 text-left">VENDEDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE COMÚN</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE DISTRIBUIDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE ARGENTINO</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">MIGUEL</td>
+                      <td className="border border-gray-300 p-2">$3,171,000.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">FRANYELIS</td>
+                      <td className="border border-gray-300 p-2">$4,830,000.00</td>
+                      <td className="border border-gray-300 p-2">$1,082,000.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* CLP Unverified Sales Table */}
+            <div className="mb-6">
+              <div className="bg-red-600 text-white p-3 rounded-t">
+                <h3 className="font-bold text-center">TOTAL DE VENTAS SIN VERIFICAR POR VENDEDOR(FALTAN ABONOS POR VERIFICAR)</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse bg-red-100">
+                  <thead>
+                    <tr className="bg-red-200">
+                      <th className="border border-gray-300 p-2 text-left">VENDEDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE COMÚN</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE DISTRIBUIDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE ARGENTINO</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">MIGUEL</td>
+                      <td className="border border-gray-300 p-2">$20,638,500.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$2,000,000.00</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">FRANYELIS</td>
+                      <td className="border border-gray-300 p-2">$31,887,000.00</td>
+                      <td className="border border-gray-300 p-2">$1,082,000.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* USD Dolares Americanos */}
+        <Card className="mb-8 border-2 border-dashed border-gray-400">
+          <CardHeader>
+            <CardTitle className="text-xl font-bold text-center">USD Dolares Americanos</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <div className="bg-red-500 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">VENTAS SIN VERIFICAR</div>
+                <div className="text-lg font-bold">$15.300,00</div>
+              </div>
+              <div className="bg-green-500 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">MONTO DE VENTAS</div>
+                <div className="text-lg font-bold">$8.500,00</div>
+              </div>
+              <div className="bg-blue-500 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">GASTOS</div>
+                <div className="text-lg font-bold">$51.147,04</div>
+              </div>
+              <div className="bg-gray-600 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">GANANCIA</div>
+                <div className="text-lg font-bold">-$42.647,04</div>
+              </div>
+            </div>
+
+            {/* USD Verified Sales Table */}
+            <div className="mb-6">
+              <div className="bg-green-600 text-white p-3 rounded-t">
+                <h3 className="font-bold text-center">TOTAL DE VENTAS VERIFICADAS POR VENDEDOR</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse bg-green-100">
+                  <thead>
+                    <tr className="bg-green-200">
+                      <th className="border border-gray-300 p-2 text-left">VENDEDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE COMÚN</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE DISTRIBUIDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE ARGENTINO</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">MIGUEL</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$7,950.00</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">FRANYELIS</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$550.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* USD Unverified Sales Table */}
+            <div className="mb-6">
+              <div className="bg-red-600 text-white p-3 rounded-t">
+                <h3 className="font-bold text-center">TOTAL DE VENTAS SIN VERIFICAR POR VENDEDOR(FALTAN ABONOS POR VERIFICAR)</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse bg-red-100">
+                  <thead>
+                    <tr className="bg-red-200">
+                      <th className="border border-gray-300 p-2 text-left">VENDEDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE COMÚN</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE DISTRIBUIDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE ARGENTINO</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">MIGUEL</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$12,450.00</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">FRANYELIS</td>
+                      <td className="border border-gray-300 p-2">$2,300.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$550.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* ARS Pesos Argentinos */}
+        <Card className="mb-8 border-2 border-dashed border-gray-400">
+          <CardHeader>
+            <CardTitle className="text-xl font-bold text-center">ARS Pesos Argentinos</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <div className="bg-red-500 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">VENTAS SIN VERIFICAR</div>
+                <div className="text-lg font-bold">$0.00</div>
+              </div>
+              <div className="bg-green-500 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">MONTO DE VENTAS</div>
+                <div className="text-lg font-bold">$0.00</div>
+              </div>
+              <div className="bg-blue-500 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">GASTOS</div>
+                <div className="text-lg font-bold">$67,514,086.20</div>
+              </div>
+              <div className="bg-gray-600 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">GANANCIA</div>
+                <div className="text-lg font-bold">-$67,514,086.20</div>
+              </div>
+            </div>
+
+            {/* ARS Verified Sales Table */}
+            <div className="mb-6">
+              <div className="bg-green-600 text-white p-3 rounded-t">
+                <h3 className="font-bold text-center">TOTAL DE VENTAS VERIFICADAS POR VENDEDOR</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse bg-green-100">
+                  <thead>
+                    <tr className="bg-green-200">
+                      <th className="border border-gray-300 p-2 text-left">VENDEDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE COMÚN</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE DISTRIBUIDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE ARGENTINO</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">MIGUEL</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">FRANYELIS</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* ARS Unverified Sales Table */}
+            <div className="mb-6">
+              <div className="bg-red-600 text-white p-3 rounded-t">
+                <h3 className="font-bold text-center">TOTAL DE VENTAS SIN VERIFICAR POR VENDEDOR(FALTAN ABONOS POR VERIFICAR)</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse bg-red-100">
+                  <thead>
+                    <tr className="bg-red-200">
+                      <th className="border border-gray-300 p-2 text-left">VENDEDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE COMÚN</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE DISTRIBUIDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE ARGENTINO</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">MIGUEL</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">FRANYELIS</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
