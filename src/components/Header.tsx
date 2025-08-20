@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { LogOut, User, Settings, Moon, Sun } from "lucide-react";
+import { LogOut, User, Settings, Moon, Sun, Menu, TrendingUp } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "next-themes";
 import { useState } from "react";
 import SettingsDialog from "./SettingsDialog";
@@ -23,6 +24,7 @@ interface HeaderProps {
 const Header = ({ title }: HeaderProps) => {
   const { theme, setTheme } = useTheme();
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const navigate = useNavigate();
   
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -30,7 +32,24 @@ const Header = ({ title }: HeaderProps) => {
 
   return (
     <header className="flex items-center justify-between bg-card border-b border-border px-6 py-4 shadow-sm relative">
-      <div className="flex-1"></div>
+      <div className="flex items-center">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="h-10 w-10">
+              <Menu className="h-5 w-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-48 bg-background border border-border shadow-lg z-50" align="start">
+            <DropdownMenuItem 
+              className="cursor-pointer hover:bg-accent transition-colors"
+              onClick={() => navigate('/mi-comision')}
+            >
+              <TrendingUp className="mr-3 h-4 w-4" />
+              <span>MI COMISIÓN</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       
       <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
         <img 

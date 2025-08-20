@@ -30,6 +30,7 @@ import Products from "./pages/Products";
 import ToolsView from "./pages/ToolsView";
 import WorkOrderSearch from "./pages/WorkOrderSearch";
 import Tools from "./pages/Tools";
+import Commission from "./pages/Commission";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -75,6 +76,7 @@ const App = () => (
                     <Route path="/productos" element={<Products />} />
                     <Route path="/vista-herramientas" element={<ToolsView />} />
                     <Route path="/buscar-orden" element={<WorkOrderSearch />} />
+                    <Route path="/mi-comision" element={<Commission />} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
               </Routes>
