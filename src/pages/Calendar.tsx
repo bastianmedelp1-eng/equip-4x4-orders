@@ -367,34 +367,40 @@ const Calendar = () => {
                 return getFilteredEvents(dayEvents).map((event, eventIndex) => {
                   // Calculate position within the specific day cell
                   const cellWidth = 100 / 7; // Each cell is 1/7 of the total width
-                  const topOffset = row * 160 + 40 + (eventIndex * 35); // 160px per row, 40px offset, 35px per event
-                  const leftOffset = col * cellWidth + 1; // Start at the beginning of the cell + small margin
-                  const eventWidth = cellWidth - 2; // Fill the cell width minus margins
+                  const topOffset = row * 160 + 45 + (eventIndex * 38); // Larger spacing between events
+                  const leftOffset = col * cellWidth + 0.5; // Start at the beginning of the cell + small margin
+                  const eventWidth = cellWidth - 1; // Fill the cell width minus margins
                   
                   return (
                     <button
                       key={`${dayNum}-${eventIndex}`}
                       onClick={() => handleOrderClick(event)}
-                      className="absolute pointer-events-auto transition-all hover:scale-[1.01] hover:shadow-lg cursor-pointer z-10 rounded-lg p-2 text-left"
+                      className="absolute pointer-events-auto transition-all hover:scale-[1.01] hover:shadow-lg cursor-pointer z-10 rounded-md p-2 text-left border border-black/20"
                       style={{
                         top: `${topOffset}px`,
                         left: `${leftOffset}%`,
                         width: `${eventWidth}%`,
-                        backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.9)' :
-                                       event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.9)' :
-                                       event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.9)' :
-                                       'hsl(45 93% 47% / 0.9)',
-                        minHeight: '28px'
+                        backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.95)' :
+                                       event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.95)' :
+                                       event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.95)' :
+                                       'hsl(45 93% 47% / 0.95)',
+                        minHeight: '32px',
+                        maxHeight: '32px'
                       }}
                     >
-                      <div className="flex items-center gap-2 text-white">
-                        <span className="text-sm font-bold">#{event.id}</span>
-                        <span className="text-xs font-medium truncate flex-1">
+                      <div className="flex flex-col text-black">
+                        <div className="flex items-center gap-1 leading-tight">
+                          <span className="text-sm font-bold">#{event.id}</span>
+                          <span className="text-sm font-semibold">
+                            [{event.type === 'ENVÍO' ? 'PF' : 
+                              event.type === 'INSTALACIÓN DE CÚPULA' ? 'C' : 
+                              event.type === 'ESPECIAL' ? 'ESP' : 'RT'}]
+                          </span>
+                        </div>
+                        <div className="text-sm font-bold leading-tight truncate">
                           {event.vehicle}
-                        </span>
-                        <span className="text-xs font-bold ml-auto">
-                          {event.time}
-                        </span>
+                          {event.type === 'INSTALACIÓN EN TALLER' ? ' | TALLER' : ''}
+                        </div>
                       </div>
                     </button>
                   );
