@@ -4,7 +4,16 @@ import AIChat from "@/components/AIChat";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Users, Tag, Car, Package, ShoppingCart, List, Star, Calendar, Search, FileText, BarChart3, DollarSign, UserCheck, QrCode, Zap, SearchCheck, Wrench } from "lucide-react";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Menu, Users, Tag, Car, Package, ShoppingCart, List, Star, Calendar, Search, FileText, BarChart3, DollarSign, UserCheck, QrCode, Zap, SearchCheck, Wrench, User, Settings, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 // Import custom icons
@@ -55,6 +64,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Header with Hamburger Menu and User Dropdown */}
       <div className="flex items-center justify-between bg-card border-b border-border px-6 py-4 shadow-sm">
         {/* Hamburger Menu */}
         <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -121,19 +131,51 @@ const Index = () => {
           </div>
         </div>
         
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 text-sm">
-            <Users className="h-4 w-4 text-muted-foreground" />
-            <span className="font-medium text-foreground">Usuario: PERFIL_ADMIN</span>
-          </div>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="gap-2 border-gray-200 hover:bg-gray-50"
-          >
-            Cerrar sesión
-          </Button>
-        </div>
+        {/* User Dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="relative h-10 w-10 rounded-full hover:bg-accent">
+              <Avatar className="h-10 w-10 border-2 border-primary/20 hover:border-primary/40 transition-colors">
+                <AvatarImage src="" alt="Usuario" />
+                <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                  A
+                </AvatarFallback>
+              </Avatar>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-64 bg-background border border-border shadow-lg" align="end" forceMount>
+            <DropdownMenuLabel className="font-normal">
+              <div className="flex flex-col space-y-2 p-2">
+                <div className="flex items-center space-x-3">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src="" alt="Usuario" />
+                    <AvatarFallback className="bg-primary text-primary-foreground text-lg font-semibold">
+                      A
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <p className="text-sm font-medium text-foreground">PERFIL_ADMIN</p>
+                    <p className="text-xs text-muted-foreground">admin@equipers4x4.com</p>
+                  </div>
+                </div>
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="cursor-pointer hover:bg-accent transition-colors">
+              <User className="mr-3 h-4 w-4" />
+              <span>Editar perfil</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer hover:bg-accent transition-colors">
+              <Settings className="mr-3 h-4 w-4" />
+              <span>Configuración</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="cursor-pointer text-red-600 hover:bg-red-50 dark:hover:bg-red-950 transition-colors">
+              <LogOut className="mr-3 h-4 w-4" />
+              <span>Cerrar sesión</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       
       <main>
