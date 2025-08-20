@@ -226,11 +226,11 @@ const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
                 key={section.id}
                 variant={isExpanded ? "default" : "outline"}
                 onClick={() => toggleSection(section.id)}
-                className={`${isCompact ? 'h-16' : 'h-20'} flex flex-col items-center justify-center gap-2 text-base font-semibold hover:bg-accent transition-all duration-300`}
+                className={`${isCompact ? 'h-14' : 'h-20'} flex flex-col items-center justify-center gap-1 text-base font-semibold hover:bg-accent transition-all duration-300`}
               >
                 <div className="flex items-center gap-2">
-                  <span className={`${isCompact ? 'text-lg' : 'text-xl'}`}>{section.icon}</span>
-                  <span className={`${isCompact ? 'text-xs' : 'text-sm'} lg:text-base`}>{section.title}</span>
+                  <span className={`${isCompact ? 'text-base' : 'text-xl'}`}>{section.icon}</span>
+                  <span className={`${isCompact ? 'text-xs' : 'text-sm'} lg:${isCompact ? 'text-sm' : 'text-base'}`}>{section.title}</span>
                 </div>
                 {isExpanded ? (
                   <ChevronDown className="h-4 w-4" />
@@ -252,11 +252,11 @@ const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
                 key={section.id}
                 variant={isExpanded ? "default" : "outline"}
                 onClick={() => toggleSection(section.id)}
-                className={`${isCompact ? 'h-16' : 'h-20'} flex flex-col items-center justify-center gap-2 text-base font-semibold hover:bg-accent transition-all duration-300`}
+                className={`${isCompact ? 'h-14' : 'h-20'} flex flex-col items-center justify-center gap-1 text-base font-semibold hover:bg-accent transition-all duration-300`}
               >
                 <div className="flex items-center gap-2">
-                  <span className={`${isCompact ? 'text-lg' : 'text-xl'}`}>{section.icon}</span>
-                  <span className={`${isCompact ? 'text-xs' : 'text-sm'} lg:text-base`}>{section.title}</span>
+                  <span className={`${isCompact ? 'text-base' : 'text-xl'}`}>{section.icon}</span>
+                  <span className={`${isCompact ? 'text-xs' : 'text-sm'} lg:${isCompact ? 'text-sm' : 'text-base'}`}>{section.title}</span>
                 </div>
                 {isExpanded ? (
                   <ChevronDown className="h-4 w-4" />
