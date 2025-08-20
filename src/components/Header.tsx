@@ -29,29 +29,19 @@ const Header = ({ title }: HeaderProps) => {
   };
 
   return (
-    <header className="bg-card border-b border-border shadow-sm">
-      <div className="flex items-center justify-between px-6 py-4">
-        <div className="flex-1"></div>
-        
-        <div className="flex flex-col items-center">
-          <img 
-            src={logo} 
-            alt="Equipers 4x4 Logo" 
-            className="h-20 w-20 object-contain mb-2"
-          />
-          <div className="flex items-center gap-2 bg-card border border-border rounded-full p-1 shadow-lg">
-            <Sun className={`h-4 w-4 transition-all duration-300 ${theme === "light" ? "text-primary" : "text-muted-foreground"}`} />
-            <Switch
-              checked={theme === "dark"}
-              onCheckedChange={toggleTheme}
-              className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-muted"
-            />
-            <Moon className={`h-4 w-4 transition-all duration-300 ${theme === "dark" ? "text-primary" : "text-muted-foreground"}`} />
-          </div>
-        </div>
-        
-        <div className="flex items-center gap-4">
-          <DropdownMenu>
+    <header className="flex items-center justify-between bg-card border-b border-border px-6 py-4 shadow-sm relative">
+      <div className="flex-1"></div>
+      
+      <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center">
+        <img 
+          src={logo} 
+          alt="Equipers 4x4 Logo" 
+          className="h-24 w-24 object-contain"
+        />
+      </div>
+      
+      <div className="flex items-center gap-4">
+        <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-10 w-10 rounded-full hover:bg-accent">
               <Avatar className="h-10 w-10 border-2 border-primary/20 hover:border-primary/40 transition-colors">
@@ -118,7 +108,6 @@ const Header = ({ title }: HeaderProps) => {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        </div>
       </div>
       
       <SettingsDialog 
