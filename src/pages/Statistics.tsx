@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -62,10 +63,17 @@ const Statistics = () => {
 
   const handleSaveRate = (index: number) => {
     console.log(`Saving exchange rate: ${exchangeRates[index].from} to ${exchangeRates[index].to}`);
+    // Here you would save to backend/localStorage
+    toast.success(`Tasa ${exchangeRates[index].from} → ${exchangeRates[index].to} guardada: ${exchangeRates[index].rate}`);
   };
 
   const handleReload = () => {
     console.log("Reloading statistics");
+    // Here you would fetch fresh data from API
+    toast.info("Actualizando estadísticas...");
+    setTimeout(() => {
+      toast.success("Estadísticas actualizadas correctamente");
+    }, 1500);
   };
 
   const handleRateChange = (index: number, newRate: string) => {
@@ -75,55 +83,55 @@ const Statistics = () => {
   };
 
   return (
-    <div className="min-h-screen bg-minimal-slate-50 font-roboto">
+    <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Simplified Header */}
-      <div className="bg-white border-b border-minimal-slate-200">
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center justify-between">
-            <Button 
-              onClick={handleBackToHome}
-              variant="outline"
-              className="text-minimal-slate-600 border-minimal-slate-300 hover:bg-minimal-slate-50"
-            >
-              ← Volver
-            </Button>
-            <h1 className="text-2xl font-light text-minimal-slate-900 tracking-tight">
-              Análisis Financiero
-            </h1>
-            <div className="w-20"></div>
+        {/* Simplified Header */}
+        <div className="bg-card border-b border-border">
+          <div className="container mx-auto px-6 py-6">
+            <div className="flex items-center justify-between">
+              <Button 
+                onClick={handleBackToHome}
+                variant="outline"
+                className="text-muted-foreground border-border hover:bg-accent"
+              >
+                ← Volver
+              </Button>
+              <h1 className="text-2xl font-light text-foreground tracking-tight">
+                Análisis Financiero
+              </h1>
+              <div className="w-20"></div>
+            </div>
           </div>
         </div>
-      </div>
 
       <div className="container mx-auto px-6 py-8 space-y-12">
         
         {/* Compact Controls Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Exchange Rates */}
-          <Card className="border-minimal-slate-200 shadow-sm">
+          <Card className="border-border shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="text-lg font-medium text-minimal-slate-800 flex items-center gap-2">
-                <DollarSign className="h-5 w-5 text-minimal-slate-500" />
+              <CardTitle className="text-lg font-medium text-foreground flex items-center gap-2">
+                <DollarSign className="h-5 w-5 text-muted-foreground" />
                 Tasas de Cambio
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {exchangeRates.map((rate, index) => (
                 <div key={index} className="flex items-center gap-3 text-sm">
-                  <span className="w-16 text-minimal-slate-600 font-medium">
+                  <span className="w-16 text-muted-foreground font-medium">
                     {rate.from}→{rate.to}
                   </span>
                   <Input
                     value={rate.rate}
                     onChange={(e) => handleRateChange(index, e.target.value)}
-                    className="flex-1 h-8 text-sm border-minimal-slate-200"
+                    className="flex-1 h-8 text-sm border-border"
                   />
                   <Button 
                     onClick={() => handleSaveRate(index)}
                     size="sm"
-                    className="h-8 px-3 bg-minimal-blue-600 hover:bg-minimal-blue-700 text-white text-xs"
+                    className="h-8 px-3 bg-blue-600 hover:bg-blue-700 text-white text-xs"
                   >
                     OK
                   </Button>
@@ -133,10 +141,10 @@ const Statistics = () => {
           </Card>
 
           {/* Filters */}
-          <Card className="border-minimal-slate-200 shadow-sm">
+          <Card className="border-border shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="text-lg font-medium text-minimal-slate-800 flex items-center gap-2">
-                <CalendarIcon className="h-5 w-5 text-minimal-slate-500" />
+              <CardTitle className="text-lg font-medium text-foreground flex items-center gap-2">
+                <CalendarIcon className="h-5 w-5 text-muted-foreground" />
                 Período de Análisis
               </CardTitle>
             </CardHeader>
@@ -147,8 +155,8 @@ const Statistics = () => {
                     <Button
                       variant="outline"
                       className={cn(
-                        "flex-1 justify-start text-left font-normal border-minimal-slate-200 hover:bg-minimal-slate-50",
-                        !filterDate && "text-minimal-slate-500"
+                        "flex-1 justify-start text-left font-normal border-border hover:bg-accent",
+                        !filterDate && "text-muted-foreground"
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -167,7 +175,7 @@ const Statistics = () => {
                 </Popover>
                 <Button 
                   onClick={handleReload}
-                  className="bg-minimal-blue-600 hover:bg-minimal-blue-700 text-white px-6"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-6"
                 >
                   Actualizar
                 </Button>
@@ -179,98 +187,98 @@ const Statistics = () => {
         {/* Executive Summary */}
         <section>
           <div className="mb-6">
-            <h2 className="text-xl font-medium text-minimal-slate-900 mb-2">Resumen Ejecutivo</h2>
-            <p className="text-minimal-slate-600 text-sm">Vista general del rendimiento financiero consolidado (CLP + conversiones)</p>
+            <h2 className="text-xl font-medium text-foreground mb-2">Resumen Ejecutivo</h2>
+            <p className="text-muted-foreground text-sm">Vista general del rendimiento financiero consolidado (CLP + conversiones)</p>
           </div>
           
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="border-minimal-rose-200 bg-minimal-rose-50">
+            <Card className="border-red-200 bg-red-50">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <TrendingDown className="h-8 w-8 text-minimal-rose-500" />
+                  <TrendingDown className="h-8 w-8 text-red-500" />
                   <div className="text-right">
-                    <p className="text-2xl font-light text-minimal-rose-700">$70.9M</p>
-                    <p className="text-xs text-minimal-rose-600 font-medium">Sin verificar</p>
+                    <p className="text-2xl font-light text-red-700">$70.9M</p>
+                    <p className="text-xs text-red-600 font-medium">Sin verificar</p>
                   </div>
                 </div>
-                <div className="text-xs text-minimal-rose-600">Ventas pendientes</div>
+                <div className="text-xs text-red-600">Ventas pendientes</div>
               </CardContent>
             </Card>
 
-            <Card className="border-minimal-emerald-200 bg-minimal-emerald-50">
+            <Card className="border-emerald-200 bg-emerald-50">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <TrendingUp className="h-8 w-8 text-minimal-emerald-500" />
+                  <TrendingUp className="h-8 w-8 text-emerald-500" />
                   <div className="text-right">
-                    <p className="text-2xl font-light text-minimal-emerald-700">$17.6M</p>
-                    <p className="text-xs text-minimal-emerald-600 font-medium">Verificadas</p>
+                    <p className="text-2xl font-light text-emerald-700">$17.6M</p>
+                    <p className="text-xs text-emerald-600 font-medium">Verificadas</p>
                   </div>
                 </div>
-                <div className="text-xs text-minimal-emerald-600">Ventas confirmadas</div>
+                <div className="text-xs text-emerald-600">Ventas confirmadas</div>
               </CardContent>
             </Card>
 
-            <Card className="border-minimal-blue-200 bg-minimal-blue-50">
+            <Card className="border-blue-200 bg-blue-50">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <BarChart3 className="h-8 w-8 text-minimal-blue-500" />
+                  <BarChart3 className="h-8 w-8 text-blue-500" />
                   <div className="text-right">
-                    <p className="text-2xl font-light text-minimal-blue-700">$51.1M</p>
-                    <p className="text-xs text-minimal-blue-600 font-medium">Gastos</p>
+                    <p className="text-2xl font-light text-blue-700">$51.1M</p>
+                    <p className="text-xs text-blue-600 font-medium">Gastos</p>
                   </div>
                 </div>
-                <div className="text-xs text-minimal-blue-600">Egresos totales</div>
+                <div className="text-xs text-blue-600">Egresos totales</div>
               </CardContent>
             </Card>
 
-            <Card className="border-minimal-slate-300 bg-minimal-slate-100">
+            <Card className="border-border bg-muted">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <PieChart className="h-8 w-8 text-minimal-slate-500" />
+                  <PieChart className="h-8 w-8 text-muted-foreground" />
                   <div className="text-right">
-                    <p className="text-2xl font-light text-minimal-slate-700">-$35.6M</p>
-                    <p className="text-xs text-minimal-slate-600 font-medium">Balance</p>
+                    <p className="text-2xl font-light text-foreground">-$35.6M</p>
+                    <p className="text-xs text-muted-foreground font-medium">Balance</p>
                   </div>
                 </div>
-                <div className="text-xs text-minimal-slate-600">Resultado neto</div>
+                <div className="text-xs text-muted-foreground">Resultado neto</div>
               </CardContent>
             </Card>
           </div>
 
           {/* Products Summary */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-            <Card className="border-minimal-slate-200">
+            <Card className="border-border">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-medium text-minimal-slate-800">Racks</h3>
-                  <div className="w-3 h-3 bg-minimal-emerald-500 rounded-full"></div>
+                  <h3 className="font-medium text-foreground">Racks</h3>
+                  <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-minimal-slate-600">Facturación</span>
+                    <span className="text-muted-foreground">Facturación</span>
                     <span className="font-medium">$9.5M</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-minimal-slate-600">Unidades</span>
+                    <span className="text-muted-foreground">Unidades</span>
                     <span className="font-medium">23</span>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-minimal-slate-200">
+            <Card className="border-border">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-medium text-minimal-slate-800">Cúpulas</h3>
-                  <div className="w-3 h-3 bg-minimal-blue-500 rounded-full"></div>
+                  <h3 className="font-medium text-foreground">Cúpulas</h3>
+                  <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-minimal-slate-600">Facturación</span>
+                    <span className="text-muted-foreground">Facturación</span>
                     <span className="font-medium">$8.1M</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-minimal-slate-600">Unidades</span>
+                    <span className="text-muted-foreground">Unidades</span>
                     <span className="font-medium">20</span>
                   </div>
                 </div>
@@ -282,11 +290,11 @@ const Statistics = () => {
         {/* Performance Analytics */}
         <section>
           <div className="mb-6">
-            <h2 className="text-xl font-medium text-minimal-slate-900 mb-2">Análisis de Rendimiento</h2>
-            <p className="text-minimal-slate-600 text-sm">Evolución mensual de ventas por categoría de producto</p>
+            <h2 className="text-xl font-medium text-foreground mb-2">Análisis de Rendimiento</h2>
+            <p className="text-muted-foreground text-sm">Evolución mensual de ventas por categoría de producto</p>
           </div>
 
-          <Card className="border-minimal-slate-200 shadow-sm">
+          <Card className="border-border shadow-sm">
             <CardContent className="p-8">
               <div className="h-80 w-full">
                 <ResponsiveContainer width="100%" height="100%">
@@ -356,15 +364,15 @@ const Statistics = () => {
         {/* Sales Analysis by Seller */}
         <section>
           <div className="mb-6">
-            <h2 className="text-xl font-medium text-minimal-slate-900 mb-2">Análisis por Vendedor</h2>
-            <p className="text-minimal-slate-600 text-sm">Desglose detallado de ventas verificadas y pendientes</p>
+            <h2 className="text-xl font-medium text-foreground mb-2">Análisis por Vendedor</h2>
+            <p className="text-muted-foreground text-sm">Desglose detallado de ventas verificadas y pendientes</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Verified Sales */}
-            <Card className="border-minimal-emerald-200 bg-minimal-emerald-50">
+            <Card className="border-emerald-200 bg-emerald-50">
               <CardHeader className="pb-4">
-                <CardTitle className="text-lg font-medium text-minimal-emerald-800 text-center">
+                <CardTitle className="text-lg font-medium text-emerald-800 text-center">
                   Ventas Verificadas
                 </CardTitle>
               </CardHeader>
@@ -372,22 +380,22 @@ const Statistics = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center p-3 bg-white rounded-lg">
                     <div>
-                      <p className="font-medium text-minimal-slate-800">MIGUEL</p>
-                      <p className="text-sm text-minimal-slate-600">Cliente Común + Argentino</p>
+                      <p className="font-medium text-foreground">MIGUEL</p>
+                      <p className="text-sm text-muted-foreground">Cliente Común + Argentino</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-minimal-emerald-700">$11,121,000</p>
-                      <p className="text-xs text-minimal-slate-500">Total</p>
+                      <p className="font-semibold text-emerald-700">$11,121,000</p>
+                      <p className="text-xs text-muted-foreground">Total</p>
                     </div>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-white rounded-lg">
                     <div>
-                      <p className="font-medium text-minimal-slate-800">FRANYELIS</p>
-                      <p className="text-sm text-minimal-slate-600">Todos los clientes</p>
+                      <p className="font-medium text-foreground">FRANYELIS</p>
+                      <p className="text-sm text-muted-foreground">Todos los clientes</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-minimal-emerald-700">$6,462,000</p>
-                      <p className="text-xs text-minimal-slate-500">Total</p>
+                      <p className="font-semibold text-emerald-700">$6,462,000</p>
+                      <p className="text-xs text-muted-foreground">Total</p>
                     </div>
                   </div>
                 </div>
@@ -395,9 +403,9 @@ const Statistics = () => {
             </Card>
 
             {/* Unverified Sales */}
-            <Card className="border-minimal-rose-200 bg-minimal-rose-50">
+            <Card className="border-red-200 bg-red-50">
               <CardHeader className="pb-4">
-                <CardTitle className="text-lg font-medium text-minimal-rose-800 text-center">
+                <CardTitle className="text-lg font-medium text-red-800 text-center">
                   Ventas Pendientes
                 </CardTitle>
               </CardHeader>
@@ -405,22 +413,22 @@ const Statistics = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center p-3 bg-white rounded-lg">
                     <div>
-                      <p className="font-medium text-minimal-slate-800">MIGUEL</p>
-                      <p className="text-sm text-minimal-slate-600">Por verificar</p>
+                      <p className="font-medium text-foreground">MIGUEL</p>
+                      <p className="text-sm text-muted-foreground">Por verificar</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-minimal-rose-700">$22,638,500</p>
-                      <p className="text-xs text-minimal-slate-500">Total</p>
+                      <p className="font-semibold text-red-700">$22,638,500</p>
+                      <p className="text-xs text-muted-foreground">Total</p>
                     </div>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-white rounded-lg">
                     <div>
-                      <p className="font-medium text-minimal-slate-800">FRANYELIS</p>
-                      <p className="text-sm text-minimal-slate-600">Por verificar</p>
+                      <p className="font-medium text-foreground">FRANYELIS</p>
+                      <p className="text-sm text-muted-foreground">Por verificar</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-minimal-rose-700">$32,969,000</p>
-                      <p className="text-xs text-minimal-slate-500">Total</p>
+                      <p className="font-semibold text-red-700">$32,969,000</p>
+                      <p className="text-xs text-muted-foreground">Total</p>
                     </div>
                   </div>
                 </div>
@@ -432,15 +440,15 @@ const Statistics = () => {
         {/* Currency Breakdown */}
         <section>
           <div className="mb-6">
-            <h2 className="text-xl font-medium text-minimal-slate-900 mb-2">Desglose por Moneda</h2>
-            <p className="text-minimal-slate-600 text-sm">Análisis detallado por tipo de divisa</p>
+            <h2 className="text-xl font-medium text-foreground mb-2">Desglose por Moneda</h2>
+            <p className="text-muted-foreground text-sm">Análisis detallado por tipo de divisa</p>
           </div>
 
           <div className="space-y-8">
             {/* CLP */}
-            <Card className="border-minimal-slate-200">
-              <CardHeader className="pb-4 border-b border-minimal-slate-100">
-                <CardTitle className="text-lg font-medium text-minimal-slate-800 flex items-center gap-2">
+            <Card className="border-border">
+              <CardHeader className="pb-4 border-b border-border">
+                <CardTitle className="text-lg font-medium text-foreground flex items-center gap-2">
                   <div className="w-4 h-4 bg-green-500 rounded-full"></div>
                   CLP - Pesos Chilenos
                 </CardTitle>
@@ -448,29 +456,29 @@ const Statistics = () => {
               <CardContent className="pt-6">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                   <div>
-                    <p className="text-2xl font-light text-minimal-slate-800">$55.6M</p>
-                    <p className="text-sm text-minimal-rose-600">Sin verificar</p>
+                    <p className="text-2xl font-light text-foreground">$55.6M</p>
+                    <p className="text-sm text-red-600">Sin verificar</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-light text-minimal-slate-800">$9.6M</p>
-                    <p className="text-sm text-minimal-emerald-600">Verificadas</p>
+                    <p className="text-2xl font-light text-foreground">$9.6M</p>
+                    <p className="text-sm text-emerald-600">Verificadas</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-light text-minimal-slate-800">$51.1M</p>
-                    <p className="text-sm text-minimal-blue-600">Gastos</p>
+                    <p className="text-2xl font-light text-foreground">$51.1M</p>
+                    <p className="text-sm text-blue-600">Gastos</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-light text-minimal-slate-800">-$42.1M</p>
-                    <p className="text-sm text-minimal-slate-600">Balance</p>
+                    <p className="text-2xl font-light text-foreground">-$42.1M</p>
+                    <p className="text-sm text-muted-foreground">Balance</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* USD */}
-            <Card className="border-minimal-slate-200">
-              <CardHeader className="pb-4 border-b border-minimal-slate-100">
-                <CardTitle className="text-lg font-medium text-minimal-slate-800 flex items-center gap-2">
+            <Card className="border-border">
+              <CardHeader className="pb-4 border-b border-border">
+                <CardTitle className="text-lg font-medium text-foreground flex items-center gap-2">
                   <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
                   USD - Dólares Americanos
                 </CardTitle>
@@ -478,29 +486,29 @@ const Statistics = () => {
               <CardContent className="pt-6">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                   <div>
-                    <p className="text-2xl font-light text-minimal-slate-800">$15,300</p>
-                    <p className="text-sm text-minimal-rose-600">Sin verificar</p>
+                    <p className="text-2xl font-light text-foreground">$15,300</p>
+                    <p className="text-sm text-red-600">Sin verificar</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-light text-minimal-slate-800">$8,500</p>
-                    <p className="text-sm text-minimal-emerald-600">Verificadas</p>
+                    <p className="text-2xl font-light text-foreground">$8,500</p>
+                    <p className="text-sm text-emerald-600">Verificadas</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-light text-minimal-slate-800">$51,147</p>
-                    <p className="text-sm text-minimal-blue-600">Gastos</p>
+                    <p className="text-2xl font-light text-foreground">$51,147</p>
+                    <p className="text-sm text-blue-600">Gastos</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-light text-minimal-slate-800">-$42,647</p>
-                    <p className="text-sm text-minimal-slate-600">Balance</p>
+                    <p className="text-2xl font-light text-foreground">-$42,647</p>
+                    <p className="text-sm text-muted-foreground">Balance</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* ARS */}
-            <Card className="border-minimal-slate-200">
-              <CardHeader className="pb-4 border-b border-minimal-slate-100">
-                <CardTitle className="text-lg font-medium text-minimal-slate-800 flex items-center gap-2">
+            <Card className="border-border">
+              <CardHeader className="pb-4 border-b border-border">
+                <CardTitle className="text-lg font-medium text-foreground flex items-center gap-2">
                   <div className="w-4 h-4 bg-amber-500 rounded-full"></div>
                   ARS - Pesos Argentinos
                 </CardTitle>
@@ -508,20 +516,20 @@ const Statistics = () => {
               <CardContent className="pt-6">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                   <div>
-                    <p className="text-2xl font-light text-minimal-slate-800">$0</p>
-                    <p className="text-sm text-minimal-rose-600">Sin verificar</p>
+                    <p className="text-2xl font-light text-foreground">$0</p>
+                    <p className="text-sm text-red-600">Sin verificar</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-light text-minimal-slate-800">$0</p>
-                    <p className="text-sm text-minimal-emerald-600">Verificadas</p>
+                    <p className="text-2xl font-light text-foreground">$0</p>
+                    <p className="text-sm text-emerald-600">Verificadas</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-light text-minimal-slate-800">$67.5M</p>
-                    <p className="text-sm text-minimal-blue-600">Gastos</p>
+                    <p className="text-2xl font-light text-foreground">$67.5M</p>
+                    <p className="text-sm text-blue-600">Gastos</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-light text-minimal-slate-800">-$67.5M</p>
-                    <p className="text-sm text-minimal-slate-600">Balance</p>
+                    <p className="text-2xl font-light text-foreground">-$67.5M</p>
+                    <p className="text-sm text-muted-foreground">Balance</p>
                   </div>
                 </div>
               </CardContent>

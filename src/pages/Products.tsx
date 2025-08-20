@@ -3,11 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Plus, Search, X, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 
 const Products = () => {
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   // Mock data based on the image provided
   const products = [
@@ -153,6 +158,43 @@ const Products = () => {
     }
   ];
 
+  const filteredProducts = products.filter(product => 
+    product.marca.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.modelo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.observaciones.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+
+  const handleSearch = (value: string) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+  };
+
+  const handleAddProduct = () => {
+    toast.success("Formulario de nuevo producto se abrirá próximamente");
+    // Navigate to add product page or open modal
+  };
+
+  const handleContactStock = (productId: number) => {
+    toast.success(`Contactando proveedor para producto ID: ${productId}`);
+    // Open WhatsApp, email, or contact modal
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  };
+
+  const handleLastPage = () => {
+    setCurrentPage(totalPages);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header title="Productos" />
@@ -165,9 +207,11 @@ const Products = () => {
             <Input 
               placeholder="Buscar productos..." 
               className="pl-10"
+              value={searchTerm}
+              onChange={(e) => handleSearch(e.target.value)}
             />
           </div>
-          <Button className="flex items-center gap-2">
+          <Button className="flex items-center gap-2" onClick={handleAddProduct}>
             <Plus className="h-4 w-4" />
             Agregar Producto
           </Button>
@@ -197,7 +241,7 @@ const Products = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {products.map((product) => (
+                  {paginatedProducts.map((product) => (
                     <TableRow key={product.id}>
                       <TableCell>
                         <div className="w-12 h-12 bg-muted rounded-md flex items-center justify-center">
@@ -246,7 +290,8 @@ const Products = () => {
                       <TableCell className="text-center">
                         <Button 
                           size="sm" 
-                          className="bg-green-600 hover:bg-green-700 text-white"
+                          className="bg-emerald-600 hover:bg-emerald-700 text-white"
+                          onClick={() => handleContactStock(product.id)}
                         >
                           Contactar Stock
                         </Button>
@@ -260,16 +305,34 @@ const Products = () => {
             {/* Pagination */}
             <div className="flex items-center justify-between mt-4 pt-4 border-t">
               <div className="text-sm text-muted-foreground">
-                1 - 10 of 31
+                {startIndex + 1} - {Math.min(startIndex + itemsPerPage, filteredProducts.length)} de {filteredProducts.length}
               </div>
               <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm" disabled>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  disabled={currentPage === 1}
+                  onClick={handlePrevPage}
+                >
                   ‹
                 </Button>
-                <Button variant="outline" size="sm">
+                <span className="text-sm px-2">
+                  {currentPage} de {totalPages}
+                </span>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  disabled={currentPage === totalPages}
+                  onClick={handleNextPage}
+                >
                   ›
                 </Button>
-                <Button variant="outline" size="sm">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  disabled={currentPage === totalPages}
+                  onClick={handleLastPage}
+                >
                   ››
                 </Button>
               </div>

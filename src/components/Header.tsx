@@ -24,6 +24,7 @@ import { LogOut, User, Settings, Moon, Sun, Menu, TrendingUp, Shield, Wrench,
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "next-themes";
 import { useState } from "react";
+import { toast } from "sonner";
 import SettingsDialog from "./SettingsDialog";
 import PermissionsDialog from "./PermissionsDialog";
 import CommissionDialog from "./CommissionDialog";
@@ -345,7 +346,10 @@ const Header = ({ title }: HeaderProps) => {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer hover:bg-accent transition-colors">
+            <DropdownMenuItem 
+              className="cursor-pointer hover:bg-accent transition-colors"
+              onClick={() => toast.info("Función de editar perfil disponible próximamente")}
+            >
               <User className="mr-3 h-4 w-4" />
               <span>Editar perfil</span>
             </DropdownMenuItem>
@@ -377,7 +381,10 @@ const Header = ({ title }: HeaderProps) => {
             </div>
             
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer text-red-600 hover:bg-red-50 dark:hover:bg-red-950 transition-colors">
+            <DropdownMenuItem 
+              className="cursor-pointer text-red-600 hover:bg-red-50 dark:hover:bg-red-950 transition-colors"
+              onClick={() => toast.info("Función de cerrar sesión disponible próximamente")}
+            >
               <LogOut className="mr-3 h-4 w-4" />
               <span>Cerrar sesión</span>
             </DropdownMenuItem>
