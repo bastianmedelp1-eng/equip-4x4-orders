@@ -23,7 +23,9 @@ import {
   SearchCheck, 
   Wrench,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  Truck,
+  Grid3x3
 } from "lucide-react";
 
 // Import custom icons
@@ -70,7 +72,15 @@ const dashboardSections: DashboardSection[] = [
     title: "Pedidos y Ventas",
     icon: "🛒",
     items: [
-      { id: "pedidos", title: "Pedidos", icon: iconPedido },
+      { 
+        id: "pedidos", 
+        title: "Pedidos", 
+        icon: iconPedido,
+        subItems: [
+          { id: "lista-cupulas", title: "Cúpulas", lucideIcon: Truck },
+          { id: "lista-racks", title: "Racks", lucideIcon: Grid3x3 },
+        ]
+      },
       { id: "cotizacion", title: "Cotización", icon: iconCotizacion },
       { id: "buscador-precios", title: "Buscador de precios", lucideIcon: Search },
       { id: "historial", title: "Historial de ventas", icon: iconHistorial },
