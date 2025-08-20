@@ -61,8 +61,6 @@ const dashboardSections: DashboardSection[] = [
       { id: "marcas", title: "Marcas", icon: iconMarcas },
       { id: "modelos", title: "Modelos", lucideIcon: Car },
       { id: "accesorios", title: "Accesorios", lucideIcon: Package },
-      { id: "lista-cupulas", title: "Cúpulas", lucideIcon: List },
-      { id: "lista-racks", title: "Racks", lucideIcon: List },
       { id: "lista-especiales", title: "Especiales", lucideIcon: Star },
     ]
   },
@@ -75,6 +73,8 @@ const dashboardSections: DashboardSection[] = [
       { id: "cotizacion", title: "Cotización", icon: iconCotizacion },
       { id: "buscador-precios", title: "Buscador de precios", lucideIcon: Search },
       { id: "historial", title: "Historial de ventas", icon: iconHistorial },
+      { id: "lista-cupulas", title: "Cúpulas", lucideIcon: List },
+      { id: "lista-racks", title: "Racks", lucideIcon: List },
     ]
   },
   {
