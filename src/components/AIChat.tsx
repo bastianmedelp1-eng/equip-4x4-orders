@@ -179,32 +179,38 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
             {/* Core glow - subtle breathing */}
             <div className="absolute -inset-2 rounded-lg bg-gradient-to-r from-gray-500/60 via-gray-300/50 to-gray-500/60 animate-aura-breathe blur-xs"></div>
             
-            {/* Main button - rectangular */}
-            <div className="relative h-12 w-16 rounded-lg bg-gradient-to-br from-gray-800 via-gray-900 to-black shadow-2xl transform transition-all duration-500 hover:scale-110 hover:shadow-[0_0_40px_rgba(100,100,100,0.4)] group overflow-hidden">
+            {/* Main button - circular */}
+            <div className="relative h-16 w-16 rounded-full bg-gradient-to-br from-gray-800 via-gray-900 to-black shadow-2xl transform transition-all duration-500 hover:scale-110 hover:shadow-[0_0_40px_rgba(100,100,100,0.4)] group overflow-hidden">
               {/* Inner gradient overlay */}
-              <div className="absolute inset-1 rounded-lg bg-gradient-to-br from-gray-600/40 via-transparent to-black/40"></div>
+              <div className="absolute inset-1 rounded-full bg-gradient-to-br from-gray-600/40 via-transparent to-black/40"></div>
               
-              {/* Cloud effects - internal moving clouds */}
-              <div className="absolute inset-2 rounded-lg overflow-hidden">
-                {/* Cloud layer 1 */}
-                <div className="absolute w-6 h-1.5 bg-white/10 rounded-full animate-cloud-slow blur-sm"></div>
-                <div className="absolute w-4 h-1 bg-white/15 rounded-full animate-cloud-slower blur-sm top-1.5"></div>
-                <div className="absolute w-3 h-0.5 bg-white/8 rounded-full animate-cloud-reverse blur-sm top-0.5"></div>
+              {/* Inner circular forms - rotating */}
+              <div className="absolute inset-2 rounded-full overflow-hidden">
+                {/* Outer ring */}
+                <div className="absolute inset-0 rounded-full border-2 border-gray-400/20 animate-aura-drift-slow"></div>
                 
-                {/* Cloud layer 2 - different timing */}
-                <div className="absolute w-5 h-1 bg-gray-300/12 rounded-full animate-cloud-slow delay-1000 blur-sm top-2"></div>
-                <div className="absolute w-3 h-0.5 bg-gray-200/10 rounded-full animate-cloud-reverse delay-2000 blur-sm top-1.5"></div>
+                {/* Middle ring */}
+                <div className="absolute inset-1 rounded-full border border-gray-300/30 animate-aura-drift-slow" style={{animationDirection: 'reverse', animationDuration: '20s'}}></div>
                 
-                {/* Cloud layer 3 - subtle background clouds */}
-                <div className="absolute w-7 h-2 bg-white/5 rounded-full animate-cloud-slower delay-500 blur-lg"></div>
+                {/* Inner spiral forms */}
+                <div className="absolute inset-2 rounded-full">
+                  {/* Rotating inner circles */}
+                  <div className="absolute top-1 left-1/2 w-2 h-2 bg-gray-300/40 rounded-full animate-aura-drift-slow transform -translate-x-1/2"></div>
+                  <div className="absolute bottom-1 left-1/2 w-1.5 h-1.5 bg-gray-400/30 rounded-full animate-aura-drift-slow transform -translate-x-1/2" style={{animationDirection: 'reverse', animationDuration: '12s'}}></div>
+                  <div className="absolute left-1 top-1/2 w-1 h-1 bg-gray-200/50 rounded-full animate-aura-drift-slow transform -translate-y-1/2" style={{animationDuration: '8s'}}></div>
+                  <div className="absolute right-1 top-1/2 w-1 h-1 bg-gray-300/40 rounded-full animate-aura-drift-slow transform -translate-y-1/2" style={{animationDirection: 'reverse', animationDuration: '10s'}}></div>
+                </div>
+                
+                {/* Central swirling effect */}
+                <div className="absolute inset-3 rounded-full border border-gray-200/20 animate-aura-drift-slow" style={{animationDuration: '25s'}}></div>
               </div>
               
               {/* Subtle pulsing border */}
-              <div className="absolute inset-0 rounded-lg border border-gray-500/20 animate-aura-breathe"></div>
+              <div className="absolute inset-0 rounded-full border border-gray-500/20 animate-aura-breathe"></div>
               
               {/* Icon */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <MessageCircle className="h-7 w-7 text-white drop-shadow-lg transition-transform duration-300 group-hover:scale-110" />
+              <div className="absolute inset-0 flex items-center justify-center z-10">
+                <MessageCircle className="h-6 w-6 text-white drop-shadow-lg transition-transform duration-300 group-hover:scale-110" />
               </div>
             </div>
           </div>
