@@ -43,7 +43,7 @@ const Header = ({ title }: HeaderProps) => {
               <Menu className="h-5 w-5" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-48 bg-background border border-border shadow-lg z-50" align="start">
+          <DropdownMenuContent className="w-48 bg-card border border-border shadow-lg" align="start" sideOffset={4}>
             <DropdownMenuItem 
               className="cursor-pointer hover:bg-accent transition-colors"
               onClick={() => setCommissionOpen(true)}
