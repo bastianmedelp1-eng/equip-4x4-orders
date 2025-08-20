@@ -37,7 +37,36 @@ const Header = ({ title }: HeaderProps) => {
   return (
     <header className="flex items-center justify-between bg-card border-b border-border px-6 py-4 shadow-sm relative">
       <div className="flex items-center">
-        {/* Hamburger menu removed */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="h-10 w-10">
+              <Menu className="h-5 w-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-48 bg-background border border-border shadow-lg z-50" align="start" sideOffset={4}>
+            <DropdownMenuItem 
+              className="cursor-pointer hover:bg-accent transition-colors"
+              onClick={() => setCommissionOpen(true)}
+            >
+              <TrendingUp className="mr-3 h-4 w-4" />
+              <span>MI COMISIÓN</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              className="cursor-pointer hover:bg-accent transition-colors"
+              onClick={() => setPermissionsOpen(true)}
+            >
+              <Shield className="mr-3 h-4 w-4" />
+              <span>PERMISOS</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              className="cursor-pointer hover:bg-accent transition-colors"
+              onClick={() => navigate('/herramientas')}
+            >
+              <Wrench className="mr-3 h-4 w-4" />
+              <span>HERRAMIENTAS</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       
       <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
