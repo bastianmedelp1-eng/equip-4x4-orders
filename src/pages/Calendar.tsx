@@ -346,7 +346,7 @@ const Calendar = () => {
               {days.map((day, index) => (
                 <div
                   key={index}
-                  className="h-[160px] p-3 border-r border-b border-border/20 last:border-r-0 hover:bg-muted/30 transition-colors"
+                  className="h-[200px] p-3 border-r border-b border-border/20 last:border-r-0 hover:bg-muted/30 transition-colors"
                 >
                   {day && (
                     <div className="text-right text-lg font-bold text-foreground">{day}</div>
@@ -367,9 +367,9 @@ const Calendar = () => {
                 return getFilteredEvents(dayEvents).map((event, eventIndex) => {
                   // Calculate position within the specific day cell
                   const cellWidth = 100 / 7; // Each cell is 1/7 of the total width
-                  const topOffset = row * 160 + 45 + (eventIndex * 30); // Reduced spacing for single line design
-                  const leftOffset = col * cellWidth + 0.5; // Start at the beginning of the cell + small margin
-                  const eventWidth = cellWidth - 1; // Fill the cell width minus margins
+                  const topOffset = row * 200 + 45 + (eventIndex * 40); // Updated for new cell height and more spacing
+                  const leftOffset = col * cellWidth + 0.3; // Start at the beginning of the cell + small margin
+                  const eventWidth = cellWidth - 0.6; // Fill the cell width minus margins
                   
                   // Service type abbreviation
                   const serviceType = event.type === 'ENVÍO' ? 'PF' : 
@@ -389,7 +389,7 @@ const Calendar = () => {
                                        event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.15)' :
                                        event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.15)' :
                                        'hsl(45 93% 47% / 0.15)',
-                        minHeight: '26px',
+                        minHeight: '36px',
                         border: `1px solid ${
                           event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.3)' :
                           event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.3)' :
@@ -398,10 +398,10 @@ const Calendar = () => {
                         }`
                       }}
                     >
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-start gap-2">
                         {/* Color dot indicator */}
                         <div 
-                          className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                          className="w-2.5 h-2.5 rounded-full flex-shrink-0 mt-1"
                           style={{
                             backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36%)' :
                                            event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60%)' :
@@ -411,9 +411,11 @@ const Calendar = () => {
                         ></div>
                         
                         <div className="flex-1 min-w-0">
-                          {/* Single line with order number, service type and vehicle */}
-                          <div className="text-sm font-bold text-foreground truncate">
-                            #{event.id} [{serviceType}] {event.vehicle}
+                          {/* Multiple lines for order number, service type and vehicle */}
+                          <div className="text-sm font-bold text-foreground leading-tight">
+                            #{event.id} [{serviceType}]
+                            <br />
+                            {event.vehicle}
                           </div>
                         </div>
                       </div>
