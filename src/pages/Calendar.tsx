@@ -265,66 +265,66 @@ const Calendar = () => {
           </h1>
         </div>
 
-        {/* Filter Buttons - Large for TV viewing */}
-        <div className="flex items-center justify-center gap-4 mb-8 pb-6 border-b border-border/50">
+        {/* Filter Buttons - Google style minimal */}
+        <div className="flex items-center justify-center gap-3 mb-8 pb-6 border-b border-border/30">
           <Button
             onClick={() => setFilterType("TODOS")}
-            variant={filterType === "TODOS" ? "default" : "outline"}
-            className={`px-8 py-4 text-lg font-semibold rounded-lg transition-all ${
+            variant="ghost"
+            className={`px-6 py-3 text-base font-medium rounded-full transition-all hover:bg-accent ${
               filterType === "TODOS" 
-                ? "bg-primary text-primary-foreground shadow-lg" 
-                : "border-2 hover:bg-accent text-foreground"
+                ? "bg-primary/10 text-primary" 
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            TODOS
+            Todos
           </Button>
           <Button
             onClick={() => setFilterType("ENVÍO")}
-            variant={filterType === "ENVÍO" ? "default" : "outline"}
-            className={`px-8 py-4 text-lg font-semibold rounded-lg transition-all ${
+            variant="ghost"
+            className={`px-6 py-3 text-base font-medium rounded-full transition-all flex items-center gap-2 ${
               filterType === "ENVÍO" 
-                ? "bg-green-500 text-white shadow-lg" 
-                : "border-2 border-green-500 text-green-600 hover:bg-green-50"
+                ? "bg-green-50 text-green-700 border border-green-200" 
+                : "text-muted-foreground hover:text-green-700 hover:bg-green-50"
             }`}
           >
-            <div className="w-4 h-4 rounded-full bg-green-500 mr-2"></div>
-            ENVÍO
+            <div className="w-2 h-2 rounded-full bg-green-500"></div>
+            Envío
           </Button>
           <Button
             onClick={() => setFilterType("INSTALACIÓN DE CÚPULA")}
-            variant={filterType === "INSTALACIÓN DE CÚPULA" ? "default" : "outline"}
-            className={`px-8 py-4 text-lg font-semibold rounded-lg transition-all ${
+            variant="ghost"
+            className={`px-6 py-3 text-base font-medium rounded-full transition-all flex items-center gap-2 ${
               filterType === "INSTALACIÓN DE CÚPULA" 
-                ? "bg-blue-500 text-white shadow-lg" 
-                : "border-2 border-blue-500 text-blue-600 hover:bg-blue-50"
+                ? "bg-blue-50 text-blue-700 border border-blue-200" 
+                : "text-muted-foreground hover:text-blue-700 hover:bg-blue-50"
             }`}
           >
-            <div className="w-4 h-4 rounded-full bg-blue-500 mr-2"></div>
-            INSTALACIÓN DE CÚPULA
+            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+            Instalación de cúpula
           </Button>
           <Button
             onClick={() => setFilterType("ESPECIAL")}
-            variant={filterType === "ESPECIAL" ? "default" : "outline"}
-            className={`px-8 py-4 text-lg font-semibold rounded-lg transition-all ${
+            variant="ghost"
+            className={`px-6 py-3 text-base font-medium rounded-full transition-all flex items-center gap-2 ${
               filterType === "ESPECIAL" 
-                ? "bg-red-600 text-white shadow-lg" 
-                : "border-2 border-red-600 text-red-600 hover:bg-red-50"
+                ? "bg-red-50 text-red-700 border border-red-200" 
+                : "text-muted-foreground hover:text-red-700 hover:bg-red-50"
             }`}
           >
-            <div className="w-4 h-4 rounded-full bg-red-600 mr-2"></div>
-            ESPECIAL
+            <div className="w-2 h-2 rounded-full bg-red-600"></div>
+            Especial
           </Button>
           <Button
             onClick={() => setFilterType("INSTALACIÓN EN TALLER")}
-            variant={filterType === "INSTALACIÓN EN TALLER" ? "default" : "outline"}
-            className={`px-8 py-4 text-lg font-semibold rounded-lg transition-all ${
+            variant="ghost"
+            className={`px-6 py-3 text-base font-medium rounded-full transition-all flex items-center gap-2 ${
               filterType === "INSTALACIÓN EN TALLER" 
-                ? "bg-yellow-500 text-white shadow-lg" 
-                : "border-2 border-yellow-500 text-yellow-600 hover:bg-yellow-50"
+                ? "bg-amber-50 text-amber-700 border border-amber-200" 
+                : "text-muted-foreground hover:text-amber-700 hover:bg-amber-50"
             }`}
           >
-            <div className="w-4 h-4 rounded-full bg-yellow-500 mr-2"></div>
-            INSTALACIÓN EN TALLER
+            <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+            Instalación en taller
           </Button>
         </div>
 
