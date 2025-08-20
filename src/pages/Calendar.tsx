@@ -365,20 +365,21 @@ const Calendar = () => {
                 const col = dayIndex % 7;
                 
                 return getFilteredEvents(dayEvents).map((event, eventIndex) => {
-                  // Calculate position for horizontal bar
+                  // Calculate position within the specific day cell
+                  const cellWidth = 100 / 7; // Each cell is 1/7 of the total width
                   const topOffset = row * 160 + 40 + (eventIndex * 35); // 160px per row, 40px offset, 35px per event
-                  const leftOffset = (col / 7) * 100; // Percentage based on column
-                  const eventWidth = Math.min(95, 25 + event.vehicle.length * 0.8); // Responsive width based on content
+                  const leftOffset = col * cellWidth + 1; // Start at the beginning of the cell + small margin
+                  const eventWidth = cellWidth - 2; // Fill the cell width minus margins
                   
                   return (
                     <button
                       key={`${dayNum}-${eventIndex}`}
                       onClick={() => handleOrderClick(event)}
-                      className="absolute pointer-events-auto transition-all hover:scale-[1.02] hover:shadow-lg cursor-pointer z-10 rounded-lg p-2 text-left"
+                      className="absolute pointer-events-auto transition-all hover:scale-[1.01] hover:shadow-lg cursor-pointer z-10 rounded-lg p-2 text-left"
                       style={{
                         top: `${topOffset}px`,
                         left: `${leftOffset}%`,
-                        width: `${Math.min(eventWidth, 95 - leftOffset)}%`, // Don't exceed grid boundary
+                        width: `${eventWidth}%`,
                         backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.9)' :
                                        event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.9)' :
                                        event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.9)' :
