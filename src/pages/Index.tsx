@@ -148,21 +148,13 @@ const Index = () => {
         <DashboardGrid isCompact={!isChatMinimized} />
       </main>
       
-      {/* AI Chat Section */}
-      <section className="py-12 px-6 bg-muted/30">
-        <div className="text-center mb-8">
-          <h3 className="text-2xl font-bold text-foreground mb-2">
-            Asistente IA
-          </h3>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Haz preguntas sobre el sistema, obtén ayuda con funcionalidades específicas o consulta sobre cualquier módulo de Equipers 4x4
-          </p>
-        </div>
+      {/* Fixed AI Chat */}
+      <div className="fixed bottom-6 right-6 z-50">
         <AIChat 
           isMinimized={isChatMinimized}
           onToggleMinimize={() => setIsChatMinimized(!isChatMinimized)}
         />
-      </section>
+      </div>
       
       <footer className="text-center py-6 text-sm text-muted-foreground border-t border-border">
         © 2024 Equipers 4x4. Todos los derechos reservados.

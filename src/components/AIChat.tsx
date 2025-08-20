@@ -159,7 +159,7 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className={`transition-all duration-300 ${isMinimized ? 'w-80' : 'w-96'}`}>
       <Card className={`shadow-xl transition-all duration-300 ${isMinimized ? 'h-16' : 'h-[600px]'}`}>
         <CardHeader className="pb-3">
           <CardTitle className="text-xl flex items-center justify-between">
