@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { LogOut, User, Settings, Moon, Sun, Menu, TrendingUp, Shield } from "lucide-react";
+import { LogOut, User, Settings, Moon, Sun, Menu, TrendingUp, Shield, Wrench } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "next-themes";
 import { useState } from "react";
@@ -57,6 +57,13 @@ const Header = ({ title }: HeaderProps) => {
             >
               <Shield className="mr-3 h-4 w-4" />
               <span>PERMISOS</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              className="cursor-pointer hover:bg-accent transition-colors"
+              onClick={() => navigate('/herramientas')}
+            >
+              <Wrench className="mr-3 h-4 w-4" />
+              <span>HERRAMIENTAS</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
