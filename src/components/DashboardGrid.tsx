@@ -170,7 +170,7 @@ const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
         navigate("/accesorios");
         break;
       case "pedidos":
-        navigate("/pedido");
+        navigate("/pedidos");
         break;
       case "lista-cupulas":
         navigate("/lista-cupulas");

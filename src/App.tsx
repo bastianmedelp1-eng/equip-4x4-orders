@@ -9,6 +9,7 @@ import Brands from "./pages/Brands";
 import Models from "./pages/Models";
 import Sellers from "./pages/Sellers";
 import Accessories from "./pages/Accessories";
+import OrdersList from "./pages/OrdersList";
 import Orders from "./pages/Orders";
 import CupulasList from "./pages/CupulasList";
 import RacksList from "./pages/RacksList";
@@ -44,6 +45,7 @@ const App = () => (
           <Route path="/modelos" element={<Models />} />
           <Route path="/vendedores" element={<Sellers />} />
           <Route path="/accesorios" element={<Accessories />} />
+          <Route path="/pedidos" element={<OrdersList />} />
           <Route path="/pedido" element={<Orders />} />
           <Route path="/lista-cupulas" element={<CupulasList />} />
           <Route path="/lista-racks" element={<RacksList />} />
