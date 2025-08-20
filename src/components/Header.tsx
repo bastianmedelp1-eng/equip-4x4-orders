@@ -34,50 +34,10 @@ const Header = ({ title }: HeaderProps) => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
-  console.log("Header rendering - commission open:", commissionOpen, "permissions open:", permissionsOpen);
-  
   return (
     <header className="flex items-center justify-between bg-card border-b border-border px-6 py-4 shadow-sm relative">
       <div className="flex items-center">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-10 w-10">
-              <Menu className="h-5 w-5" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-48 bg-card border border-border shadow-lg" align="start" sideOffset={4}>
-            <DropdownMenuItem 
-              className="cursor-pointer hover:bg-accent transition-colors"
-              onClick={() => {
-                console.log("MI COMISIÓN clicked");
-                setCommissionOpen(true);
-              }}
-            >
-              <TrendingUp className="mr-3 h-4 w-4" />
-              <span>MI COMISIÓN</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem 
-              className="cursor-pointer hover:bg-accent transition-colors"
-              onClick={() => {
-                console.log("PERMISOS clicked");
-                setPermissionsOpen(true);
-              }}
-            >
-              <Shield className="mr-3 h-4 w-4" />
-              <span>PERMISOS</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem 
-              className="cursor-pointer hover:bg-accent transition-colors"
-              onClick={() => {
-                console.log("HERRAMIENTAS clicked - navigating to /herramientas");
-                navigate('/herramientas');
-              }}
-            >
-              <Wrench className="mr-3 h-4 w-4" />
-              <span>HERRAMIENTAS</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {/* Hamburger menu removed */}
       </div>
       
       <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
