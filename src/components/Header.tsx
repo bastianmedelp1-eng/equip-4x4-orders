@@ -16,6 +16,7 @@ import { useTheme } from "next-themes";
 import { useState } from "react";
 import SettingsDialog from "./SettingsDialog";
 import PermissionsDialog from "./PermissionsDialog";
+import CommissionDialog from "./CommissionDialog";
 import logo from "/lovable-uploads/ce13be00-df3c-4711-b669-77508ef1cd72.png";
 
 interface HeaderProps {
@@ -26,6 +27,7 @@ const Header = ({ title }: HeaderProps) => {
   const { theme, setTheme } = useTheme();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [permissionsOpen, setPermissionsOpen] = useState(false);
+  const [commissionOpen, setCommissionOpen] = useState(false);
   const navigate = useNavigate();
   
   const toggleTheme = () => {
@@ -44,7 +46,7 @@ const Header = ({ title }: HeaderProps) => {
           <DropdownMenuContent className="w-48 bg-background border border-border shadow-lg z-50" align="start">
             <DropdownMenuItem 
               className="cursor-pointer hover:bg-accent transition-colors"
-              onClick={() => navigate('/mi-comision')}
+              onClick={() => setCommissionOpen(true)}
             >
               <TrendingUp className="mr-3 h-4 w-4" />
               <span>MI COMISIÓN</span>
@@ -147,6 +149,11 @@ const Header = ({ title }: HeaderProps) => {
       <PermissionsDialog 
         open={permissionsOpen} 
         onOpenChange={setPermissionsOpen} 
+      />
+      
+      <CommissionDialog 
+        open={commissionOpen} 
+        onOpenChange={setCommissionOpen} 
       />
     </header>
   );
