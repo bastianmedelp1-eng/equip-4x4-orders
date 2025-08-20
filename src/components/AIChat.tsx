@@ -219,7 +219,7 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
 
       {/* Chat Window */}
       {!isMinimized && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-[700px] animate-scale-in animate-fade-in">
+        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-[700px] animate-scale-in animate-fade-in">
           <Card className="shadow-2xl border border-border h-[500px]">
             <CardHeader className="pb-3">
               <CardTitle className="text-xl flex items-center justify-between">
