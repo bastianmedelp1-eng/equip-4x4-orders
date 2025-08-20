@@ -198,6 +198,29 @@ const Calendar = () => {
 
   const days = getDaysInMonth();
 
+  // Calculate totals for each service type
+  const getServiceTypeTotals = () => {
+    const totals = {
+      "ENVÍO": 0,
+      "INSTALACIÓN DE CÚPULA": 0,
+      "ESPECIAL": 0,
+      "INSTALACIÓN EN TALLER": 0
+    };
+
+    Object.values(events).forEach(dayEvents => {
+      dayEvents.forEach(event => {
+        if (totals.hasOwnProperty(event.type)) {
+          totals[event.type]++;
+        }
+      });
+    });
+
+    return totals;
+  };
+
+  const serviceTotals = getServiceTypeTotals();
+  const totalAllServices = Object.values(serviceTotals).reduce((sum, count) => sum + count, 0);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -270,13 +293,16 @@ const Calendar = () => {
           <Button
             onClick={() => setFilterType("TODOS")}
             variant="ghost"
-            className={`px-4 py-2 text-sm font-medium rounded-full transition-all hover:bg-accent ${
+            className={`px-4 py-2 text-sm font-medium rounded-full transition-all hover:bg-accent flex items-center gap-2 ${
               filterType === "TODOS" 
                 ? "bg-primary/10 text-primary" 
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
             Todos
+            <div className="w-5 h-5 rounded-full bg-foreground/80 text-background text-xs font-bold flex items-center justify-center">
+              {totalAllServices}
+            </div>
           </Button>
           <Button
             onClick={() => setFilterType("ENVÍO")}
@@ -289,6 +315,9 @@ const Calendar = () => {
           >
             <div className="w-2 h-2 rounded-full bg-green-500"></div>
             Envío
+            <div className="w-5 h-5 rounded-full bg-green-600 text-white text-xs font-bold flex items-center justify-center">
+              {serviceTotals["ENVÍO"]}
+            </div>
           </Button>
           <Button
             onClick={() => setFilterType("INSTALACIÓN DE CÚPULA")}
@@ -301,6 +330,9 @@ const Calendar = () => {
           >
             <div className="w-2 h-2 rounded-full bg-blue-500"></div>
             Instalación de cúpula
+            <div className="w-5 h-5 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
+              {serviceTotals["INSTALACIÓN DE CÚPULA"]}
+            </div>
           </Button>
           <Button
             onClick={() => setFilterType("ESPECIAL")}
@@ -313,6 +345,9 @@ const Calendar = () => {
           >
             <div className="w-2 h-2 rounded-full bg-red-600"></div>
             Especial
+            <div className="w-5 h-5 rounded-full bg-red-600 text-white text-xs font-bold flex items-center justify-center">
+              {serviceTotals["ESPECIAL"]}
+            </div>
           </Button>
           <Button
             onClick={() => setFilterType("INSTALACIÓN EN TALLER")}
@@ -325,6 +360,9 @@ const Calendar = () => {
           >
             <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
             Instalación en taller
+            <div className="w-5 h-5 rounded-full bg-yellow-600 text-white text-xs font-bold flex items-center justify-center">
+              {serviceTotals["INSTALACIÓN EN TALLER"]}
+            </div>
           </Button>
         </div>
 
