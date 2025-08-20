@@ -11,6 +11,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, User, Settings, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useState } from "react";
+import SettingsDialog from "./SettingsDialog";
 import logo from "/lovable-uploads/ce13be00-df3c-4711-b669-77508ef1cd72.png";
 
 interface HeaderProps {
@@ -19,6 +21,7 @@ interface HeaderProps {
 
 const Header = ({ title }: HeaderProps) => {
   const { theme, setTheme } = useTheme();
+  const [settingsOpen, setSettingsOpen] = useState(false);
   
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -70,7 +73,10 @@ const Header = ({ title }: HeaderProps) => {
               <User className="mr-3 h-4 w-4" />
               <span>Editar perfil</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer hover:bg-accent transition-colors">
+            <DropdownMenuItem 
+              className="cursor-pointer hover:bg-accent transition-colors"
+              onClick={() => setSettingsOpen(true)}
+            >
               <Settings className="mr-3 h-4 w-4" />
               <span>Configuración</span>
             </DropdownMenuItem>
@@ -102,6 +108,11 @@ const Header = ({ title }: HeaderProps) => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+      
+      <SettingsDialog 
+        open={settingsOpen} 
+        onOpenChange={setSettingsOpen} 
+      />
     </header>
   );
 };
