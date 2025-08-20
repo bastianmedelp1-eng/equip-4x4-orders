@@ -410,12 +410,6 @@ const Calendar = () => {
                 const row = Math.floor(dayIndex / 7);
                 const col = dayIndex % 7;
                 
-                // Count total events by type for this day (before filtering)
-                const totalEventsByType = dayEvents.reduce((acc, evt) => {
-                  acc[evt.type] = (acc[evt.type] || 0) + 1;
-                  return acc;
-                }, {});
-                
                 return getFilteredEvents(dayEvents).map((event, eventIndex) => {
                   // Calculate position within the specific day cell - stacked vertically
                   const cellWidth = 100 / 7; // Each cell is 1/7 of the total width
@@ -429,9 +423,6 @@ const Calendar = () => {
                   const serviceType = event.type === 'ENVÍO' ? 'PF' : 
                                      event.type === 'INSTALACIÓN DE CÚPULA' ? 'C' : 
                                      event.type === 'ESPECIAL' ? 'ESP' : 'RT';
-                  
-                  // Get count for this event type
-                  const eventTypeCount = totalEventsByType[event.type] || 1;
                   
                   return (
                     <button
@@ -467,11 +458,6 @@ const Calendar = () => {
                                            'hsl(45 93% 47%)'
                           }}
                         ></div>
-                        
-                        {/* Counter badge */}
-                        <div className="w-5 h-5 rounded-full bg-foreground/80 text-background text-xs font-bold flex items-center justify-center flex-shrink-0">
-                          {eventTypeCount}
-                        </div>
                         
                         <div className="flex-1 min-w-0 overflow-hidden">
                           {/* Single line: Order Code, Service Type and Vehicle Model */}
