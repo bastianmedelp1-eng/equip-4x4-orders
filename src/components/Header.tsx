@@ -17,7 +17,10 @@ import {
 } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { LogOut, User, Settings, Moon, Sun, Menu, TrendingUp, Shield, Wrench } from "lucide-react";
+import { LogOut, User, Settings, Moon, Sun, Menu, TrendingUp, Shield, Wrench, 
+         Package, ShoppingCart, DollarSign, Users, Wrench as WrenchIcon, 
+         Calendar as CalendarIcon, Car, Star, Search, Tag, UserCheck, 
+         SearchCheck, Zap, QrCode, ChevronDown, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "next-themes";
 import { useState } from "react";
@@ -25,6 +28,16 @@ import SettingsDialog from "./SettingsDialog";
 import PermissionsDialog from "./PermissionsDialog";
 import CommissionDialog from "./CommissionDialog";
 import logo from "/lovable-uploads/ce13be00-df3c-4711-b669-77508ef1cd72.png";
+
+// Import custom icons
+import iconProductos from "@/assets/icon-productos.png";
+import iconMarcas from "@/assets/icon-marcas.png";
+import iconPedido from "@/assets/icon-pedido.png";
+import iconCotizacion from "@/assets/icon-cotizacion.png";
+import iconHistorial from "@/assets/icon-historial.png";
+import iconEstadisticas from "@/assets/icon-estadisticas.png";
+import iconUsuarios from "@/assets/icon-usuarios.png";
+import iconCalendario from "@/assets/icon-calendario.png";
 
 interface HeaderProps {
   title?: string;
@@ -36,11 +49,162 @@ const Header = ({ title }: HeaderProps) => {
   const [permissionsOpen, setPermissionsOpen] = useState(false);
   const [commissionOpen, setCommissionOpen] = useState(false);
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const navigate = useNavigate();
   
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
+
+  const toggleSection = (sectionId: string) => {
+    setExpandedSection(expandedSection === sectionId ? null : sectionId);
+  };
+
+  const handleItemClick = (itemId: string) => {
+    setSideMenuOpen(false);
+    
+    switch (itemId) {
+      case "productos":
+        navigate("/productos");
+        break;
+      case "marcas":
+        navigate("/marcas");
+        break;
+      case "modelos":
+        navigate("/modelos");
+        break;
+      case "accesorios":
+        navigate("/accesorios");
+        break;
+      case "lista-especiales":
+        navigate("/lista-especiales");
+        break;
+      case "pedidos":
+        navigate("/pedidos");
+        break;
+      case "cotizacion":
+        navigate("/cotizacion");
+        break;
+      case "buscador-precios":
+        navigate("/buscador-precios");
+        break;
+      case "historial":
+        navigate("/historial-ventas");
+        break;
+      case "gastos":
+        navigate("/gastos");
+        break;
+      case "categorias-gasto":
+        navigate("/categorias-gasto");
+        break;
+      case "estadisticas":
+        navigate("/estadisticas");
+        break;
+      case "usuarios":
+        navigate("/usuarios");
+        break;
+      case "vendedores":
+        navigate("/vendedores");
+        break;
+      case "trabajadores":
+        navigate("/trabajadores");
+        break;
+      case "buscar-orden":
+        navigate("/buscar-orden");
+        break;
+      case "corte":
+        navigate("/corte-laser");
+        break;
+      case "qr":
+        navigate("/escaner-qr");
+        break;
+      case "herramientas":
+        navigate("/herramientas");
+        break;
+      case "vista-herramientas":
+        navigate("/vista-herramientas");
+        break;
+      case "calendario":
+        navigate("/calendario");
+        break;
+      default:
+        console.log(`Clicked on ${itemId}`);
+        break;
+    }
+  };
+
+  const dashboardSections = [
+    {
+      id: "productos",
+      title: "Productos",
+      icon: "📦",
+      items: [
+        { id: "productos", title: "Productos", icon: iconProductos },
+        { id: "marcas", title: "Marcas", icon: iconMarcas },
+        { id: "modelos", title: "Modelos", lucideIcon: Car },
+        { id: "accesorios", title: "Accesorios", lucideIcon: Package },
+        { id: "lista-especiales", title: "Especiales", lucideIcon: Star },
+      ]
+    },
+    {
+      id: "pedidos-ventas",
+      title: "Pedidos y Ventas",
+      icon: "🛒",
+      items: [
+        { id: "pedidos", title: "Pedidos", icon: iconPedido },
+        { id: "cotizacion", title: "Cotización", icon: iconCotizacion },
+        { id: "buscador-precios", title: "Buscador de precios", lucideIcon: Search },
+        { id: "historial", title: "Historial de ventas", icon: iconHistorial },
+      ]
+    },
+    {
+      id: "finanzas",
+      title: "Finanzas",
+      icon: "💰",
+      items: [
+        { id: "gastos", title: "Gastos", lucideIcon: DollarSign },
+        { id: "categorias-gasto", title: "Categorías de gasto", lucideIcon: Tag },
+        { id: "estadisticas", title: "Estadísticas", icon: iconEstadisticas },
+      ]
+    },
+    {
+      id: "personas",
+      title: "Personas",
+      icon: "👥",
+      items: [
+        { id: "usuarios", title: "Usuarios", icon: iconUsuarios },
+        { id: "vendedores", title: "Vendedores", lucideIcon: Users },
+        { id: "trabajadores", title: "Trabajadores", lucideIcon: UserCheck },
+      ]
+    },
+    {
+      id: "operaciones",
+      title: "Operaciones",
+      icon: "⚙️",
+      items: [
+        { id: "buscar-orden", title: "Buscar orden de trabajo", lucideIcon: SearchCheck },
+        { id: "corte", title: "Corte Láser", lucideIcon: Zap },
+        { id: "qr", title: "Escanear QR", lucideIcon: QrCode },
+      ]
+    },
+    {
+      id: "herramientas",
+      title: "Herramientas",
+      icon: "🔧",
+      items: [
+        { id: "herramientas", title: "Herramientas", lucideIcon: WrenchIcon },
+        { id: "vista-herramientas", title: "Vista de Herramientas", lucideIcon: WrenchIcon },
+      ]
+    },
+    {
+      id: "agenda",
+      title: "Agenda", 
+      icon: "📅",
+      items: [
+        { id: "calendario", title: "Calendario", icon: iconCalendario },
+      ]
+    }
+  ];
 
   return (
     <header className="flex items-center justify-between bg-card border-b border-border px-6 py-4 shadow-sm relative">
@@ -51,44 +215,92 @@ const Header = ({ title }: HeaderProps) => {
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-80 bg-background">
+          <SheetContent side="right" className="w-96 bg-background overflow-y-auto">
             <SheetHeader>
-              <SheetTitle className="text-left">Menú de Opciones</SheetTitle>
+              <SheetTitle className="text-left">Menú de Navegación</SheetTitle>
             </SheetHeader>
-            <div className="mt-6 space-y-4">
-              <Button
-                variant="outline"
-                className="w-full justify-start h-12 text-left"
-                onClick={() => {
-                  setCommissionOpen(true);
-                  setSideMenuOpen(false);
-                }}
-              >
-                <TrendingUp className="mr-3 h-5 w-5" />
-                <span>MI COMISIÓN</span>
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full justify-start h-12 text-left"
-                onClick={() => {
-                  setPermissionsOpen(true);
-                  setSideMenuOpen(false);
-                }}
-              >
-                <Shield className="mr-3 h-5 w-5" />
-                <span>PERMISOS</span>
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full justify-start h-12 text-left"
-                onClick={() => {
-                  navigate('/herramientas');
-                  setSideMenuOpen(false);
-                }}
-              >
-                <Wrench className="mr-3 h-5 w-5" />
-                <span>HERRAMIENTAS</span>
-              </Button>
+            <div className="mt-6 space-y-6">
+              
+              {/* Quick Actions */}
+              <div className="space-y-3">
+                <h3 className="text-sm font-semibold text-muted-foreground">ACCIONES RÁPIDAS</h3>
+                <div className="space-y-2">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start h-11 text-left"
+                    onClick={() => {
+                      setCommissionOpen(true);
+                      setSideMenuOpen(false);
+                    }}
+                  >
+                    <TrendingUp className="mr-3 h-4 w-4" />
+                    <span>MI COMISIÓN</span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start h-11 text-left"
+                    onClick={() => {
+                      setPermissionsOpen(true);
+                      setSideMenuOpen(false);
+                    }}
+                  >
+                    <Shield className="mr-3 h-4 w-4" />
+                    <span>PERMISOS</span>
+                  </Button>
+                </div>
+              </div>
+
+              {/* Categories */}
+              <div className="space-y-4">
+                <h3 className="text-sm font-semibold text-muted-foreground">CATEGORÍAS</h3>
+                {dashboardSections.map((section) => {
+                  const isExpanded = expandedSection === section.id;
+                  
+                  return (
+                    <div key={section.id} className="space-y-2">
+                      <Button
+                        variant="ghost"
+                        onClick={() => toggleSection(section.id)}
+                        className="w-full justify-between h-11 text-left hover:bg-accent"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-lg">{section.icon}</span>
+                          <span className="font-medium">{section.title}</span>
+                        </div>
+                        {isExpanded ? (
+                          <ChevronDown className="h-4 w-4" />
+                        ) : (
+                          <ChevronRight className="h-4 w-4" />
+                        )}
+                      </Button>
+                      
+                      {isExpanded && (
+                        <div className="ml-6 space-y-1">
+                          {section.items.map((item) => (
+                            <Button
+                              key={item.id}
+                              variant="ghost"
+                              onClick={() => handleItemClick(item.id)}
+                              className="w-full justify-start h-9 text-left text-sm hover:bg-accent/50"
+                            >
+                              {item.icon ? (
+                                <img 
+                                  src={item.icon as string} 
+                                  alt={item.title}
+                                  className="mr-3 h-4 w-4 object-contain"
+                                />
+                              ) : item.lucideIcon ? (
+                                <item.lucideIcon className="mr-3 h-4 w-4" />
+                              ) : null}
+                              <span>{item.title}</span>
+                            </Button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </SheetContent>
         </Sheet>
