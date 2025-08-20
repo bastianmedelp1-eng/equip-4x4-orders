@@ -18,16 +18,12 @@ interface HeaderProps {
 const Header = ({ title }: HeaderProps) => {
   return (
     <header className="flex items-center justify-between bg-card border-b border-border px-6 py-4 shadow-sm">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center">
         <img 
           src={logo} 
           alt="Equipers 4x4 Logo" 
-          className="h-12 w-12 object-contain"
+          className="h-20 w-20 object-contain"
         />
-        <div>
-          <h1 className="text-xl font-bold text-foreground">Equipers 4x4</h1>
-          <p className="text-sm text-muted-foreground">{title || "Sistema de Pedidos"}</p>
-        </div>
       </div>
       
       <div className="flex items-center gap-4">
