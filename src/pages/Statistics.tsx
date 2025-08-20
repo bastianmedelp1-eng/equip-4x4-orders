@@ -143,44 +143,218 @@ const Statistics = () => {
           </CardContent>
         </Card>
 
-        {/* Statistics Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Racks Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl font-bold">RACKS</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-lg text-muted-foreground">
-                Los 5 Racks mas vendidos
-              </p>
-              {/* This would be populated with actual rack data */}
-              <div className="mt-4 space-y-2">
-                <div className="text-sm text-muted-foreground">
-                  Datos de racks se mostrarán aquí...
-                </div>
+        {/* General CLP Statistics */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="text-xl font-bold text-center">
+              General CLP + (ARS convertido a CLP) + (USD convertido a CLP)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <div className="bg-red-500 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">VENTAS SIN VERIFICAR</div>
+                <div className="text-xl font-bold">$70,907,500.00</div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="bg-green-500 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">MONTO DE VENTAS</div>
+                <div className="text-xl font-bold">$17,583,000.00</div>
+              </div>
+              <div className="bg-blue-500 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">GASTOS</div>
+                <div className="text-xl font-bold">$51,147,035.00</div>
+              </div>
+              <div className="bg-gray-600 text-white p-4 rounded text-center">
+                <div className="font-semibold mb-2">GANANCIA</div>
+                <div className="text-xl font-bold">-$35,564,035.00</div>
+              </div>
+            </div>
 
-          {/* Cupulas Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl font-bold">CUPULAS</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-lg text-muted-foreground">
-                Las 5 Cupulas mas vendidas
-              </p>
-              {/* This would be populated with actual cupula data */}
-              <div className="mt-4 space-y-2">
-                <div className="text-sm text-muted-foreground">
-                  Datos de cúpulas se mostrarán aquí...
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div className="bg-gray-100 p-4 rounded">
+                <h3 className="font-bold text-lg mb-2">RACKS</h3>
+                <div className="space-y-1">
+                  <div>Monto: $9,512,000.00</div>
+                  <div>Cantidad de Racks: 23</div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+              <div className="bg-gray-100 p-4 rounded">
+                <h3 className="font-bold text-lg mb-2">CUPULAS</h3>
+                <div className="space-y-1">
+                  <div>Monto: $8,071,000.00</div>
+                  <div>Cantidad de Cupulas: 20</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Verified Sales Table */}
+            <div className="mb-8">
+              <div className="bg-green-600 text-white p-3 rounded-t">
+                <h3 className="font-bold text-center">TOTAL DE VENTAS VERIFICADAS POR VENDEDOR</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse bg-green-100">
+                  <thead>
+                    <tr className="bg-green-200">
+                      <th className="border border-gray-300 p-2 text-left">VENDEDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE COMÚN</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE DISTRIBUIDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE ARGENTINO</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">MIGUEL</td>
+                      <td className="border border-gray-300 p-2">$3,171,000.00</td>
+                      <td className="border border-gray-300 p-2">$0.00</td>
+                      <td className="border border-gray-300 p-2">$7,950,000.00</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">FRANYELIS</td>
+                      <td className="border border-gray-300 p-2">$4,830,000.00</td>
+                      <td className="border border-gray-300 p-2">$1,082,000.00</td>
+                      <td className="border border-gray-300 p-2">$550,000.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Unverified Sales Table */}
+            <div className="mb-8">
+              <div className="bg-red-600 text-white p-3 rounded-t">
+                <h3 className="font-bold text-center">TOTAL DE VENTAS SIN VERIFICAR POR VENDEDOR(FALTAN ABONOS POR VERIFICAR)</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse bg-red-100">
+                  <thead>
+                    <tr className="bg-red-200">
+                      <th className="border border-gray-300 p-2 text-left">VENDEDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE COMÚN</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE DISTRIBUIDOR</th>
+                      <th className="border border-gray-300 p-2 text-left">CLIENTE ARGENTINO</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">MIGUEL</td>
+                      <td className="border border-gray-300 p-2">$20,638,500.00</td>
+                      <td className="border border-gray-300 p-2"></td>
+                      <td className="border border-gray-300 p-2"></td>
+                    </tr>
+                    <tr>
+                      <td className="border border-gray-300 p-2 font-semibold">FRANYELIS</td>
+                      <td className="border border-gray-300 p-2">$34,187,000.00</td>
+                      <td className="border border-gray-300 p-2"></td>
+                      <td className="border border-gray-300 p-2"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Charts Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Verified Sales Chart */}
+              <div className="bg-green-200 p-6 rounded">
+                <h3 className="font-bold text-center mb-4"># Ventas por vendedor</h3>
+                <div className="flex items-center justify-center">
+                  <div className="relative w-64 h-64">
+                    <svg viewBox="0 0 100 100" className="w-full h-full">
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="40"
+                        fill="none"
+                        stroke="#3B82F6"
+                        strokeWidth="20"
+                        strokeDasharray="64, 36"
+                        strokeDashoffset="0"
+                        transform="rotate(-90 50 50)"
+                      />
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="40"
+                        fill="none"
+                        stroke="#EC4899"
+                        strokeWidth="20"
+                        strokeDasharray="36, 64"
+                        strokeDashoffset="-64"
+                        transform="rotate(-90 50 50)"
+                      />
+                      <text x="50" y="45" textAnchor="middle" className="text-xs font-bold fill-blue-600">
+                        MIGUEL: 11,121,000
+                      </text>
+                      <text x="50" y="55" textAnchor="middle" className="text-xs font-bold fill-pink-600">
+                        FRANYELIS: 6,462,000
+                      </text>
+                    </svg>
+                  </div>
+                </div>
+                <div className="flex justify-center space-x-4 mt-4 text-sm">
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 bg-blue-500 mr-2"></div>
+                    <span>MIGUEL: 11,121,000</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 bg-pink-500 mr-2"></div>
+                    <span>FRANYELIS: 6,462,000</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Unverified Sales Chart */}
+              <div className="bg-red-200 p-6 rounded">
+                <h3 className="font-bold text-center mb-4"># Ventas NO VERIFICADAS por vendedor</h3>
+                <div className="flex items-center justify-center">
+                  <div className="relative w-64 h-64">
+                    <svg viewBox="0 0 100 100" className="w-full h-full">
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="40"
+                        fill="none"
+                        stroke="#3B82F6"
+                        strokeWidth="20"
+                        strokeDasharray="38, 62"
+                        strokeDashoffset="0"
+                        transform="rotate(-90 50 50)"
+                      />
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="40"
+                        fill="none"
+                        stroke="#EC4899"
+                        strokeWidth="20"
+                        strokeDasharray="62, 38"
+                        strokeDashoffset="-38"
+                        transform="rotate(-90 50 50)"
+                      />
+                      <text x="50" y="45" textAnchor="middle" className="text-xs font-bold fill-blue-600">
+                        MIGUEL: 20,638,500
+                      </text>
+                      <text x="50" y="55" textAnchor="middle" className="text-xs font-bold fill-pink-600">
+                        FRANYELIS: 34,187,000
+                      </text>
+                    </svg>
+                  </div>
+                </div>
+                <div className="flex justify-center space-x-4 mt-4 text-sm">
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 bg-blue-500 mr-2"></div>
+                    <span>MIGUEL: 20,638,500</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 bg-pink-500 mr-2"></div>
+                    <span>FRANYELIS: 34,187,000</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
