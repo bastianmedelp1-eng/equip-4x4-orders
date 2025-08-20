@@ -365,9 +365,10 @@ const Calendar = () => {
                 const col = dayIndex % 7;
                 
                 return getFilteredEvents(dayEvents).map((event, eventIndex) => {
-                  // Calculate position within the specific day cell
+                  // Calculate position within the specific day cell - ensure no overlap
                   const cellWidth = 100 / 7; // Each cell is 1/7 of the total width
-                  const topOffset = row * 200 + 45 + (eventIndex * 40); // Updated for new cell height and more spacing
+                  const eventHeight = 42; // Fixed height for each event including margin
+                  const topOffset = row * 200 + 45 + (eventIndex * eventHeight); // Ensure proper spacing
                   const leftOffset = col * cellWidth + 0.3; // Start at the beginning of the cell + small margin
                   const eventWidth = cellWidth - 0.6; // Fill the cell width minus margins
                   
@@ -380,25 +381,26 @@ const Calendar = () => {
                     <button
                       key={`${dayNum}-${eventIndex}`}
                       onClick={() => handleOrderClick(event)}
-                      className="absolute pointer-events-auto transition-all hover:scale-[1.02] hover:shadow-lg cursor-pointer z-10 rounded-lg p-2 text-left"
+                      className="absolute pointer-events-auto transition-all hover:scale-[1.01] hover:shadow-lg cursor-pointer z-10 rounded-lg p-2 text-left"
                       style={{
                         top: `${topOffset}px`,
                         left: `${leftOffset}%`,
                         width: `${eventWidth}%`,
+                        height: '38px', // Fixed height to prevent overlap
                         backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.15)' :
                                        event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.15)' :
                                        event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.15)' :
                                        'hsl(45 93% 47% / 0.15)',
-                        minHeight: '36px',
                         border: `1px solid ${
                           event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.3)' :
                           event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.3)' :
                           event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.3)' :
                           'hsl(45 93% 47% / 0.3)'
-                        }`
+                        }`,
+                        overflow: 'hidden' // Prevent content overflow
                       }}
                     >
-                      <div className="flex items-start gap-2">
+                      <div className="flex items-start gap-2 h-full">
                         {/* Color dot indicator */}
                         <div 
                           className="w-2.5 h-2.5 rounded-full flex-shrink-0 mt-1"
@@ -410,12 +412,11 @@ const Calendar = () => {
                           }}
                         ></div>
                         
-                        <div className="flex-1 min-w-0">
+                        <div className="flex-1 min-w-0 overflow-hidden">
                           {/* Multiple lines for order number, service type and vehicle */}
                           <div className="text-sm font-bold text-foreground leading-tight">
-                            #{event.id} [{serviceType}]
-                            <br />
-                            {event.vehicle}
+                            <div className="truncate">#{event.id} [{serviceType}]</div>
+                            <div className="truncate text-xs mt-0.5">{event.vehicle}</div>
                           </div>
                         </div>
                       </div>
