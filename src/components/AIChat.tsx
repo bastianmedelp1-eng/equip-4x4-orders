@@ -163,7 +163,7 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
       {/* Floating AI Assistant Button */}
       {isMinimized && (
         <div 
-          className="fixed bottom-6 right-6 z-50 cursor-pointer"
+          className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 cursor-pointer"
           onClick={onToggleMinimize}
         >
           <div className="relative">
