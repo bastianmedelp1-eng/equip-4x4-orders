@@ -10,11 +10,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { LogOut, User, Settings, Moon, Sun, Menu, TrendingUp } from "lucide-react";
+import { LogOut, User, Settings, Moon, Sun, Menu, TrendingUp, Shield } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "next-themes";
 import { useState } from "react";
 import SettingsDialog from "./SettingsDialog";
+import PermissionsDialog from "./PermissionsDialog";
 import logo from "/lovable-uploads/ce13be00-df3c-4711-b669-77508ef1cd72.png";
 
 interface HeaderProps {
@@ -24,6 +25,7 @@ interface HeaderProps {
 const Header = ({ title }: HeaderProps) => {
   const { theme, setTheme } = useTheme();
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [permissionsOpen, setPermissionsOpen] = useState(false);
   const navigate = useNavigate();
   
   const toggleTheme = () => {
@@ -46,6 +48,13 @@ const Header = ({ title }: HeaderProps) => {
             >
               <TrendingUp className="mr-3 h-4 w-4" />
               <span>MI COMISIÓN</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              className="cursor-pointer hover:bg-accent transition-colors"
+              onClick={() => setPermissionsOpen(true)}
+            >
+              <Shield className="mr-3 h-4 w-4" />
+              <span>PERMISOS</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -133,6 +142,11 @@ const Header = ({ title }: HeaderProps) => {
       <SettingsDialog 
         open={settingsOpen} 
         onOpenChange={setSettingsOpen} 
+      />
+      
+      <PermissionsDialog 
+        open={permissionsOpen} 
+        onOpenChange={setPermissionsOpen} 
       />
     </header>
   );
