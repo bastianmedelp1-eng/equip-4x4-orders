@@ -4,6 +4,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
+import Header from "@/components/Header";
 import Index from "./pages/Index";
 import Users from "./pages/Users";
 import Brands from "./pages/Brands";
@@ -45,35 +48,45 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/usuarios" element={<Users />} />
-            <Route path="/marcas" element={<Brands />} />
-            <Route path="/modelos" element={<Models />} />
-            <Route path="/vendedores" element={<Sellers />} />
-            <Route path="/accesorios" element={<Accessories />} />
-            <Route path="/pedidos" element={<OrdersList />} />
-            <Route path="/pedido" element={<Orders />} />
-            <Route path="/lista-cupulas" element={<CupulasList />} />
-            <Route path="/lista-racks" element={<RacksList />} />
-            <Route path="/lista-especiales" element={<SpecialsList />} />
-            <Route path="/calendario" element={<Calendar />} />
-            <Route path="/buscador-precios" element={<PriceSearch />} />
-            <Route path="/cotizacion" element={<Quotations />} />
-            <Route path="/historial-ventas" element={<SalesHistory />} />
-            <Route path="/estadisticas" element={<Statistics />} />
-            <Route path="/categorias-gasto" element={<ExpenseCategories />} />
-            <Route path="/trabajadores" element={<Workers />} />
-            <Route path="/escaner-qr" element={<QRScanner />} />
-            <Route path="/gastos" element={<Expenses />} />
-            <Route path="/corte-laser" element={<LaserCutting />} />
-            <Route path="/herramientas" element={<Tools />} />
-            <Route path="/productos" element={<Products />} />
-            <Route path="/vista-herramientas" element={<ToolsView />} />
-            <Route path="/buscar-orden" element={<WorkOrderSearch />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <SidebarProvider>
+            <div className="min-h-screen flex w-full">
+              <AppSidebar />
+              <main className="flex-1 flex flex-col">
+                <Header />
+                <div className="flex-1">
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/usuarios" element={<Users />} />
+                    <Route path="/marcas" element={<Brands />} />
+                    <Route path="/modelos" element={<Models />} />
+                    <Route path="/vendedores" element={<Sellers />} />
+                    <Route path="/accesorios" element={<Accessories />} />
+                    <Route path="/pedidos" element={<OrdersList />} />
+                    <Route path="/pedido" element={<Orders />} />
+                    <Route path="/lista-cupulas" element={<CupulasList />} />
+                    <Route path="/lista-racks" element={<RacksList />} />
+                    <Route path="/lista-especiales" element={<SpecialsList />} />
+                    <Route path="/calendario" element={<Calendar />} />
+                    <Route path="/buscador-precios" element={<PriceSearch />} />
+                    <Route path="/cotizacion" element={<Quotations />} />
+                    <Route path="/historial-ventas" element={<SalesHistory />} />
+                    <Route path="/estadisticas" element={<Statistics />} />
+                    <Route path="/categorias-gasto" element={<ExpenseCategories />} />
+                    <Route path="/trabajadores" element={<Workers />} />
+                    <Route path="/escaner-qr" element={<QRScanner />} />
+                    <Route path="/gastos" element={<Expenses />} />
+                    <Route path="/corte-laser" element={<LaserCutting />} />
+                    <Route path="/herramientas" element={<Tools />} />
+                    <Route path="/productos" element={<Products />} />
+                    <Route path="/vista-herramientas" element={<ToolsView />} />
+                    <Route path="/buscar-orden" element={<WorkOrderSearch />} />
+                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </div>
+              </main>
+            </div>
+          </SidebarProvider>
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>

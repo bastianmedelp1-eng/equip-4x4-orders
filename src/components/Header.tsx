@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { LogOut, User, Settings, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useState } from "react";
@@ -28,19 +29,21 @@ const Header = ({ title }: HeaderProps) => {
   };
 
   return (
-    <header className="flex items-center justify-between bg-card border-b border-border px-6 py-4 shadow-sm relative">
-      <div className="flex-1"></div>
-      
-      <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center">
-        <img 
-          src={logo} 
-          alt="Equipers 4x4 Logo" 
-          className="h-24 w-24 object-contain"
-        />
-      </div>
-      
-      <div className="flex items-center gap-4">
-        <DropdownMenu>
+    <header className="bg-card border-b border-border shadow-sm">
+      <div className="flex items-center justify-between px-6 py-4">
+        <div className="flex-1"></div>
+        
+        <div className="flex flex-col items-center">
+          <img 
+            src={logo} 
+            alt="Equipers 4x4 Logo" 
+            className="h-20 w-20 object-contain mb-2"
+          />
+          <SidebarTrigger className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105" />
+        </div>
+        
+        <div className="flex items-center gap-4">
+          <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-10 w-10 rounded-full hover:bg-accent">
               <Avatar className="h-10 w-10 border-2 border-primary/20 hover:border-primary/40 transition-colors">
@@ -107,6 +110,7 @@ const Header = ({ title }: HeaderProps) => {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        </div>
       </div>
       
       <SettingsDialog 
