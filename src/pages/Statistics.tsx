@@ -13,6 +13,16 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 interface ExchangeRate {
   from: string;
@@ -29,6 +39,22 @@ const Statistics = () => {
     { from: "CLP", to: "USD", rate: "0,001000" },
     { from: "USD", to: "CLP", rate: "1000,000000" }
   ]);
+
+  // Data for Racks y Cupulas chart
+  const monthlyData = [
+    { month: 'ENERO', RACKS: 1082262.32, CUPULAS: 0 },
+    { month: 'FEBRERO', RACKS: 0, CUPULAS: 0 },
+    { month: 'MARZO', RACKS: 0, CUPULAS: 0 },
+    { month: 'ABRIL', RACKS: 0, CUPULAS: 0 },
+    { month: 'MAYO', RACKS: 28638696.75, CUPULAS: 17882262.32 },
+    { month: 'JUNIO', RACKS: 25432671.27, CUPULAS: 36304725.64 },
+    { month: 'JULIO', RACKS: 21334316.92, CUPULAS: 71645715.66 },
+    { month: 'AGOSTO', RACKS: 15582827.26, CUPULAS: 41724439.58 },
+    { month: 'SEPTIEMBRE', RACKS: 0, CUPULAS: 0 },
+    { month: 'OCTUBRE', RACKS: 0, CUPULAS: 0 },
+    { month: 'NOVIEMBRE', RACKS: 0, CUPULAS: 0 },
+    { month: 'DICIEMBRE', RACKS: 0, CUPULAS: 0 },
+  ];
 
   const handleBackToHome = () => {
     navigate("/");
@@ -352,6 +378,68 @@ const Statistics = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Monthly Racks y Cupulas Chart */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="text-xl font-bold text-center">Racks y Cupulas</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-96 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={monthlyData}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 80 }}
+                  barCategoryGap="20%"
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis 
+                    dataKey="month" 
+                    angle={-45}
+                    textAnchor="end"
+                    height={80}
+                    interval={0}
+                    fontSize={10}
+                  />
+                  <YAxis 
+                    tickFormatter={(value) => `${(value / 1000000).toFixed(1)}M`}
+                    domain={[0, 80000000]}
+                  />
+                  <Tooltip 
+                    formatter={(value, name) => [
+                      new Intl.NumberFormat('es-ES', {
+                        style: 'currency',
+                        currency: 'CLP',
+                        minimumFractionDigits: 2
+                      }).format(Number(value)),
+                      name
+                    ]}
+                    labelFormatter={(label) => `Mes: ${label}`}
+                  />
+                  <Legend 
+                    wrapperStyle={{ 
+                      paddingTop: '20px',
+                      display: 'flex',
+                      justifyContent: 'center'
+                    }}
+                  />
+                  <Bar 
+                    dataKey="RACKS" 
+                    fill="#22C55E" 
+                    name="RACKS"
+                    radius={[4, 4, 0, 0]}
+                  />
+                  <Bar 
+                    dataKey="CUPULAS" 
+                    fill="#3B82F6" 
+                    name="CUPULAS"
+                    radius={[4, 4, 0, 0]}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
