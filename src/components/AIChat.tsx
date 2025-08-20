@@ -172,24 +172,33 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
         <CardHeader className="pb-3">
           <CardTitle className="text-xl flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img 
-                src="/lovable-uploads/ce13be00-df3c-4711-b669-77508ef1cd72.png" 
-                alt="Equipers 4x4 Logo" 
-                className="h-8 w-8 object-contain"
-              />
+              <button
+                onClick={onToggleMinimize}
+                className="h-10 w-10 p-2 rounded-full hover:bg-accent transition-all duration-200 hover:scale-110 flex items-center justify-center group"
+              >
+                <img 
+                  src="/lovable-uploads/ce13be00-df3c-4711-b669-77508ef1cd72.png" 
+                  alt="Equipers 4x4 Logo" 
+                  className="h-6 w-6 object-contain group-hover:brightness-110 transition-all duration-200"
+                />
+              </button>
               <div className="flex items-center gap-2">
-                <MessageCircle className="h-6 w-6" />
-                <span>Asistente IA - Equipers 4x4</span>
+                <MessageCircle className="h-5 w-5 text-primary" />
+                <span className="font-semibold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+                  Asistente IA
+                </span>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onToggleMinimize}
-              className="h-8 w-8 p-0 hover:bg-accent transition-all duration-200 hover:scale-110"
-            >
-              {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
-            </Button>
+            {!isMinimized && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onToggleMinimize}
+                className="h-8 w-8 p-0 hover:bg-accent transition-all duration-200 hover:scale-110"
+              >
+                <Minimize2 className="h-4 w-4" />
+              </Button>
+            )}
           </CardTitle>
         </CardHeader>
 
