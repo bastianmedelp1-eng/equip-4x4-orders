@@ -171,9 +171,24 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-gray-900/30 via-gray-700/30 to-black/30 blur-xl animate-pulse"></div>
             
             {/* Main button */}
-            <div className="relative h-16 w-16 rounded-full bg-gradient-to-br from-gray-800 via-gray-900 to-black shadow-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(0,0,0,0.5)] group">
+            <div className="relative h-16 w-16 rounded-full bg-gradient-to-br from-gray-800 via-gray-900 to-black shadow-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(0,0,0,0.5)] group overflow-hidden">
               {/* Inner gradient overlay */}
               <div className="absolute inset-2 rounded-full bg-gradient-to-br from-gray-600/40 via-transparent to-black/40"></div>
+              
+              {/* Cloud effects - internal moving clouds */}
+              <div className="absolute inset-3 rounded-full overflow-hidden">
+                {/* Cloud layer 1 */}
+                <div className="absolute w-8 h-2 bg-white/10 rounded-full animate-cloud-slow blur-sm"></div>
+                <div className="absolute w-6 h-1.5 bg-white/15 rounded-full animate-cloud-slower blur-sm top-2"></div>
+                <div className="absolute w-4 h-1 bg-white/8 rounded-full animate-cloud-reverse blur-sm top-1"></div>
+                
+                {/* Cloud layer 2 - different timing */}
+                <div className="absolute w-7 h-1.5 bg-gray-300/12 rounded-full animate-cloud-slow delay-1000 blur-sm top-3"></div>
+                <div className="absolute w-5 h-1 bg-gray-200/10 rounded-full animate-cloud-reverse delay-2000 blur-sm top-2.5"></div>
+                
+                {/* Cloud layer 3 - subtle background clouds */}
+                <div className="absolute w-10 h-3 bg-white/5 rounded-full animate-cloud-slower delay-500 blur-lg"></div>
+              </div>
               
               {/* Pulsing animation rings */}
               <div className="absolute inset-0 rounded-full border-2 border-gray-600/30 animate-ping"></div>
