@@ -19,6 +19,7 @@ const Calendar = () => {
   const [viewMode, setViewMode] = useState("Mes");
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [filterType, setFilterType] = useState("TODOS"); // New filter state
 
   const handleBackToHome = () => {
     navigate("/");
@@ -188,6 +189,13 @@ const Calendar = () => {
     setIsDialogOpen(true);
   };
 
+  // Filter events based on selected filter type
+  const getFilteredEvents = (dayEvents) => {
+    if (!dayEvents) return [];
+    if (filterType === "TODOS") return dayEvents;
+    return dayEvents.filter(event => event.type === filterType);
+  };
+
   const days = getDaysInMonth();
 
   return (
@@ -257,32 +265,75 @@ const Calendar = () => {
           </h1>
         </div>
 
-        {/* Legend - Minimal - All 4 service types */}
-        <div className="flex items-center gap-6 mb-6 pb-4 border-b border-border/50">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
-            <span className="text-sm text-muted-foreground">Envío</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-            <span className="text-sm text-muted-foreground">Instalación de cúpula</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-600"></div>
-            <span className="text-sm text-muted-foreground">Especial</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <span className="text-sm text-muted-foreground">Instalación en taller</span>
-          </div>
+        {/* Filter Buttons - Large for TV viewing */}
+        <div className="flex items-center justify-center gap-4 mb-8 pb-6 border-b border-border/50">
+          <Button
+            onClick={() => setFilterType("TODOS")}
+            variant={filterType === "TODOS" ? "default" : "outline"}
+            className={`px-8 py-4 text-lg font-semibold rounded-lg transition-all ${
+              filterType === "TODOS" 
+                ? "bg-primary text-primary-foreground shadow-lg" 
+                : "border-2 hover:bg-accent text-foreground"
+            }`}
+          >
+            TODOS
+          </Button>
+          <Button
+            onClick={() => setFilterType("ENVÍO")}
+            variant={filterType === "ENVÍO" ? "default" : "outline"}
+            className={`px-8 py-4 text-lg font-semibold rounded-lg transition-all ${
+              filterType === "ENVÍO" 
+                ? "bg-green-500 text-white shadow-lg" 
+                : "border-2 border-green-500 text-green-600 hover:bg-green-50"
+            }`}
+          >
+            <div className="w-4 h-4 rounded-full bg-green-500 mr-2"></div>
+            ENVÍO
+          </Button>
+          <Button
+            onClick={() => setFilterType("INSTALACIÓN DE CÚPULA")}
+            variant={filterType === "INSTALACIÓN DE CÚPULA" ? "default" : "outline"}
+            className={`px-8 py-4 text-lg font-semibold rounded-lg transition-all ${
+              filterType === "INSTALACIÓN DE CÚPULA" 
+                ? "bg-blue-500 text-white shadow-lg" 
+                : "border-2 border-blue-500 text-blue-600 hover:bg-blue-50"
+            }`}
+          >
+            <div className="w-4 h-4 rounded-full bg-blue-500 mr-2"></div>
+            INSTALACIÓN DE CÚPULA
+          </Button>
+          <Button
+            onClick={() => setFilterType("ESPECIAL")}
+            variant={filterType === "ESPECIAL" ? "default" : "outline"}
+            className={`px-8 py-4 text-lg font-semibold rounded-lg transition-all ${
+              filterType === "ESPECIAL" 
+                ? "bg-red-600 text-white shadow-lg" 
+                : "border-2 border-red-600 text-red-600 hover:bg-red-50"
+            }`}
+          >
+            <div className="w-4 h-4 rounded-full bg-red-600 mr-2"></div>
+            ESPECIAL
+          </Button>
+          <Button
+            onClick={() => setFilterType("INSTALACIÓN EN TALLER")}
+            variant={filterType === "INSTALACIÓN EN TALLER" ? "default" : "outline"}
+            className={`px-8 py-4 text-lg font-semibold rounded-lg transition-all ${
+              filterType === "INSTALACIÓN EN TALLER" 
+                ? "bg-yellow-500 text-white shadow-lg" 
+                : "border-2 border-yellow-500 text-yellow-600 hover:bg-yellow-50"
+            }`}
+          >
+            <div className="w-4 h-4 rounded-full bg-yellow-500 mr-2"></div>
+            INSTALACIÓN EN TALLER
+          </Button>
         </div>
 
-        {/* Calendar Grid - Gmail minimal style */}
+        {/* Calendar Grid - Large for TV viewing */}
         <div className="bg-card rounded-lg border border-border/50 overflow-hidden shadow-sm">
           {/* Days Header */}
           <div className="grid grid-cols-7 border-b border-border/30">
             {dayNames.map((day) => (
-              <div key={day} className="p-4 text-center text-sm font-medium text-muted-foreground bg-muted/30">
+              <div key={day} className="p-6 text-center text-xl font-semibold text-foreground bg-muted/30">
                 {day}
               </div>
             ))}
@@ -293,27 +344,27 @@ const Calendar = () => {
             {days.map((day, index) => (
               <div
                 key={index}
-                className="min-h-[110px] p-3 border-r border-b border-border/20 last:border-r-0 hover:bg-muted/30 transition-colors"
+                className="min-h-[180px] p-4 border-r border-b border-border/20 last:border-r-0 hover:bg-muted/30 transition-colors"
               >
                 {day && (
                   <>
-                    <div className="text-right mb-3 text-sm font-medium text-foreground">{day}</div>
-                    <div className="space-y-2">
-                      {events[day]?.map((event, eventIndex) => (
+                    <div className="text-right mb-4 text-xl font-bold text-foreground">{day}</div>
+                    <div className="space-y-3">
+                      {getFilteredEvents(events[day])?.map((event, eventIndex) => (
                         <button
                           key={eventIndex}
                           onClick={() => handleOrderClick(event)}
-                          className="w-full p-2 rounded-md text-left transition-all cursor-pointer group hover:shadow-sm border border-transparent hover:border-border/50"
+                          className="w-full p-3 rounded-lg text-left transition-all cursor-pointer group hover:shadow-md border border-transparent hover:border-border/50"
                           style={{
-                            backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.1)' :
-                                           event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.1)' :
-                                           event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.1)' :
-                                           'hsl(45 93% 47% / 0.1)'
+                            backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.15)' :
+                                           event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.15)' :
+                                           event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.15)' :
+                                           'hsl(45 93% 47% / 0.15)'
                           }}
                         >
-                          <div className="flex items-center gap-1.5 mb-1">
+                          <div className="flex items-center gap-2 mb-2">
                             <div 
-                              className="w-2 h-2 rounded-full flex-shrink-0"
+                              className="w-3 h-3 rounded-full flex-shrink-0"
                               style={{
                                 backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36%)' :
                                                event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60%)' :
@@ -321,14 +372,19 @@ const Calendar = () => {
                                                'hsl(45 93% 47%)'
                               }}
                             ></div>
-                            <span className="text-xs font-medium text-foreground">#{event.id}</span>
+                            <span className="text-sm font-bold text-foreground">#{event.id}</span>
                           </div>
-                          <div className="text-xs text-muted-foreground truncate mb-1">
+                          <div className="text-sm text-muted-foreground truncate mb-2">
                             {event.vehicle}
                           </div>
-                          <div className="flex items-center gap-1">
-                            <Clock className="h-3 w-3 text-muted-foreground" />
-                            <span className="text-xs text-muted-foreground">{event.time}</span>
+                          <div className="flex items-center gap-2">
+                            <Clock className="h-4 w-4 text-muted-foreground" />
+                            <span className="text-sm font-medium text-muted-foreground">{event.time}</span>
+                          </div>
+                          <div className="mt-2">
+                            <span className="text-xs font-medium text-foreground bg-background/80 px-2 py-1 rounded">
+                              {event.client}
+                            </span>
                           </div>
                         </button>
                       ))}
