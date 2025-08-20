@@ -354,7 +354,7 @@ const Calendar = () => {
                         <button
                           key={eventIndex}
                           onClick={() => handleOrderClick(event)}
-                          className="w-full p-3 rounded-lg text-left transition-all cursor-pointer group hover:shadow-md border border-transparent hover:border-border/50"
+                          className="w-full p-4 rounded-lg text-left transition-all cursor-pointer group hover:shadow-lg border border-transparent hover:border-border/50 hover:scale-[1.02]"
                           style={{
                             backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.15)' :
                                            event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.15)' :
@@ -362,27 +362,38 @@ const Calendar = () => {
                                            'hsl(45 93% 47% / 0.15)'
                           }}
                         >
+                          {/* Pedido Number - Most prominent */}
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                              <div 
+                                className="w-3 h-3 rounded-full flex-shrink-0"
+                                style={{
+                                  backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36%)' :
+                                                 event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60%)' :
+                                                 event.type === 'ESPECIAL' ? 'hsl(0 84% 60%)' :
+                                                 'hsl(45 93% 47%)'
+                                }}
+                              ></div>
+                              <span className="text-lg font-bold text-foreground">#{event.id}</span>
+                            </div>
+                          </div>
+                          
+                          {/* Vehicle Model - Second most prominent */}
+                          <div className="mb-3">
+                            <div className="text-base font-semibold text-foreground leading-tight">
+                              {event.vehicle}
+                            </div>
+                          </div>
+                          
+                          {/* Time - Third most prominent */}
                           <div className="flex items-center gap-2 mb-2">
-                            <div 
-                              className="w-3 h-3 rounded-full flex-shrink-0"
-                              style={{
-                                backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36%)' :
-                                               event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60%)' :
-                                               event.type === 'ESPECIAL' ? 'hsl(0 84% 60%)' :
-                                               'hsl(45 93% 47%)'
-                              }}
-                            ></div>
-                            <span className="text-sm font-bold text-foreground">#{event.id}</span>
+                            <Clock className="h-4 w-4 text-primary" />
+                            <span className="text-base font-bold text-primary">{event.time}</span>
                           </div>
-                          <div className="text-sm text-muted-foreground truncate mb-2">
-                            {event.vehicle}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Clock className="h-4 w-4 text-muted-foreground" />
-                            <span className="text-sm font-medium text-muted-foreground">{event.time}</span>
-                          </div>
-                          <div className="mt-2">
-                            <span className="text-xs font-medium text-foreground bg-background/80 px-2 py-1 rounded">
+                          
+                          {/* Client Name - Less prominent */}
+                          <div className="mt-3 pt-2 border-t border-border/30">
+                            <span className="text-sm text-muted-foreground bg-background/80 px-2 py-1 rounded-md">
                               {event.client}
                             </span>
                           </div>
