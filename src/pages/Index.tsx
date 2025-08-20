@@ -19,6 +19,7 @@ import iconEstadisticas from "@/assets/icon-estadisticas.png";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isChatMinimized, setIsChatMinimized] = useState(false);
   const navigate = useNavigate();
 
   const menuItems = [
@@ -144,7 +145,7 @@ const Index = () => {
             Gestiona tu negocio de equipamiento 4x4 de manera profesional
           </p>
         </div>
-        <DashboardGrid />
+        <DashboardGrid isCompact={!isChatMinimized} />
       </main>
       
       {/* AI Chat Section */}
@@ -157,7 +158,10 @@ const Index = () => {
             Haz preguntas sobre el sistema, obtén ayuda con funcionalidades específicas o consulta sobre cualquier módulo de Equipers 4x4
           </p>
         </div>
-        <AIChat />
+        <AIChat 
+          isMinimized={isChatMinimized}
+          onToggleMinimize={() => setIsChatMinimized(!isChatMinimized)}
+        />
       </section>
       
       <footer className="text-center py-6 text-sm text-muted-foreground border-t border-border">

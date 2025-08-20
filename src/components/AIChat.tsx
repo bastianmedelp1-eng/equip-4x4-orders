@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageCircle, Send, Paperclip } from "lucide-react";
+import { MessageCircle, Send, Paperclip, Minimize2, Maximize2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Message {
@@ -13,7 +13,12 @@ interface Message {
   timestamp: Date;
 }
 
-const AIChat = () => {
+interface AIChatProps {
+  isMinimized?: boolean;
+  onToggleMinimize?: () => void;
+}
+
+const AIChat = ({ isMinimized = false, onToggleMinimize }: AIChatProps) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -155,14 +160,25 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <Card className="h-[600px] shadow-xl">
+      <Card className={`shadow-xl transition-all duration-300 ${isMinimized ? 'h-16' : 'h-[600px]'}`}>
         <CardHeader className="pb-3">
-          <CardTitle className="text-xl flex items-center gap-2">
-            <MessageCircle className="h-6 w-6" />
-            Asistente IA - Equipers 4x4
+          <CardTitle className="text-xl flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <MessageCircle className="h-6 w-6" />
+              Asistente IA - Equipers 4x4
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onToggleMinimize}
+              className="h-8 w-8 p-0"
+            >
+              {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
+            </Button>
           </CardTitle>
         </CardHeader>
 
+        {!isMinimized && (
         <CardContent className="p-0 flex flex-col h-[520px]">
           {showApiKeyInput && !apiKey && (
             <div className="p-4 bg-muted">
@@ -262,6 +278,7 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
             accept=".txt,.pdf,.doc,.docx,.jpg,.jpeg,.png"
           />
         </CardContent>
+        )}
       </Card>
     </div>
   );
