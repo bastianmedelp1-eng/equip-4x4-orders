@@ -164,10 +164,10 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
         ? 'w-80 animate-scale-out' 
         : 'w-[700px] animate-scale-in animate-fade-in'
     }`}>
-      <Card className={`shadow-2xl transition-all duration-500 ease-out transform ${
+      <Card className={`shadow-2xl transition-all duration-500 ease-out transform relative ${
         isMinimized 
-          ? 'h-16 scale-95' 
-          : 'h-[500px] scale-100 hover:shadow-3xl'
+          ? 'h-16 scale-95 border-2 border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.3)] animate-pulse' 
+          : 'h-[500px] scale-100 hover:shadow-3xl border border-border'
       }`}>
         <CardHeader className={`pb-3 ${isMinimized ? 'cursor-pointer hover:bg-accent/50 transition-colors duration-200' : ''}`} onClick={isMinimized ? onToggleMinimize : undefined}>
           <CardTitle className="text-xl flex items-center justify-between">
