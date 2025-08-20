@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+
 import { LogOut, User, Settings, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useState } from "react";
@@ -39,7 +39,15 @@ const Header = ({ title }: HeaderProps) => {
             alt="Equipers 4x4 Logo" 
             className="h-20 w-20 object-contain mb-2"
           />
-          <SidebarTrigger className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105" />
+          <div className="flex items-center gap-2 bg-card border border-border rounded-full p-1 shadow-lg">
+            <Sun className={`h-4 w-4 transition-all duration-300 ${theme === "light" ? "text-primary" : "text-muted-foreground"}`} />
+            <Switch
+              checked={theme === "dark"}
+              onCheckedChange={toggleTheme}
+              className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-muted"
+            />
+            <Moon className={`h-4 w-4 transition-all duration-300 ${theme === "dark" ? "text-primary" : "text-muted-foreground"}`} />
+          </div>
         </div>
         
         <div className="flex items-center gap-4">

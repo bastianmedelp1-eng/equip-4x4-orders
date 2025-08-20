@@ -4,8 +4,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/AppSidebar";
 import Header from "@/components/Header";
 import Index from "./pages/Index";
 import Users from "./pages/Users";
@@ -48,13 +46,10 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <SidebarProvider>
-            <div className="min-h-screen flex w-full">
-              <AppSidebar />
-              <main className="flex-1 flex flex-col">
-                <Header />
-                <div className="flex-1">
-                  <Routes>
+          <div className="min-h-screen flex flex-col w-full">
+            <Header />
+            <main className="flex-1">
+              <Routes>
                     <Route path="/" element={<Index />} />
                     <Route path="/usuarios" element={<Users />} />
                     <Route path="/marcas" element={<Brands />} />
@@ -82,11 +77,9 @@ const App = () => (
                     <Route path="/buscar-orden" element={<WorkOrderSearch />} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </div>
-              </main>
-            </div>
-          </SidebarProvider>
+              </Routes>
+            </main>
+          </div>
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
