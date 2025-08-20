@@ -347,7 +347,7 @@ const Calendar = () => {
                 const dayEvents = day ? getFilteredEvents(events[day]) || [] : [];
                 const eventCount = dayEvents.length;
                 const minHeight = 200;
-                const dynamicHeight = Math.max(minHeight, 120 + (eventCount * 44));
+                const dynamicHeight = Math.max(minHeight, 120 + (eventCount * 38)); // Adjusted for single line events
                 
                 return (
                   <div
@@ -381,7 +381,7 @@ const Calendar = () => {
                     }
                   }
                   const minHeight = 200;
-                  rowHeights[i] = Math.max(minHeight, 120 + (maxEventsInRow * 44));
+                  rowHeights[i] = Math.max(minHeight, 120 + (maxEventsInRow * 38)); // Reduced spacing for single line
                 }
 
                 const row = Math.floor(dayIndex / 7);
@@ -393,10 +393,15 @@ const Calendar = () => {
                 return getFilteredEvents(dayEvents).map((event, eventIndex) => {
                   // Calculate position within the specific day cell
                   const cellWidth = 100 / 7; // Each cell is 1/7 of the total width
-                  const eventHeight = 44; // Fixed height for each event including margin
+                  const eventHeight = 38; // Reduced height for single line
                   const topOffset = verticalOffset + 45 + (eventIndex * eventHeight);
                   const leftOffset = col * cellWidth + 0.2;
                   const eventWidth = cellWidth - 0.4;
+                  
+                  // Service type abbreviation
+                  const serviceType = event.type === 'ENVÍO' ? 'PF' : 
+                                     event.type === 'INSTALACIÓN DE CÚPULA' ? 'C' : 
+                                     event.type === 'ESPECIAL' ? 'ESP' : 'RT';
                   
                   return (
                     <button
@@ -407,7 +412,7 @@ const Calendar = () => {
                         top: `${topOffset}px`,
                         left: `${leftOffset}%`,
                         width: `${eventWidth}%`,
-                        height: '40px',
+                        height: '34px', // Single line height
                         backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.2)' :
                                        event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.2)' :
                                        event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.2)' :
@@ -421,10 +426,10 @@ const Calendar = () => {
                         overflow: 'hidden'
                       }}
                     >
-                      <div className="flex items-start gap-2 h-full">
+                      <div className="flex items-center gap-2 h-full">
                         {/* Color dot indicator */}
                         <div 
-                          className="w-3 h-3 rounded-full flex-shrink-0 mt-0.5"
+                          className="w-3 h-3 rounded-full flex-shrink-0"
                           style={{
                             backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36%)' :
                                            event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60%)' :
@@ -434,13 +439,9 @@ const Calendar = () => {
                         ></div>
                         
                         <div className="flex-1 min-w-0 overflow-hidden">
-                          {/* Line 1: Order Code Only */}
+                          {/* Single line: Order Code, Service Type and Vehicle Model */}
                           <div className="text-sm font-bold text-foreground leading-tight truncate">
-                            #{event.id}
-                          </div>
-                          {/* Line 2: Vehicle Model Complete */}
-                          <div className="text-sm font-semibold text-foreground leading-tight truncate mt-0.5">
-                            {event.vehicle}
+                            #{event.id} [{serviceType}] {event.vehicle}
                           </div>
                         </div>
                       </div>
