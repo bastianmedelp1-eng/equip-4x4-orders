@@ -155,6 +155,60 @@ export default {
 						transform: 'translateX(-100%) translateY(1px)',
 						opacity: '0.3'
 					}
+				},
+				'aura-breathing': {
+					'0%': {
+						transform: 'scale(1)',
+						opacity: '0.4'
+					},
+					'50%': {
+						transform: 'scale(1.15)',
+						opacity: '0.7'
+					},
+					'100%': {
+						transform: 'scale(1)',
+						opacity: '0.4'
+					}
+				},
+				'aura-pulse': {
+					'0%': {
+						transform: 'scale(0.8)',
+						opacity: '0.8'
+					},
+					'25%': {
+						transform: 'scale(1.1)',
+						opacity: '0.5'
+					},
+					'50%': {
+						transform: 'scale(1.3)',
+						opacity: '0.3'
+					},
+					'75%': {
+						transform: 'scale(1.1)',
+						opacity: '0.5'
+					},
+					'100%': {
+						transform: 'scale(0.8)',
+						opacity: '0.8'
+					}
+				},
+				'aura-drift': {
+					'0%': {
+						transform: 'rotate(0deg) scale(1)',
+						filter: 'blur(8px)'
+					},
+					'33%': {
+						transform: 'rotate(120deg) scale(1.05)',
+						filter: 'blur(10px)'
+					},
+					'66%': {
+						transform: 'rotate(240deg) scale(0.95)',
+						filter: 'blur(12px)'
+					},
+					'100%': {
+						transform: 'rotate(360deg) scale(1)',
+						filter: 'blur(8px)'
+					}
 				}
 			},
 			animation: {
@@ -162,7 +216,10 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'cloud-slow': 'cloud-drift 8s ease-in-out infinite',
 				'cloud-slower': 'cloud-drift 12s ease-in-out infinite',
-				'cloud-reverse': 'cloud-drift-reverse 10s ease-in-out infinite'
+				'cloud-reverse': 'cloud-drift-reverse 10s ease-in-out infinite',
+				'aura-breathe': 'aura-breathing 4s ease-in-out infinite',
+				'aura-pulse-slow': 'aura-pulse 6s ease-in-out infinite',
+				'aura-drift-slow': 'aura-drift 15s linear infinite'
 			}
 		}
 	},

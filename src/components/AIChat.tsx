@@ -167,11 +167,20 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
           onClick={onToggleMinimize}
         >
           <div className="relative">
-            {/* Outer glow ring - black aura */}
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-black/40 via-gray-900/40 to-black/40 blur-xl animate-pulse"></div>
+            {/* Outer aura - breathing slowly */}
+            <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-gray-800/30 via-gray-600/20 to-gray-800/30 animate-aura-breathe blur-lg"></div>
+            
+            {/* Middle aura - pulsing slowly */}
+            <div className="absolute -inset-6 rounded-full bg-gradient-to-r from-gray-700/40 via-gray-500/30 to-gray-700/40 animate-aura-pulse-slow blur-md"></div>
+            
+            {/* Inner aura - drifting slowly */}
+            <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-gray-600/50 via-gray-400/40 to-gray-600/50 animate-aura-drift-slow blur-sm"></div>
+            
+            {/* Core glow - subtle breathing */}
+            <div className="absolute -inset-2 rounded-lg bg-gradient-to-r from-gray-500/60 via-gray-300/50 to-gray-500/60 animate-aura-breathe blur-xs"></div>
             
             {/* Main button - rectangular */}
-            <div className="relative h-12 w-16 rounded-lg bg-gradient-to-br from-gray-800 via-gray-900 to-black shadow-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(0,0,0,0.7)] group overflow-hidden">
+            <div className="relative h-12 w-16 rounded-lg bg-gradient-to-br from-gray-800 via-gray-900 to-black shadow-2xl transform transition-all duration-500 hover:scale-110 hover:shadow-[0_0_40px_rgba(100,100,100,0.4)] group overflow-hidden">
               {/* Inner gradient overlay */}
               <div className="absolute inset-1 rounded-lg bg-gradient-to-br from-gray-600/40 via-transparent to-black/40"></div>
               
@@ -190,9 +199,8 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
                 <div className="absolute w-7 h-2 bg-white/5 rounded-full animate-cloud-slower delay-500 blur-lg"></div>
               </div>
               
-              {/* Pulsing animation rings */}
-              <div className="absolute inset-0 rounded-lg border-2 border-gray-600/30 animate-ping"></div>
-              <div className="absolute inset-0.5 rounded-lg border border-gray-500/20 animate-pulse"></div>
+              {/* Subtle pulsing border */}
+              <div className="absolute inset-0 rounded-lg border border-gray-500/20 animate-aura-breathe"></div>
               
               {/* Icon */}
               <div className="absolute inset-0 flex items-center justify-center">
