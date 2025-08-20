@@ -347,7 +347,7 @@ const Calendar = () => {
                 const dayEvents = day ? getFilteredEvents(events[day]) || [] : [];
                 const eventCount = dayEvents.length;
                 const minHeight = 200;
-                const dynamicHeight = Math.max(minHeight, 120 + (eventCount * 38)); // Adjusted for single line events
+                const dynamicHeight = Math.max(minHeight, 120 + (eventCount * 36)); // Adjusted for stacked events
                 
                 return (
                   <div
@@ -369,34 +369,17 @@ const Calendar = () => {
                 const dayIndex = days.findIndex(d => d === parseInt(dayNum));
                 if (dayIndex === -1) return null;
 
-                // Calculate dynamic row heights
-                const rowHeights = [];
-                for (let i = 0; i < Math.ceil(days.length / 7); i++) {
-                  let maxEventsInRow = 0;
-                  for (let j = 0; j < 7; j++) {
-                    const cellIndex = i * 7 + j;
-                    if (cellIndex < days.length && days[cellIndex]) {
-                      const cellEvents = getFilteredEvents(events[days[cellIndex]]) || [];
-                      maxEventsInRow = Math.max(maxEventsInRow, cellEvents.length);
-                    }
-                  }
-                  const minHeight = 200;
-                  rowHeights[i] = Math.max(minHeight, 120 + (maxEventsInRow * 38)); // Reduced spacing for single line
-                }
-
                 const row = Math.floor(dayIndex / 7);
                 const col = dayIndex % 7;
                 
-                // Calculate vertical offset considering dynamic row heights
-                const verticalOffset = rowHeights.slice(0, row).reduce((sum, height) => sum + height, 0);
-                
                 return getFilteredEvents(dayEvents).map((event, eventIndex) => {
-                  // Calculate position within the specific day cell
+                  // Calculate position within the specific day cell - stacked vertically
                   const cellWidth = 100 / 7; // Each cell is 1/7 of the total width
-                  const eventHeight = 38; // Reduced height for single line
-                  const topOffset = verticalOffset + 45 + (eventIndex * eventHeight);
-                  const leftOffset = col * cellWidth + 0.2;
-                  const eventWidth = cellWidth - 0.4;
+                  const eventHeight = 36; // Height for each stacked event
+                  const cellTop = row * 200; // Base top position for this row
+                  const topOffset = cellTop + 50 + (eventIndex * eventHeight); // Stack events vertically within the cell
+                  const leftOffset = col * cellWidth + 0.5; // Start at the beginning of the cell
+                  const eventWidth = cellWidth - 1; // Fill most of the cell width
                   
                   // Service type abbreviation
                   const serviceType = event.type === 'ENVÍO' ? 'PF' : 
@@ -407,12 +390,12 @@ const Calendar = () => {
                     <button
                       key={`${dayNum}-${eventIndex}`}
                       onClick={() => handleOrderClick(event)}
-                      className="absolute pointer-events-auto transition-all hover:scale-[1.01] hover:shadow-md cursor-pointer z-10 rounded-lg p-2.5 text-left"
+                      className="absolute pointer-events-auto transition-all hover:scale-[1.01] hover:shadow-md cursor-pointer z-10 rounded-lg p-2 text-left"
                       style={{
                         top: `${topOffset}px`,
                         left: `${leftOffset}%`,
                         width: `${eventWidth}%`,
-                        height: '34px', // Single line height
+                        height: '32px', // Fixed height for consistent stacking
                         backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.2)' :
                                        event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.2)' :
                                        event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.2)' :
@@ -429,7 +412,7 @@ const Calendar = () => {
                       <div className="flex items-center gap-2 h-full">
                         {/* Color dot indicator */}
                         <div 
-                          className="w-3 h-3 rounded-full flex-shrink-0"
+                          className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                           style={{
                             backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36%)' :
                                            event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60%)' :
