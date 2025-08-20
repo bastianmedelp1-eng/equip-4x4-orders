@@ -79,7 +79,44 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Google Material Design Colors
+				google: {
+					blue: '#1a73e8',
+					'blue-50': '#e8f0fe',
+					'blue-100': '#d2e3fc',
+					'blue-600': '#1a73e8',
+					'blue-700': '#1967d2',
+					red: '#ea4335',
+					'red-50': '#fce8e6',
+					'red-100': '#f9dedc',
+					'red-600': '#ea4335',
+					yellow: '#fbbc04',
+					'yellow-50': '#fef7e0',
+					'yellow-100': '#feefc3',
+					'yellow-600': '#fbbc04',
+					green: '#34a853',
+					'green-50': '#e6f4ea',
+					'green-100': '#ceead6',
+					'green-600': '#34a853',
+					'green-700': '#137333',
+					gray: {
+						50: '#fafafa',
+						100: '#f5f5f5',
+						200: '#e0e0e0',
+						300: '#bdbdbd',
+						400: '#9e9e9e',
+						500: '#757575',
+						600: '#616161',
+						700: '#424242',
+						800: '#212121',
+						900: '#121212'
+					}
 				}
+			},
+			fontFamily: {
+				'roboto': ['Roboto', 'sans-serif'],
+				'google-sans': ['Google Sans', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
