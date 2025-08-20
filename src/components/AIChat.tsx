@@ -159,8 +159,8 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
   };
 
   return (
-    <div className={`transition-all duration-300 ${isMinimized ? 'w-80' : 'w-[500px]'}`}>
-      <Card className={`shadow-xl transition-all duration-300 ${isMinimized ? 'h-16' : 'h-[700px]'}`}>
+    <div className={`transition-all duration-300 ${isMinimized ? 'w-80' : 'w-[600px]'}`}>
+      <Card className={`shadow-xl transition-all duration-300 ${isMinimized ? 'h-16' : 'h-[500px]'}`}>
         <CardHeader className="pb-3">
           <CardTitle className="text-xl flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -179,7 +179,7 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
         </CardHeader>
 
         {!isMinimized && (
-        <CardContent className="p-0 flex flex-col h-[620px]">
+        <CardContent className="p-0 flex flex-col h-[420px]">
           {showApiKeyInput && !apiKey && (
             <div className="p-4 bg-muted">
               <p className="text-sm mb-2">Ingresa tu OpenAI API Key:</p>
