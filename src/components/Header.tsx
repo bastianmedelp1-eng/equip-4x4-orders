@@ -32,12 +32,13 @@ const Header = ({ title }: HeaderProps) => {
     <header className="flex items-center justify-between bg-card border-b border-border px-6 py-4 shadow-sm relative">
       <div className="flex-1"></div>
       
-      <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center">
+      <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
         <img 
           src={logo} 
           alt="Equipers 4x4 Logo" 
           className="h-24 w-24 object-contain"
         />
+        <div className="w-screen h-px bg-border mt-2"></div>
       </div>
       
       <div className="flex items-center gap-4">
