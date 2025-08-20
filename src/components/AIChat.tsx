@@ -168,16 +168,16 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
         >
           <div className="relative">
             {/* Outer glow ring */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-400/30 via-amber-500/30 to-orange-600/30 blur-xl animate-pulse"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-gray-900/30 via-gray-700/30 to-black/30 blur-xl animate-pulse"></div>
             
             {/* Main button */}
-            <div className="relative h-16 w-16 rounded-full bg-gradient-to-br from-orange-400 via-amber-500 to-orange-600 shadow-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(245,158,11,0.5)] group">
+            <div className="relative h-16 w-16 rounded-full bg-gradient-to-br from-gray-800 via-gray-900 to-black shadow-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(0,0,0,0.5)] group">
               {/* Inner gradient overlay */}
-              <div className="absolute inset-2 rounded-full bg-gradient-to-br from-orange-300/40 via-transparent to-orange-700/40"></div>
+              <div className="absolute inset-2 rounded-full bg-gradient-to-br from-gray-600/40 via-transparent to-black/40"></div>
               
               {/* Pulsing animation rings */}
-              <div className="absolute inset-0 rounded-full border-2 border-orange-300/30 animate-ping"></div>
-              <div className="absolute inset-1 rounded-full border border-orange-200/20 animate-pulse"></div>
+              <div className="absolute inset-0 rounded-full border-2 border-gray-600/30 animate-ping"></div>
+              <div className="absolute inset-1 rounded-full border border-gray-500/20 animate-pulse"></div>
               
               {/* Icon */}
               <div className="absolute inset-0 flex items-center justify-center">
