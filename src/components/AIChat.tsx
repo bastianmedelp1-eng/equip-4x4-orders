@@ -166,7 +166,7 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
     }`}>
       <Card className={`shadow-2xl transition-all duration-500 ease-out transform relative ${
         isMinimized 
-          ? 'h-16 scale-95 border-2 border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.3)] animate-pulse' 
+          ? 'h-16 scale-95 border-2 border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.3)] animate-[pulse_3s_ease-in-out_infinite]' 
           : 'h-[500px] scale-100 hover:shadow-3xl border border-border'
       }`}>
         <CardHeader className={`pb-3 ${isMinimized ? 'cursor-pointer hover:bg-accent/50 transition-colors duration-200' : ''}`} onClick={isMinimized ? onToggleMinimize : undefined}>
