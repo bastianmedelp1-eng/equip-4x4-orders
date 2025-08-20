@@ -148,12 +148,14 @@ const Index = () => {
         <DashboardGrid isCompact={!isChatMinimized} />
       </main>
       
-      {/* Fixed AI Chat */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <AIChat 
-          isMinimized={isChatMinimized}
-          onToggleMinimize={() => setIsChatMinimized(!isChatMinimized)}
-        />
+      {/* Fixed AI Chat - Centered */}
+      <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
+        <div className="pointer-events-auto">
+          <AIChat 
+            isMinimized={isChatMinimized}
+            onToggleMinimize={() => setIsChatMinimized(!isChatMinimized)}
+          />
+        </div>
       </div>
       
       <footer className="text-center py-6 text-sm text-muted-foreground border-t border-border">

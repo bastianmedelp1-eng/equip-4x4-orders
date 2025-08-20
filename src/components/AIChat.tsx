@@ -159,8 +159,16 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
   };
 
   return (
-    <div className={`transition-all duration-300 ${isMinimized ? 'w-80' : 'w-[700px]'}`}>
-      <Card className={`shadow-xl transition-all duration-300 ${isMinimized ? 'h-16' : 'h-[500px]'}`}>
+    <div className={`transition-all duration-500 ease-out ${
+      isMinimized 
+        ? 'w-80 animate-scale-out' 
+        : 'w-[700px] animate-scale-in animate-fade-in'
+    }`}>
+      <Card className={`shadow-2xl transition-all duration-500 ease-out transform ${
+        isMinimized 
+          ? 'h-16 scale-95' 
+          : 'h-[500px] scale-100 hover:shadow-3xl'
+      }`}>
         <CardHeader className="pb-3">
           <CardTitle className="text-xl flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -171,7 +179,7 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
               variant="ghost"
               size="sm"
               onClick={onToggleMinimize}
-              className="h-8 w-8 p-0"
+              className="h-8 w-8 p-0 hover:bg-accent transition-all duration-200 hover:scale-110"
             >
               {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
             </Button>
@@ -179,7 +187,7 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
         </CardHeader>
 
         {!isMinimized && (
-        <CardContent className="p-0 flex flex-col h-[420px]">
+        <CardContent className="p-0 flex flex-col h-[420px] animate-fade-in">
           {showApiKeyInput && !apiKey && (
             <div className="p-4 bg-muted">
               <p className="text-sm mb-2">Ingresa tu OpenAI API Key:</p>
