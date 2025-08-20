@@ -201,9 +201,9 @@ const Calendar = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        {/* Top Action Bar - Gmail style */}
-        <div className="flex items-center justify-between mb-8">
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        {/* Top Action Bar - Compact */}
+        <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <Button 
               onClick={handleBackToHome}
@@ -258,19 +258,19 @@ const Calendar = () => {
           </div>
         </div>
 
-        {/* Month Title */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-light text-foreground tracking-tight">
+        {/* Month Title - Compact */}
+        <div className="mb-4">
+          <h1 className="text-2xl font-light text-foreground tracking-tight">
             {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
           </h1>
         </div>
 
-        {/* Filter Buttons - Google style minimal */}
-        <div className="flex items-center justify-center gap-3 mb-8 pb-6 border-b border-border/30">
+        {/* Filter Buttons - Compact horizontal */}
+        <div className="flex items-center justify-center gap-3 mb-4 pb-3 border-b border-border/30">
           <Button
             onClick={() => setFilterType("TODOS")}
             variant="ghost"
-            className={`px-6 py-3 text-base font-medium rounded-full transition-all hover:bg-accent ${
+            className={`px-4 py-2 text-sm font-medium rounded-full transition-all hover:bg-accent ${
               filterType === "TODOS" 
                 ? "bg-primary/10 text-primary" 
                 : "text-muted-foreground hover:text-foreground"
@@ -281,7 +281,7 @@ const Calendar = () => {
           <Button
             onClick={() => setFilterType("ENVÍO")}
             variant="ghost"
-            className={`px-6 py-3 text-base font-medium rounded-full transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 text-sm font-medium rounded-full transition-all flex items-center gap-2 ${
               filterType === "ENVÍO" 
                 ? "bg-green-50 text-green-700 border border-green-200" 
                 : "text-muted-foreground hover:text-green-700 hover:bg-green-50"
@@ -293,7 +293,7 @@ const Calendar = () => {
           <Button
             onClick={() => setFilterType("INSTALACIÓN DE CÚPULA")}
             variant="ghost"
-            className={`px-6 py-3 text-base font-medium rounded-full transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 text-sm font-medium rounded-full transition-all flex items-center gap-2 ${
               filterType === "INSTALACIÓN DE CÚPULA" 
                 ? "bg-blue-50 text-blue-700 border border-blue-200" 
                 : "text-muted-foreground hover:text-blue-700 hover:bg-blue-50"
@@ -305,7 +305,7 @@ const Calendar = () => {
           <Button
             onClick={() => setFilterType("ESPECIAL")}
             variant="ghost"
-            className={`px-6 py-3 text-base font-medium rounded-full transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 text-sm font-medium rounded-full transition-all flex items-center gap-2 ${
               filterType === "ESPECIAL" 
                 ? "bg-red-50 text-red-700 border border-red-200" 
                 : "text-muted-foreground hover:text-red-700 hover:bg-red-50"
@@ -317,7 +317,7 @@ const Calendar = () => {
           <Button
             onClick={() => setFilterType("INSTALACIÓN EN TALLER")}
             variant="ghost"
-            className={`px-6 py-3 text-base font-medium rounded-full transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 text-sm font-medium rounded-full transition-all flex items-center gap-2 ${
               filterType === "INSTALACIÓN EN TALLER" 
                 ? "bg-amber-50 text-amber-700 border border-amber-200" 
                 : "text-muted-foreground hover:text-amber-700 hover:bg-amber-50"
@@ -328,12 +328,12 @@ const Calendar = () => {
           </Button>
         </div>
 
-        {/* Calendar Grid - Large for TV viewing */}
+        {/* Calendar Grid - Horizontal optimized */}
         <div className="bg-card rounded-lg border border-border/50 overflow-hidden shadow-sm">
           {/* Days Header */}
           <div className="grid grid-cols-7 border-b border-border/30">
             {dayNames.map((day) => (
-              <div key={day} className="p-6 text-center text-xl font-semibold text-foreground bg-muted/30">
+              <div key={day} className="p-3 text-center text-lg font-semibold text-foreground bg-muted/30">
                 {day}
               </div>
             ))}
@@ -344,17 +344,17 @@ const Calendar = () => {
             {days.map((day, index) => (
               <div
                 key={index}
-                className="min-h-[180px] p-4 border-r border-b border-border/20 last:border-r-0 hover:bg-muted/30 transition-colors"
+                className="min-h-[140px] max-h-[140px] p-2 border-r border-b border-border/20 last:border-r-0 hover:bg-muted/30 transition-colors overflow-hidden"
               >
                 {day && (
                   <>
-                    <div className="text-right mb-4 text-xl font-bold text-foreground">{day}</div>
-                    <div className="space-y-3">
+                    <div className="text-right mb-2 text-lg font-bold text-foreground">{day}</div>
+                    <div className="space-y-1 overflow-y-auto max-h-[110px]">
                       {getFilteredEvents(events[day])?.map((event, eventIndex) => (
                         <button
                           key={eventIndex}
                           onClick={() => handleOrderClick(event)}
-                          className="w-full p-4 rounded-lg text-left transition-all cursor-pointer group hover:shadow-lg border border-transparent hover:border-border/50 hover:scale-[1.02]"
+                          className="w-full p-2 rounded-md text-left transition-all cursor-pointer group hover:shadow-md border border-transparent hover:border-border/50 hover:scale-[1.01]"
                           style={{
                             backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.15)' :
                                            event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.15)' :
@@ -363,39 +363,30 @@ const Calendar = () => {
                           }}
                         >
                           {/* Pedido Number - Most prominent */}
-                          <div className="flex items-center justify-between mb-3">
-                            <div className="flex items-center gap-2">
-                              <div 
-                                className="w-3 h-3 rounded-full flex-shrink-0"
-                                style={{
-                                  backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36%)' :
-                                                 event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60%)' :
-                                                 event.type === 'ESPECIAL' ? 'hsl(0 84% 60%)' :
-                                                 'hsl(45 93% 47%)'
-                                }}
-                              ></div>
-                              <span className="text-lg font-bold text-foreground">#{event.id}</span>
-                            </div>
+                          <div className="flex items-center gap-1.5 mb-1">
+                            <div 
+                              className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                              style={{
+                                backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36%)' :
+                                               event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60%)' :
+                                               event.type === 'ESPECIAL' ? 'hsl(0 84% 60%)' :
+                                               'hsl(45 93% 47%)'
+                              }}
+                            ></div>
+                            <span className="text-sm font-bold text-foreground">#{event.id}</span>
                           </div>
                           
-                          {/* Vehicle Model - Second most prominent */}
-                          <div className="mb-3">
-                            <div className="text-base font-semibold text-foreground leading-tight">
+                          {/* Vehicle Model - Truncated for space */}
+                          <div className="mb-1">
+                            <div className="text-xs font-semibold text-foreground leading-tight truncate">
                               {event.vehicle}
                             </div>
                           </div>
                           
-                          {/* Time - Third most prominent */}
-                          <div className="flex items-center gap-2 mb-2">
-                            <Clock className="h-4 w-4 text-primary" />
-                            <span className="text-base font-bold text-primary">{event.time}</span>
-                          </div>
-                          
-                          {/* Client Name - Less prominent */}
-                          <div className="mt-3 pt-2 border-t border-border/30">
-                            <span className="text-sm text-muted-foreground bg-background/80 px-2 py-1 rounded-md">
-                              {event.client}
-                            </span>
+                          {/* Time - Compact */}
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-3 w-3 text-primary flex-shrink-0" />
+                            <span className="text-xs font-bold text-primary">{event.time}</span>
                           </div>
                         </button>
                       ))}
