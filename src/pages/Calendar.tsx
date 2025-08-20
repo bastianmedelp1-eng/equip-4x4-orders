@@ -67,13 +67,13 @@ const Calendar = () => {
     return days;
   };
 
-  // Sample events data with detailed information  
+  // Sample events data with detailed information - All 4 service types
   const events = {
     6: [{ 
       id: "9441",
       title: "#9441 [PF] MITSUBISHI L200 KATANA CR", 
       type: "ENVÍO",
-      color: "bg-primary/80 hover:bg-primary",
+      color: "bg-green-500/80 hover:bg-green-500",
       client: "Juan Carlos Mendoza",
       vehicle: "MITSUBISHI L200 KATANA CR",
       time: "09:00 AM",
@@ -86,7 +86,7 @@ const Calendar = () => {
         id: "9449",
         title: "#9449 [PF] TOYOTA HILUX REVO", 
         type: "ENVÍO",
-        color: "bg-primary/80 hover:bg-primary",
+        color: "bg-green-500/80 hover:bg-green-500",
         client: "María González",
         vehicle: "TOYOTA HILUX REVO",
         time: "10:30 AM",
@@ -97,13 +97,13 @@ const Calendar = () => {
       { 
         id: "9445",
         title: "#9445 [PF] PEUGEOT LANDTREK con barra de techo", 
-        type: "ENVÍO",
-        color: "bg-primary/80 hover:bg-primary",
+        type: "INSTALACIÓN DE CÚPULA",
+        color: "bg-blue-500/80 hover:bg-blue-500",
         client: "Pedro Ramírez",
         vehicle: "PEUGEOT LANDTREK con barra de techo",
         time: "02:00 PM",
         status: "Pendiente",
-        location: "Providencia",
+        location: "Área de Instalación",
         phone: "+56 9 9876 5432"
       }
     ],
@@ -112,7 +112,7 @@ const Calendar = () => {
         id: "9446",
         title: "#9446 [PF] TOYOTA PRADO 150 4 PUERTAS | TALLER", 
         type: "INSTALACIÓN EN TALLER",
-        color: "bg-amber-500/80 hover:bg-amber-500",
+        color: "bg-yellow-500/80 hover:bg-yellow-500",
         client: "Ana Silva",
         vehicle: "TOYOTA PRADO 150 4 PUERTAS",
         time: "08:00 AM",
@@ -123,13 +123,13 @@ const Calendar = () => {
       { 
         id: "9443",
         title: "#9443 [PF] JEEP WRANGLER JK 4 PUERTAS", 
-        type: "INSTALACIÓN DE CÚPULA",
-        color: "bg-blue-500/80 hover:bg-blue-500",
+        type: "ESPECIAL",
+        color: "bg-red-600/80 hover:bg-red-600",
         client: "Roberto Torres",
         vehicle: "JEEP WRANGLER JK 4 PUERTAS",
         time: "11:00 AM",
         status: "Programado",
-        location: "Área de Instalación",
+        location: "Área Especial",
         phone: "+56 9 7777 8888"
       }
     ],
@@ -149,13 +149,37 @@ const Calendar = () => {
       id: "9447",
       title: "#9447 [PF] SUZUKI JIMNY 4 GENERACIÓN con barra de techo", 
       type: "ENVÍO",
-      color: "bg-primary/80 hover:bg-primary",
+      color: "bg-green-500/80 hover:bg-green-500",
       client: "Carmen López",
       vehicle: "SUZUKI JIMNY 4 GENERACIÓN con barra de techo",
       time: "03:00 PM",
       status: "Confirmado",
       location: "Ñuñoa",
       phone: "+56 9 2222 1111"
+    }],
+    15: [{ 
+      id: "8901",
+      title: "#8901 [ESP] FORD RANGER RAPTOR", 
+      type: "ESPECIAL",
+      color: "bg-red-600/80 hover:bg-red-600",
+      client: "Diego Vargas",
+      vehicle: "FORD RANGER RAPTOR",
+      time: "01:00 PM",
+      status: "Urgente",
+      location: "Área Especial",
+      phone: "+56 9 3333 4444"
+    }],
+    20: [{ 
+      id: "7854",
+      title: "#7854 [T] CHEVROLET COLORADO", 
+      type: "INSTALACIÓN EN TALLER",
+      color: "bg-yellow-500/80 hover:bg-yellow-500",
+      client: "Sofía Herrera",
+      vehicle: "CHEVROLET COLORADO",
+      time: "10:00 AM",
+      status: "En espera",
+      location: "Taller Principal",
+      phone: "+56 9 6666 7777"
     }]
   };
 
@@ -233,19 +257,23 @@ const Calendar = () => {
           </h1>
         </div>
 
-        {/* Legend - Minimal */}
+        {/* Legend - Minimal - All 4 service types */}
         <div className="flex items-center gap-6 mb-6 pb-4 border-b border-border/50">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-primary/80"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500"></div>
             <span className="text-sm text-muted-foreground">Envío</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-blue-500/80"></div>
-            <span className="text-sm text-muted-foreground">Instalación cúpula</span>
+            <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+            <span className="text-sm text-muted-foreground">Instalación de cúpula</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-amber-500/80"></div>
-            <span className="text-sm text-muted-foreground">Taller</span>
+            <div className="w-3 h-3 rounded-full bg-red-600"></div>
+            <span className="text-sm text-muted-foreground">Especial</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <span className="text-sm text-muted-foreground">Instalación en taller</span>
           </div>
         </div>
 
@@ -277,8 +305,9 @@ const Calendar = () => {
                           onClick={() => handleOrderClick(event)}
                           className="w-full p-2 rounded-md text-left transition-all cursor-pointer group hover:shadow-sm border border-transparent hover:border-border/50"
                           style={{
-                            backgroundColor: event.type === 'ENVÍO' ? 'hsl(var(--primary) / 0.1)' :
+                            backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.1)' :
                                            event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.1)' :
+                                           event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.1)' :
                                            'hsl(45 93% 47% / 0.1)'
                           }}
                         >
@@ -286,8 +315,9 @@ const Calendar = () => {
                             <div 
                               className="w-2 h-2 rounded-full flex-shrink-0"
                               style={{
-                                backgroundColor: event.type === 'ENVÍO' ? 'hsl(var(--primary))' :
+                                backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36%)' :
                                                event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60%)' :
+                                               event.type === 'ESPECIAL' ? 'hsl(0 84% 60%)' :
                                                'hsl(45 93% 47%)'
                               }}
                             ></div>
@@ -318,8 +348,9 @@ const Calendar = () => {
                 <div 
                   className="w-3 h-3 rounded-full"
                   style={{
-                    backgroundColor: selectedOrder?.type === 'ENVÍO' ? 'hsl(var(--primary))' :
+                    backgroundColor: selectedOrder?.type === 'ENVÍO' ? 'hsl(142 76% 36%)' :
                                    selectedOrder?.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60%)' :
+                                   selectedOrder?.type === 'ESPECIAL' ? 'hsl(0 84% 60%)' :
                                    'hsl(45 93% 47%)'
                   }}
                 ></div>
