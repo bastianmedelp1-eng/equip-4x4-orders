@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
 import Users from "./pages/Users";
 import Brands from "./pages/Brands";
@@ -34,41 +35,48 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/usuarios" element={<Users />} />
-          <Route path="/marcas" element={<Brands />} />
-          <Route path="/modelos" element={<Models />} />
-          <Route path="/vendedores" element={<Sellers />} />
-          <Route path="/accesorios" element={<Accessories />} />
-          <Route path="/pedidos" element={<OrdersList />} />
-          <Route path="/pedido" element={<Orders />} />
-          <Route path="/lista-cupulas" element={<CupulasList />} />
-          <Route path="/lista-racks" element={<RacksList />} />
-          <Route path="/lista-especiales" element={<SpecialsList />} />
-          <Route path="/calendario" element={<Calendar />} />
-          <Route path="/buscador-precios" element={<PriceSearch />} />
-          <Route path="/cotizacion" element={<Quotations />} />
-          <Route path="/historial-ventas" element={<SalesHistory />} />
-          <Route path="/estadisticas" element={<Statistics />} />
-          <Route path="/categorias-gasto" element={<ExpenseCategories />} />
-          <Route path="/trabajadores" element={<Workers />} />
-          <Route path="/escaner-qr" element={<QRScanner />} />
-          <Route path="/gastos" element={<Expenses />} />
-          <Route path="/corte-laser" element={<LaserCutting />} />
-          <Route path="/herramientas" element={<Tools />} />
-          <Route path="/productos" element={<Products />} />
-          <Route path="/vista-herramientas" element={<ToolsView />} />
-          <Route path="/buscar-orden" element={<WorkOrderSearch />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/usuarios" element={<Users />} />
+            <Route path="/marcas" element={<Brands />} />
+            <Route path="/modelos" element={<Models />} />
+            <Route path="/vendedores" element={<Sellers />} />
+            <Route path="/accesorios" element={<Accessories />} />
+            <Route path="/pedidos" element={<OrdersList />} />
+            <Route path="/pedido" element={<Orders />} />
+            <Route path="/lista-cupulas" element={<CupulasList />} />
+            <Route path="/lista-racks" element={<RacksList />} />
+            <Route path="/lista-especiales" element={<SpecialsList />} />
+            <Route path="/calendario" element={<Calendar />} />
+            <Route path="/buscador-precios" element={<PriceSearch />} />
+            <Route path="/cotizacion" element={<Quotations />} />
+            <Route path="/historial-ventas" element={<SalesHistory />} />
+            <Route path="/estadisticas" element={<Statistics />} />
+            <Route path="/categorias-gasto" element={<ExpenseCategories />} />
+            <Route path="/trabajadores" element={<Workers />} />
+            <Route path="/escaner-qr" element={<QRScanner />} />
+            <Route path="/gastos" element={<Expenses />} />
+            <Route path="/corte-laser" element={<LaserCutting />} />
+            <Route path="/herramientas" element={<Tools />} />
+            <Route path="/productos" element={<Products />} />
+            <Route path="/vista-herramientas" element={<ToolsView />} />
+            <Route path="/buscar-orden" element={<WorkOrderSearch />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

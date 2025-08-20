@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -8,7 +9,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, User, Settings } from "lucide-react";
+import { LogOut, User, Settings, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import logo from "/lovable-uploads/ce13be00-df3c-4711-b669-77508ef1cd72.png";
 
 interface HeaderProps {
@@ -16,6 +18,12 @@ interface HeaderProps {
 }
 
 const Header = ({ title }: HeaderProps) => {
+  const { theme, setTheme } = useTheme();
+  
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
   return (
     <header className="flex items-center justify-between bg-card border-b border-border px-6 py-4 shadow-sm relative">
       <div className="flex-1"></div>
@@ -40,7 +48,7 @@ const Header = ({ title }: HeaderProps) => {
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-64 bg-background border border-border shadow-lg" align="end" forceMount>
+          <DropdownMenuContent className="w-64 bg-background border border-border shadow-lg z-50" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-2 p-2">
                 <div className="flex items-center space-x-3">
@@ -66,6 +74,26 @@ const Header = ({ title }: HeaderProps) => {
               <Settings className="mr-3 h-4 w-4" />
               <span>Configuración</span>
             </DropdownMenuItem>
+            
+            {/* Theme Toggle */}
+            <div className="px-2 py-2">
+              <div className="flex items-center justify-between px-2 py-2 rounded-md hover:bg-accent transition-colors">
+                <div className="flex items-center">
+                  {theme === "dark" ? (
+                    <Moon className="mr-3 h-4 w-4" />
+                  ) : (
+                    <Sun className="mr-3 h-4 w-4" />
+                  )}
+                  <span className="text-sm">Tema oscuro</span>
+                </div>
+                <Switch
+                  checked={theme === "dark"}
+                  onCheckedChange={toggleTheme}
+                  className="data-[state=checked]:bg-primary"
+                />
+              </div>
+            </div>
+            
             <DropdownMenuSeparator />
             <DropdownMenuItem className="cursor-pointer text-red-600 hover:bg-red-50 dark:hover:bg-red-950 transition-colors">
               <LogOut className="mr-3 h-4 w-4" />
