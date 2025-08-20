@@ -204,6 +204,16 @@ const Header = ({ title }: HeaderProps) => {
       items: [
         { id: "calendario", title: "Calendario", icon: iconCalendario },
       ]
+    },
+    {
+      id: "juegos",
+      title: "Juegos",
+      icon: "🎮",
+      items: [
+        { id: "juegos-arcade", title: "Arcade", lucideIcon: Star },
+        { id: "juegos-puzzle", title: "Puzzle", lucideIcon: Package },
+        { id: "juegos-trivia", title: "Trivia", lucideIcon: Search },
+      ]
     }
   ];
 
