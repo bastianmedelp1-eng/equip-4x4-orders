@@ -42,6 +42,7 @@ interface DashboardItem {
   title: string;
   icon?: string;
   lucideIcon?: React.ComponentType<{ className?: string }>;
+  subItems?: DashboardItem[];
 }
 
 interface DashboardSection {
@@ -69,12 +70,18 @@ const dashboardSections: DashboardSection[] = [
     title: "Pedidos y Ventas",
     icon: "🛒",
     items: [
-      { id: "pedido", title: "Pedido", icon: iconPedido },
+      { 
+        id: "pedidos", 
+        title: "Pedidos", 
+        icon: iconPedido,
+        subItems: [
+          { id: "lista-cupulas", title: "Cúpulas", lucideIcon: List },
+          { id: "lista-racks", title: "Racks", lucideIcon: List },
+        ]
+      },
       { id: "cotizacion", title: "Cotización", icon: iconCotizacion },
       { id: "buscador-precios", title: "Buscador de precios", lucideIcon: Search },
       { id: "historial", title: "Historial de ventas", icon: iconHistorial },
-      { id: "lista-cupulas", title: "Cúpulas", lucideIcon: List },
-      { id: "lista-racks", title: "Racks", lucideIcon: List },
     ]
   },
   {
@@ -133,12 +140,19 @@ interface DashboardGridProps {
 const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
   const navigate = useNavigate();
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const [expandedItem, setExpandedItem] = useState<string | null>(null);
 
   const toggleSection = (sectionId: string) => {
     setExpandedSection(prev => prev === sectionId ? null : sectionId);
   };
 
-  const handleItemClick = (itemId: string) => {
+  const handleItemClick = (itemId: string, item?: DashboardItem) => {
+    // Si el item tiene sub-items, expandir/contraer en lugar de navegar
+    if (item?.subItems && item.subItems.length > 0) {
+      setExpandedItem(prev => prev === itemId ? null : itemId);
+      return;
+    }
+
     switch (itemId) {
       case "usuarios":
         navigate("/usuarios");
@@ -155,7 +169,7 @@ const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
       case "accesorios":
         navigate("/accesorios");
         break;
-      case "pedido":
+      case "pedidos":
         navigate("/pedido");
         break;
       case "lista-cupulas":
@@ -281,33 +295,67 @@ const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
                   {section.title}
                 </h3>
                 
-                {/* Section Items Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-                  {section.items.map((item) => (
-                    <Card 
-                      key={item.id}
-                      className="group cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg border border-gray-200 bg-card"
-                      onClick={() => handleItemClick(item.id)}
-                    >
-                      <CardContent className="p-6 flex flex-col items-center text-center gap-4">
-                        <div className="flex-shrink-0">
-                          {item.icon ? (
-                            <img 
-                              src={item.icon} 
-                              alt={item.title}
-                              className="h-12 w-12 object-contain"
-                            />
-                          ) : item.lucideIcon ? (
-                            <item.lucideIcon className="h-12 w-12 text-primary group-hover:text-accent transition-colors duration-200" />
-                          ) : null}
-                        </div>
-                        <p className="text-sm font-medium text-foreground leading-tight">
-                          {item.title}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+                 {/* Section Items Grid */}
+                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                   {section.items.map((item) => (
+                     <div key={item.id} className="space-y-4">
+                       <Card 
+                         className="group cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg border border-gray-200 bg-card"
+                         onClick={() => handleItemClick(item.id, item)}
+                       >
+                         <CardContent className="p-6 flex flex-col items-center text-center gap-4">
+                           <div className="flex-shrink-0 relative">
+                             {item.icon ? (
+                               <img 
+                                 src={item.icon} 
+                                 alt={item.title}
+                                 className="h-12 w-12 object-contain"
+                               />
+                             ) : item.lucideIcon ? (
+                               <item.lucideIcon className="h-12 w-12 text-primary group-hover:text-accent transition-colors duration-200" />
+                             ) : null}
+                             {item.subItems && item.subItems.length > 0 && (
+                               <div className="absolute -bottom-1 -right-1 bg-primary rounded-full p-1">
+                                 {expandedItem === item.id ? (
+                                   <ChevronDown className="h-3 w-3 text-primary-foreground" />
+                                 ) : (
+                                   <ChevronRight className="h-3 w-3 text-primary-foreground" />
+                                 )}
+                               </div>
+                             )}
+                           </div>
+                           <p className="text-sm font-medium text-foreground leading-tight">
+                             {item.title}
+                           </p>
+                         </CardContent>
+                       </Card>
+                       
+                       {/* Sub-items */}
+                       {expandedItem === item.id && item.subItems && (
+                         <div className="ml-4 space-y-2">
+                           {item.subItems.map((subItem) => (
+                             <Card 
+                               key={subItem.id}
+                               className="group cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg border border-gray-200 bg-muted/50"
+                               onClick={() => handleItemClick(subItem.id)}
+                             >
+                               <CardContent className="p-4 flex items-center gap-3">
+                                 <div className="flex-shrink-0">
+                                   {subItem.lucideIcon && (
+                                     <subItem.lucideIcon className="h-8 w-8 text-primary group-hover:text-accent transition-colors duration-200" />
+                                   )}
+                                 </div>
+                                 <p className="text-sm font-medium text-foreground">
+                                   {subItem.title}
+                                 </p>
+                               </CardContent>
+                             </Card>
+                           ))}
+                         </div>
+                       )}
+                     </div>
+                   ))}
+                 </div>
               </>
             ) : null;
           })()}
