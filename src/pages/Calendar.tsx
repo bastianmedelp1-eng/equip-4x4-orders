@@ -339,20 +339,28 @@ const Calendar = () => {
             ))}
           </div>
 
-          {/* Calendar Body with Horizontal Events */}
+          {/* Calendar Body with Dynamic Heights */}
           <div className="relative">
-            {/* Day Numbers Grid */}
+            {/* Day Numbers Grid with Dynamic Heights */}
             <div className="grid grid-cols-7">
-              {days.map((day, index) => (
-                <div
-                  key={index}
-                  className="h-[200px] p-3 border-r border-b border-border/20 last:border-r-0 hover:bg-muted/30 transition-colors"
-                >
-                  {day && (
-                    <div className="text-right text-lg font-bold text-foreground">{day}</div>
-                  )}
-                </div>
-              ))}
+              {days.map((day, index) => {
+                const dayEvents = day ? getFilteredEvents(events[day]) || [] : [];
+                const eventCount = dayEvents.length;
+                const minHeight = 200;
+                const dynamicHeight = Math.max(minHeight, 120 + (eventCount * 44));
+                
+                return (
+                  <div
+                    key={index}
+                    className="p-3 border-r border-b border-border/20 last:border-r-0 hover:bg-muted/30 transition-colors"
+                    style={{ height: `${dynamicHeight}px` }}
+                  >
+                    {day && (
+                      <div className="text-right text-lg font-bold text-foreground">{day}</div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             {/* Horizontal Event Bars Overlay */}
@@ -361,21 +369,34 @@ const Calendar = () => {
                 const dayIndex = days.findIndex(d => d === parseInt(dayNum));
                 if (dayIndex === -1) return null;
 
+                // Calculate dynamic row heights
+                const rowHeights = [];
+                for (let i = 0; i < Math.ceil(days.length / 7); i++) {
+                  let maxEventsInRow = 0;
+                  for (let j = 0; j < 7; j++) {
+                    const cellIndex = i * 7 + j;
+                    if (cellIndex < days.length && days[cellIndex]) {
+                      const cellEvents = getFilteredEvents(events[days[cellIndex]]) || [];
+                      maxEventsInRow = Math.max(maxEventsInRow, cellEvents.length);
+                    }
+                  }
+                  const minHeight = 200;
+                  rowHeights[i] = Math.max(minHeight, 120 + (maxEventsInRow * 44));
+                }
+
                 const row = Math.floor(dayIndex / 7);
                 const col = dayIndex % 7;
                 
+                // Calculate vertical offset considering dynamic row heights
+                const verticalOffset = rowHeights.slice(0, row).reduce((sum, height) => sum + height, 0);
+                
                 return getFilteredEvents(dayEvents).map((event, eventIndex) => {
-                  // Calculate position within the specific day cell - ensure no overlap
+                  // Calculate position within the specific day cell
                   const cellWidth = 100 / 7; // Each cell is 1/7 of the total width
                   const eventHeight = 44; // Fixed height for each event including margin
-                  const topOffset = row * 200 + 45 + (eventIndex * eventHeight); // Ensure proper spacing
-                  const leftOffset = col * cellWidth + 0.2; // Start at the beginning of the cell + small margin
-                  const eventWidth = cellWidth - 0.4; // Fill the cell width minus margins
-                  
-                  // Service type abbreviation
-                  const serviceType = event.type === 'ENVÍO' ? 'PF' : 
-                                     event.type === 'INSTALACIÓN DE CÚPULA' ? 'C' : 
-                                     event.type === 'ESPECIAL' ? 'ESP' : 'RT';
+                  const topOffset = verticalOffset + 45 + (eventIndex * eventHeight);
+                  const leftOffset = col * cellWidth + 0.2;
+                  const eventWidth = cellWidth - 0.4;
                   
                   return (
                     <button
@@ -386,7 +407,7 @@ const Calendar = () => {
                         top: `${topOffset}px`,
                         left: `${leftOffset}%`,
                         width: `${eventWidth}%`,
-                        height: '40px', // Fixed height for exactly 2 lines
+                        height: '40px',
                         backgroundColor: event.type === 'ENVÍO' ? 'hsl(142 76% 36% / 0.2)' :
                                        event.type === 'INSTALACIÓN DE CÚPULA' ? 'hsl(217 91% 60% / 0.2)' :
                                        event.type === 'ESPECIAL' ? 'hsl(0 84% 60% / 0.2)' :
@@ -413,11 +434,11 @@ const Calendar = () => {
                         ></div>
                         
                         <div className="flex-1 min-w-0 overflow-hidden">
-                          {/* Exactly 2 lines - Line 1: Order + Service Type */}
+                          {/* Line 1: Order Code Only */}
                           <div className="text-sm font-bold text-foreground leading-tight truncate">
-                            #{event.id} [{serviceType}]
+                            #{event.id}
                           </div>
-                          {/* Line 2: Vehicle Model */}
+                          {/* Line 2: Vehicle Model Complete */}
                           <div className="text-sm font-semibold text-foreground leading-tight truncate mt-0.5">
                             {event.vehicle}
                           </div>
