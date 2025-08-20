@@ -28,7 +28,7 @@ import iconEstadisticas from "@/assets/icon-estadisticas.png";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isChatMinimized, setIsChatMinimized] = useState(false);
+  const [isChatMinimized, setIsChatMinimized] = useState(true);
   const navigate = useNavigate();
 
   const menuItems = [
@@ -190,13 +190,11 @@ const Index = () => {
         <DashboardGrid isCompact={!isChatMinimized} />
       </main>
       
-      {/* Fixed AI Chat - Bottom Center */}
-      <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
-        <AIChat 
-          isMinimized={isChatMinimized}
-          onToggleMinimize={() => setIsChatMinimized(!isChatMinimized)}
-        />
-      </div>
+      {/* AI Chat Component */}
+      <AIChat 
+        isMinimized={isChatMinimized}
+        onToggleMinimize={() => setIsChatMinimized(!isChatMinimized)}
+      />
       
       <footer className="text-center py-6 text-sm text-muted-foreground border-t border-border">
         © 2024 Equipers 4x4. Todos los derechos reservados.

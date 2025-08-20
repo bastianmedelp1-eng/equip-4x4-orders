@@ -159,149 +159,163 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
   };
 
   return (
-    <div className={`transition-all duration-500 ease-out ${
-      isMinimized 
-        ? 'w-80 animate-scale-out' 
-        : 'w-[700px] animate-scale-in animate-fade-in'
-    }`}>
-      <Card className={`shadow-2xl transition-all duration-500 ease-out transform relative ${
-        isMinimized 
-          ? 'h-16 scale-95 border-2 border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.3)] animate-[pulse_3s_ease-in-out_infinite]' 
-          : 'h-[500px] scale-100 hover:shadow-3xl border border-border'
-      }`}>
-        <CardHeader className={`pb-3 ${isMinimized ? 'cursor-pointer hover:bg-accent/50 transition-colors duration-200' : ''}`} onClick={isMinimized ? onToggleMinimize : undefined}>
-          <CardTitle className="text-xl flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 p-2 rounded-full hover:bg-accent transition-all duration-200 hover:scale-110 flex items-center justify-center group">
-                <img 
-                  src="/lovable-uploads/ce13be00-df3c-4711-b669-77508ef1cd72.png" 
-                  alt="Equipers 4x4 Logo" 
-                  className="h-6 w-6 object-contain group-hover:brightness-110 transition-all duration-200"
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <MessageCircle className="h-5 w-5 text-primary" />
-                <span className="font-semibold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-                  Asistente IA
-                </span>
+    <>
+      {/* Floating AI Assistant Button */}
+      {isMinimized && (
+        <div 
+          className="fixed bottom-6 right-6 z-50 cursor-pointer"
+          onClick={onToggleMinimize}
+        >
+          <div className="relative">
+            {/* Outer glow ring */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-400/30 via-amber-500/30 to-orange-600/30 blur-xl animate-pulse"></div>
+            
+            {/* Main button */}
+            <div className="relative h-16 w-16 rounded-full bg-gradient-to-br from-orange-400 via-amber-500 to-orange-600 shadow-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(245,158,11,0.5)] group">
+              {/* Inner gradient overlay */}
+              <div className="absolute inset-2 rounded-full bg-gradient-to-br from-orange-300/40 via-transparent to-orange-700/40"></div>
+              
+              {/* Pulsing animation rings */}
+              <div className="absolute inset-0 rounded-full border-2 border-orange-300/30 animate-ping"></div>
+              <div className="absolute inset-1 rounded-full border border-orange-200/20 animate-pulse"></div>
+              
+              {/* Icon */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <MessageCircle className="h-7 w-7 text-white drop-shadow-lg transition-transform duration-300 group-hover:scale-110" />
               </div>
             </div>
-            {!isMinimized && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={onToggleMinimize}
-                className="h-8 w-8 p-0 hover:bg-accent transition-all duration-200 hover:scale-110"
-              >
-                <Minimize2 className="h-4 w-4" />
-              </Button>
-            )}
-          </CardTitle>
-        </CardHeader>
+          </div>
+        </div>
+      )}
 
-        {!isMinimized && (
-        <CardContent className="p-0 flex flex-col h-[420px] animate-fade-in">
-          {showApiKeyInput && !apiKey && (
-            <div className="p-4 bg-muted">
-              <p className="text-sm mb-2">Ingresa tu OpenAI API Key:</p>
-              <div className="flex gap-2">
-                <Input
-                  type="password"
-                  placeholder="sk-..."
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  className="text-xs"
-                />
-                <Button
-                  size="sm"
-                  onClick={() => setShowApiKeyInput(false)}
-                  disabled={!apiKey}
-                >
-                  OK
-                </Button>
-              </div>
-            </div>
-          )}
-
-          <ScrollArea className="flex-1 px-4">
-            <div className="space-y-4 py-4">
-              {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-[80%] p-4 rounded-lg ${
-                      message.isUser
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted text-foreground'
-                    }`}
-                  >
-                    <p className="whitespace-pre-wrap text-sm leading-relaxed">{message.text}</p>
-                    <p className="text-xs opacity-70 mt-2">
-                      {message.timestamp.toLocaleTimeString('es-ES', { 
-                        hour: '2-digit', 
-                        minute: '2-digit' 
-                      })}
-                    </p>
+      {/* Chat Window */}
+      {!isMinimized && (
+        <div className="fixed bottom-6 right-6 z-50 w-[700px] animate-scale-in animate-fade-in">
+          <Card className="shadow-2xl border border-border h-[500px]">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-xl flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-orange-400 via-amber-500 to-orange-600 flex items-center justify-center">
+                    <MessageCircle className="h-5 w-5 text-white" />
                   </div>
+                  <span className="font-semibold bg-gradient-to-r from-orange-500 to-amber-600 bg-clip-text text-transparent">
+                    Asistente IA
+                  </span>
                 </div>
-              ))}
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-muted text-foreground p-4 rounded-lg">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-current rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                      <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                    </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={onToggleMinimize}
+                  className="h-8 w-8 p-0 hover:bg-accent transition-all duration-200 hover:scale-110"
+                >
+                  <Minimize2 className="h-4 w-4" />
+                </Button>
+              </CardTitle>
+            </CardHeader>
+
+            <CardContent className="p-0 flex flex-col h-[420px] animate-fade-in">
+              {showApiKeyInput && !apiKey && (
+                <div className="p-4 bg-muted">
+                  <p className="text-sm mb-2">Ingresa tu OpenAI API Key:</p>
+                  <div className="flex gap-2">
+                    <Input
+                      type="password"
+                      placeholder="sk-..."
+                      value={apiKey}
+                      onChange={(e) => setApiKey(e.target.value)}
+                      className="text-xs"
+                    />
+                    <Button
+                      size="sm"
+                      onClick={() => setShowApiKeyInput(false)}
+                      disabled={!apiKey}
+                    >
+                      OK
+                    </Button>
                   </div>
                 </div>
               )}
-              <div ref={messagesEndRef} />
-            </div>
-          </ScrollArea>
 
-          <div className="p-4 border-t">
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleFileAttachment}
-                className="px-3"
-              >
-                <Paperclip className="h-4 w-4" />
-              </Button>
-              <Input
-                placeholder="Escribe tu pregunta sobre el sistema Equipers 4x4..."
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyPress={handleKeyPress}
-                disabled={isLoading}
-                className="flex-1"
+              <ScrollArea className="flex-1 px-4">
+                <div className="space-y-4 py-4">
+                  {messages.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div
+                        className={`max-w-[80%] p-4 rounded-lg ${
+                          message.isUser
+                            ? 'bg-primary text-primary-foreground'
+                            : 'bg-muted text-foreground'
+                        }`}
+                      >
+                        <p className="whitespace-pre-wrap text-sm leading-relaxed">{message.text}</p>
+                        <p className="text-xs opacity-70 mt-2">
+                          {message.timestamp.toLocaleTimeString('es-ES', { 
+                            hour: '2-digit', 
+                            minute: '2-digit' 
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                  {isLoading && (
+                    <div className="flex justify-start">
+                      <div className="bg-muted text-foreground p-4 rounded-lg">
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-current rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                          <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <div ref={messagesEndRef} />
+                </div>
+              </ScrollArea>
+
+              <div className="p-4 border-t">
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleFileAttachment}
+                    className="px-3"
+                  >
+                    <Paperclip className="h-4 w-4" />
+                  </Button>
+                  <Input
+                    placeholder="Escribe tu pregunta sobre el sistema Equipers 4x4..."
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    disabled={isLoading}
+                    className="flex-1"
+                  />
+                  <Button
+                    onClick={handleSendMessage}
+                    disabled={isLoading || !inputValue.trim()}
+                    size="sm"
+                    className="px-4"
+                  >
+                    <Send className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                className="hidden"
+                accept=".txt,.pdf,.doc,.docx,.jpg,.jpeg,.png"
               />
-              <Button
-                onClick={handleSendMessage}
-                disabled={isLoading || !inputValue.trim()}
-                size="sm"
-                className="px-4"
-              >
-                <Send className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileChange}
-            className="hidden"
-            accept=".txt,.pdf,.doc,.docx,.jpg,.jpeg,.png"
-          />
-        </CardContent>
-        )}
-      </Card>
-    </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+    </>
   );
 };
 
