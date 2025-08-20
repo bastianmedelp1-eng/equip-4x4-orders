@@ -169,19 +169,16 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
           ? 'h-16 scale-95' 
           : 'h-[500px] scale-100 hover:shadow-3xl'
       }`}>
-        <CardHeader className="pb-3">
+        <CardHeader className={`pb-3 ${isMinimized ? 'cursor-pointer hover:bg-accent/50 transition-colors duration-200' : ''}`} onClick={isMinimized ? onToggleMinimize : undefined}>
           <CardTitle className="text-xl flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <button
-                onClick={onToggleMinimize}
-                className="h-10 w-10 p-2 rounded-full hover:bg-accent transition-all duration-200 hover:scale-110 flex items-center justify-center group"
-              >
+              <div className="h-10 w-10 p-2 rounded-full hover:bg-accent transition-all duration-200 hover:scale-110 flex items-center justify-center group">
                 <img 
                   src="/lovable-uploads/ce13be00-df3c-4711-b669-77508ef1cd72.png" 
                   alt="Equipers 4x4 Logo" 
                   className="h-6 w-6 object-contain group-hover:brightness-110 transition-all duration-200"
                 />
-              </button>
+              </div>
               <div className="flex items-center gap-2">
                 <MessageCircle className="h-5 w-5 text-primary" />
                 <span className="font-semibold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
