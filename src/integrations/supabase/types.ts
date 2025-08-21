@@ -35,6 +35,38 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          auth_user_id: string | null
+          created_at: string | null
+          id: string
+          updated_at: string | null
+          user_id: number | null
+        }
+        Insert: {
+          auth_user_id?: string | null
+          created_at?: string | null
+          id?: string
+          updated_at?: string | null
+          user_id?: number | null
+        }
+        Update: {
+          auth_user_id?: string | null
+          created_at?: string | null
+          id?: string
+          updated_at?: string | null
+          user_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_module_permissions: {
         Row: {
           can_edit: boolean | null
@@ -97,7 +129,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_current_user_id: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      is_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
