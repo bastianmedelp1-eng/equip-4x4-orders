@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { nanoid } from "nanoid";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,26 +16,26 @@ import {
 } from "@/components/ui/table";
 
 interface Seller {
-  id: number;
+  id: string;
   name: string;
 }
 
 const Sellers = () => {
   const navigate = useNavigate();
   const [sellerName, setSellerName] = useState("");
-  const [sellers, setSellers] = useState<Seller[]>([
-    { id: 1, name: "MIGUEL" },
-    { id: 2, name: "DANIELA" },
-    { id: 3, name: "ISMAEL" },
-    { id: 4, name: "SALOMON" },
-    { id: 5, name: "FRANYELIS" },
-    { id: 6, name: "EDUARDO" },
+  const [sellers, setSellers] = useState<Seller[]>(() => [
+    { id: nanoid(), name: "MIGUEL" },
+    { id: nanoid(), name: "DANIELA" },
+    { id: nanoid(), name: "ISMAEL" },
+    { id: nanoid(), name: "SALOMON" },
+    { id: nanoid(), name: "FRANYELIS" },
+    { id: nanoid(), name: "EDUARDO" },
   ]);
 
   const handleCreateSeller = () => {
     if (sellerName.trim()) {
       const newSeller = {
-        id: sellers.length + 1,
+        id: nanoid(),
         name: sellerName.toUpperCase(),
       };
       setSellers([...sellers, newSeller]);
@@ -42,8 +43,22 @@ const Sellers = () => {
     }
   };
 
-  const handleDeleteSeller = (id: number) => {
-    setSellers(sellers.filter(seller => seller.id !== id));
+  const handleDeleteSeller = (id: string) => {
+    setSellers(sellers.filter((seller) => seller.id !== id));
+  };
+
+  const handleEditSeller = (id: string) => {
+    const currentName = sellers.find((seller) => seller.id === id)?.name ?? "";
+    const updatedName = prompt("Nuevo nombre del vendedor:", currentName);
+    if (updatedName?.trim()) {
+      setSellers(
+        sellers.map((seller) =>
+          seller.id === id
+            ? { ...seller, name: updatedName.toUpperCase() }
+            : seller
+        )
+      );
+    }
   };
 
   const handleCancel = () => {
@@ -128,6 +143,7 @@ const Sellers = () => {
                           <Button
                             size="sm"
                             className="bg-cyan-500 hover:bg-cyan-600 text-white"
+                            onClick={() => handleEditSeller(seller.id)}
                           >
                             <Edit className="h-4 w-4 mr-1" />
                             Editar
