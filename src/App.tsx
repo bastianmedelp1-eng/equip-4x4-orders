@@ -5,6 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/Header";
+import { AuthProvider } from "@/hooks/useAuth";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import Auth from "@/pages/Auth";
 import Index from "./pages/Index";
 import Users from "./pages/Users";
 import Brands from "./pages/Brands";
@@ -44,45 +47,227 @@ const App = () => (
       disableTransitionOnChange
     >
       <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <div className="min-h-screen flex flex-col w-full">
-            <Header />
-            <main className="flex-1">
+        <AuthProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <div className="min-h-screen flex flex-col w-full">
               <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/usuarios" element={<Users />} />
-                    <Route path="/marcas" element={<Brands />} />
-                    <Route path="/modelos" element={<Models />} />
-                    <Route path="/vendedores" element={<Sellers />} />
-                    <Route path="/accesorios" element={<Accessories />} />
-                    <Route path="/pedidos" element={<OrdersList />} />
-                    <Route path="/pedido" element={<Orders />} />
-                    <Route path="/lista-cupulas" element={<CupulasList />} />
-                    <Route path="/lista-racks" element={<RacksList />} />
-                    <Route path="/lista-especiales" element={<SpecialsList />} />
-                    <Route path="/calendario" element={<Calendar />} />
-                    <Route path="/buscador-precios" element={<PriceSearch />} />
-                    <Route path="/cotizacion" element={<Quotations />} />
-                    <Route path="/historial-ventas" element={<SalesHistory />} />
-                    <Route path="/estadisticas" element={<Statistics />} />
-                    <Route path="/categorias-gasto" element={<ExpenseCategories />} />
-                    <Route path="/trabajadores" element={<Workers />} />
-                    <Route path="/escaner-qr" element={<QRScanner />} />
-                    <Route path="/gastos" element={<Expenses />} />
-                    <Route path="/corte-laser" element={<LaserCutting />} />
-                    <Route path="/herramientas" element={<Tools />} />
-                    <Route path="/productos" element={<Products />} />
-                    <Route path="/vista-herramientas" element={<ToolsView />} />
-                    <Route path="/buscar-orden" element={<WorkOrderSearch />} />
-                    <Route path="/mi-comision" element={<Commission />} />
-                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                    <Route path="*" element={<NotFound />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Index />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/usuarios" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Users />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/marcas" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Brands />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/modelos" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Models />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/vendedores" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Sellers />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/accesorios" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Accessories />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/pedidos" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <OrdersList />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/pedido" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Orders />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/lista-cupulas" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <CupulasList />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/lista-racks" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <RacksList />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/lista-especiales" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <SpecialsList />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/calendario" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Calendar />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/buscador-precios" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <PriceSearch />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/cotizacion" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Quotations />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/historial-ventas" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <SalesHistory />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/estadisticas" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Statistics />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/categorias-gasto" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <ExpenseCategories />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/trabajadores" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Workers />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/escaner-qr" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <QRScanner />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/gastos" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Expenses />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/corte-laser" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <LaserCutting />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/herramientas" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Tools />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/productos" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Products />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/vista-herramientas" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <ToolsView />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/buscar-orden" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <WorkOrderSearch />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                <Route path="/mi-comision" element={
+                  <ProtectedRoute>
+                    <Header />
+                    <main className="flex-1">
+                      <Commission />
+                    </main>
+                  </ProtectedRoute>
+                } />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
               </Routes>
-            </main>
-          </div>
-        </BrowserRouter>
+            </div>
+          </BrowserRouter>
+        </AuthProvider>
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>

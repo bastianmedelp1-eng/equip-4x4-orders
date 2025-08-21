@@ -25,6 +25,7 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "next-themes";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
 import SettingsDialog from "./SettingsDialog";
 import PermissionsDialog from "./PermissionsDialog";
 import CommissionDialog from "./CommissionDialog";
@@ -46,6 +47,7 @@ interface HeaderProps {
 
 const Header = ({ title }: HeaderProps) => {
   const { theme, setTheme } = useTheme();
+  const { user, signOut } = useAuth();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [permissionsOpen, setPermissionsOpen] = useState(false);
   const [commissionOpen, setCommissionOpen] = useState(false);
@@ -333,7 +335,7 @@ const Header = ({ title }: HeaderProps) => {
               <Avatar className="h-10 w-10 border-2 border-primary/20 hover:border-primary/40 transition-colors">
                 <AvatarImage src="" alt="Usuario" />
                 <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
-                  A
+                  {user?.email?.substring(0, 2).toUpperCase() || "US"}
                 </AvatarFallback>
               </Avatar>
             </Button>
@@ -345,12 +347,12 @@ const Header = ({ title }: HeaderProps) => {
                   <Avatar className="h-12 w-12">
                     <AvatarImage src="" alt="Usuario" />
                     <AvatarFallback className="bg-primary text-primary-foreground text-lg font-semibold">
-                      A
+                      {user?.email?.substring(0, 2).toUpperCase() || "US"}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col">
-                    <p className="text-sm font-medium text-foreground">PERFIL_ADMIN</p>
-                    <p className="text-xs text-muted-foreground">admin@equipers4x4.com</p>
+                    <p className="text-sm font-medium text-foreground">{user?.email?.toUpperCase() || "USUARIO"}</p>
+                    <p className="text-xs text-muted-foreground">{user?.email || "usuario@ejemplo.com"}</p>
                   </div>
                 </div>
               </div>
@@ -393,7 +395,7 @@ const Header = ({ title }: HeaderProps) => {
             <DropdownMenuSeparator />
             <DropdownMenuItem 
               className="cursor-pointer text-red-600 hover:bg-red-50 dark:hover:bg-red-950 transition-colors"
-              onClick={() => toast.info("Función de cerrar sesión disponible próximamente")}
+              onClick={signOut}
             >
               <LogOut className="mr-3 h-4 w-4" />
               <span>Cerrar sesión</span>
