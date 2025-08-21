@@ -39,7 +39,7 @@ const Users = () => {
   ]);
 
   const allowedScreens = [
-    "Usuarios", "Marcas", "Modelos", "Vendedores", "Accesorios", "Pedido", "Lista cúpulas", "Lista racks", "Lista especiales", "Calendario",
+    "Usuarios", "Marcas", "Modelos", "Vendedores", "Accesorios", "Pedidos", "Lista especiales", "Calendario",
     "Buscador de precios", "Cotización", "Productos", "Historial de ventas", "Estadísticas", "Categorías de Gasto", "Gastos", "Trabajadores", "Escanear QR",
     "Asistencia", "Corte Laser", "Buscador de ordenes de trabajo", "Herramientas"
   ];

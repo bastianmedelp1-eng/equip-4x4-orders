@@ -166,12 +166,6 @@ const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
       case "pedidos":
         navigate("/pedidos");
         break;
-      case "lista-cupulas":
-        navigate("/lista-cupulas");
-        break;
-      case "lista-racks":
-        navigate("/lista-racks");
-        break;
       case "lista-especiales":
         navigate("/lista-especiales");
         break;

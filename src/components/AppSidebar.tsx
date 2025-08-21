@@ -52,12 +52,10 @@ const menuItems = [
   { title: "Marcas", url: "/marcas", icon: iconMarcas, isCustomIcon: true },
   { title: "Modelos", url: "/modelos", icon: Car },
   { title: "Accesorios", url: "/accesorios", icon: Package },
-  { title: "Cúpulas", url: "/lista-cupulas", icon: List },
-  { title: "Racks", url: "/lista-racks", icon: List },
   { title: "Especiales", url: "/lista-especiales", icon: Star },
   
   // Pedidos y Ventas
-  { title: "Pedido", url: "/pedido", icon: iconPedido, isCustomIcon: true },
+  { title: "Pedidos", url: "/pedidos", icon: iconPedido, isCustomIcon: true },
   { title: "Cotización", url: "/cotizacion", icon: iconCotizacion, isCustomIcon: true },
   { title: "Buscador de precios", url: "/buscador-precios", icon: Search },
   { title: "Historial de ventas", url: "/historial-ventas", icon: iconHistorial, isCustomIcon: true },
