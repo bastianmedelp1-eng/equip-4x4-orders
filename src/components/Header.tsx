@@ -52,7 +52,7 @@ const Header = ({ title }: HeaderProps) => {
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const navigate = useNavigate();
-  
+
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
@@ -61,76 +61,37 @@ const Header = ({ title }: HeaderProps) => {
     setExpandedSection(expandedSection === sectionId ? null : sectionId);
   };
 
+  const routes: Record<string, string> = {
+    productos: "/productos",
+    marcas: "/marcas",
+    modelos: "/modelos",
+    accesorios: "/accesorios",
+    "lista-especiales": "/lista-especiales",
+    pedidos: "/pedidos",
+    cotizacion: "/cotizacion",
+    "buscador-precios": "/buscador-precios",
+    historial: "/historial-ventas",
+    gastos: "/gastos",
+    "categorias-gasto": "/categorias-gasto",
+    estadisticas: "/estadisticas",
+    usuarios: "/usuarios",
+    vendedores: "/vendedores",
+    trabajadores: "/trabajadores",
+    "buscar-orden": "/buscar-orden",
+    corte: "/corte-laser",
+    qr: "/escaner-qr",
+    herramientas: "/herramientas",
+    "vista-herramientas": "/vista-herramientas",
+    calendario: "/calendario",
+  };
+
   const handleItemClick = (itemId: string) => {
     setSideMenuOpen(false);
-    
-    switch (itemId) {
-      case "productos":
-        navigate("/productos");
-        break;
-      case "marcas":
-        navigate("/marcas");
-        break;
-      case "modelos":
-        navigate("/modelos");
-        break;
-      case "accesorios":
-        navigate("/accesorios");
-        break;
-      case "lista-especiales":
-        navigate("/lista-especiales");
-        break;
-      case "pedidos":
-        navigate("/pedidos");
-        break;
-      case "cotizacion":
-        navigate("/cotizacion");
-        break;
-      case "buscador-precios":
-        navigate("/buscador-precios");
-        break;
-      case "historial":
-        navigate("/historial-ventas");
-        break;
-      case "gastos":
-        navigate("/gastos");
-        break;
-      case "categorias-gasto":
-        navigate("/categorias-gasto");
-        break;
-      case "estadisticas":
-        navigate("/estadisticas");
-        break;
-      case "usuarios":
-        navigate("/usuarios");
-        break;
-      case "vendedores":
-        navigate("/vendedores");
-        break;
-      case "trabajadores":
-        navigate("/trabajadores");
-        break;
-      case "buscar-orden":
-        navigate("/buscar-orden");
-        break;
-      case "corte":
-        navigate("/corte-laser");
-        break;
-      case "qr":
-        navigate("/escaner-qr");
-        break;
-      case "herramientas":
-        navigate("/herramientas");
-        break;
-      case "vista-herramientas":
-        navigate("/vista-herramientas");
-        break;
-      case "calendario":
-        navigate("/calendario");
-        break;
-      default:
-        console.log(`Clicked on ${itemId}`);
-        break;
+    const route = routes[itemId];
+    if (route) {
+      navigate(route);
+    } else {
+      console.log(`Clicked on ${itemId}`);
     }
   };
 

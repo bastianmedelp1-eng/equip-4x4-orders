@@ -13,9 +13,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { nanoid } from "nanoid";
 
 interface Seller {
-  id: number;
+  id: string;
   name: string;
 }
 
@@ -23,18 +24,18 @@ const Sellers = () => {
   const navigate = useNavigate();
   const [sellerName, setSellerName] = useState("");
   const [sellers, setSellers] = useState<Seller[]>([
-    { id: 1, name: "MIGUEL" },
-    { id: 2, name: "DANIELA" },
-    { id: 3, name: "ISMAEL" },
-    { id: 4, name: "SALOMON" },
-    { id: 5, name: "FRANYELIS" },
-    { id: 6, name: "EDUARDO" },
+    { id: "1", name: "MIGUEL" },
+    { id: "2", name: "DANIELA" },
+    { id: "3", name: "ISMAEL" },
+    { id: "4", name: "SALOMON" },
+    { id: "5", name: "FRANYELIS" },
+    { id: "6", name: "EDUARDO" },
   ]);
 
   const handleCreateSeller = () => {
     if (sellerName.trim()) {
       const newSeller = {
-        id: sellers.length + 1,
+        id: nanoid(),
         name: sellerName.toUpperCase(),
       };
       setSellers([...sellers, newSeller]);
@@ -42,7 +43,7 @@ const Sellers = () => {
     }
   };
 
-  const handleDeleteSeller = (id: number) => {
+  const handleDeleteSeller = (id: string) => {
     setSellers(sellers.filter(seller => seller.id !== id));
   };
 

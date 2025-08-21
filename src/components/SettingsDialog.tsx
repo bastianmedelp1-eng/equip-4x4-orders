@@ -12,6 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { Eye, EyeOff, Lock } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 interface SettingsDialogProps {
   open: boolean;
@@ -26,11 +28,22 @@ const SettingsDialog = ({ open, onOpenChange }: SettingsDialogProps) => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement password change logic with Supabase
-    console.log("Password change requested");
-    onOpenChange(false);
+    if (newPassword !== confirmPassword) {
+      toast.error("Las contraseñas no coinciden");
+      return;
+    }
+
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+
+    if (error) {
+      toast.error(error.message ?? "Error al cambiar la contraseña");
+    } else {
+      toast.success("Contraseña actualizada");
+      onOpenChange(false);
+      resetForm();
+    }
   };
 
   const resetForm = () => {
