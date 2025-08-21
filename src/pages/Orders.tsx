@@ -22,10 +22,19 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+interface OrderItem {
+  accessory: string;
+  quantity: number;
+  rackType: string;
+  brand: string;
+  model: string;
+  year: string;
+}
+
 const Orders = () => {
   const navigate = useNavigate();
   const [orderType, setOrderType] = useState("");
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<OrderItem[]>([]);
 
   const handleOrderTypeChange = (value: string) => {
     setOrderType(value);
