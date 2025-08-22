@@ -160,7 +160,7 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
 
   return (
     <>
-      {/* Floating AI Assistant Button - Siri Style */}
+      {/* Floating AI Assistant Button - Siri Style Grayscale */}
       {isMinimized && (
         <div 
           className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 cursor-pointer"
@@ -168,47 +168,47 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
         >
           <div className="relative">
             {/* Outer glow - Siri breathing effect */}
-            <div className="absolute -inset-12 rounded-full bg-gradient-to-r from-blue-500/20 via-purple-500/20 via-pink-500/20 to-orange-500/20 animate-pulse blur-2xl"></div>
+            <div className="absolute -inset-12 rounded-full bg-gradient-to-r from-gray-900/20 via-gray-700/20 via-gray-500/20 to-gray-900/20 animate-pulse blur-2xl"></div>
             
             {/* Middle aura - Color shifting */}
-            <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-cyan-400/30 via-blue-500/30 via-purple-500/30 via-pink-500/30 to-orange-400/30 animate-spin-slow blur-lg"></div>
+            <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-gray-800/30 via-gray-600/30 via-gray-400/30 via-gray-600/30 to-gray-800/30 animate-spin-slow blur-lg"></div>
             
             {/* Inner aura - Siri wave effect */}
-            <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-blue-400/40 via-purple-400/40 via-pink-400/40 to-orange-400/40 animate-bounce blur-md" style={{animationDuration: '3s'}}></div>
+            <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-gray-700/40 via-gray-500/40 via-gray-300/40 to-gray-700/40 animate-bounce blur-md" style={{animationDuration: '3s'}}></div>
             
-            {/* Main Siri button - Colorful circular */}
-            <div className="relative h-20 w-20 rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 via-purple-500 via-pink-500 to-orange-400 shadow-2xl transform transition-all duration-500 hover:scale-110 hover:shadow-[0_0_60px_rgba(59,130,246,0.6)] group overflow-hidden animate-gradient-x">
+            {/* Main Siri button - Grayscale circular */}
+            <div className="relative h-20 w-20 rounded-full bg-gradient-to-br from-gray-900 via-gray-800 via-gray-700 via-gray-600 to-black shadow-2xl transform transition-all duration-500 hover:scale-110 hover:shadow-[0_0_60px_rgba(0,0,0,0.8)] group overflow-hidden animate-gradient-x">
               {/* Inner gradient overlay - Siri shimmer */}
-              <div className="absolute inset-1 rounded-full bg-gradient-to-br from-white/20 via-transparent to-black/10 animate-pulse"></div>
+              <div className="absolute inset-1 rounded-full bg-gradient-to-br from-white/10 via-transparent to-black/20 animate-pulse"></div>
               
               {/* Siri wave rings */}
               <div className="absolute inset-2 rounded-full overflow-hidden">
                 {/* Outer wave ring */}
-                <div className="absolute inset-0 rounded-full border-2 border-white/30 animate-ping" style={{animationDuration: '2s'}}></div>
+                <div className="absolute inset-0 rounded-full border-2 border-gray-300/30 animate-ping" style={{animationDuration: '2s'}}></div>
                 
                 {/* Middle wave ring */}
-                <div className="absolute inset-2 rounded-full border border-white/40 animate-ping" style={{animationDuration: '2.5s', animationDelay: '0.5s'}}></div>
+                <div className="absolute inset-2 rounded-full border border-gray-200/40 animate-ping" style={{animationDuration: '2.5s', animationDelay: '0.5s'}}></div>
                 
                 {/* Inner wave ring */}
                 <div className="absolute inset-4 rounded-full border border-white/50 animate-ping" style={{animationDuration: '3s', animationDelay: '1s'}}></div>
                 
                 {/* Central pulse */}
-                <div className="absolute inset-6 rounded-full bg-white/20 animate-pulse"></div>
+                <div className="absolute inset-6 rounded-full bg-gray-200/20 animate-pulse"></div>
               </div>
               
               {/* Siri voice wave visualization */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="flex items-center space-x-1">
-                  <div className="w-1 bg-white/80 rounded-full animate-bounce" style={{height: '8px', animationDelay: '0s', animationDuration: '1.5s'}}></div>
-                  <div className="w-1 bg-white/80 rounded-full animate-bounce" style={{height: '12px', animationDelay: '0.2s', animationDuration: '1.5s'}}></div>
-                  <div className="w-1 bg-white/80 rounded-full animate-bounce" style={{height: '16px', animationDelay: '0.4s', animationDuration: '1.5s'}}></div>
-                  <div className="w-1 bg-white/80 rounded-full animate-bounce" style={{height: '12px', animationDelay: '0.6s', animationDuration: '1.5s'}}></div>
-                  <div className="w-1 bg-white/80 rounded-full animate-bounce" style={{height: '8px', animationDelay: '0.8s', animationDuration: '1.5s'}}></div>
+                  <div className="w-1 bg-white/90 rounded-full animate-bounce" style={{height: '8px', animationDelay: '0s', animationDuration: '1.5s'}}></div>
+                  <div className="w-1 bg-gray-200/90 rounded-full animate-bounce" style={{height: '12px', animationDelay: '0.2s', animationDuration: '1.5s'}}></div>
+                  <div className="w-1 bg-white/90 rounded-full animate-bounce" style={{height: '16px', animationDelay: '0.4s', animationDuration: '1.5s'}}></div>
+                  <div className="w-1 bg-gray-200/90 rounded-full animate-bounce" style={{height: '12px', animationDelay: '0.6s', animationDuration: '1.5s'}}></div>
+                  <div className="w-1 bg-white/90 rounded-full animate-bounce" style={{height: '8px', animationDelay: '0.8s', animationDuration: '1.5s'}}></div>
                 </div>
               </div>
               
               {/* Subtle pulsing border */}
-              <div className="absolute inset-0 rounded-full border border-white/30 animate-pulse"></div>
+              <div className="absolute inset-0 rounded-full border border-gray-400/30 animate-pulse"></div>
             </div>
           </div>
         </div>
