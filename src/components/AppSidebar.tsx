@@ -25,6 +25,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
 
 const menuItems = [
   { title: "Dashboard", url: "/", icon: Home },
@@ -58,12 +59,14 @@ export function AppSidebar() {
       <SidebarHeader className="p-3 relative border-b border-sidebar-border/50">
         <div className="flex items-center justify-between">
           <div className={`
-            transition-all duration-300 ease-out overflow-hidden
+            transition-all duration-300 ease-out overflow-hidden flex items-center
             ${isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'}
           `}>
-            <h1 className="text-lg font-bold text-sidebar-foreground whitespace-nowrap">
-              MarketPulse
-            </h1>
+            <img 
+              src={logo} 
+              alt="Logo" 
+              className="h-8 w-auto dark:invert transition-all duration-300"
+            />
           </div>
           
           {/* Edge-style toggle button */}
