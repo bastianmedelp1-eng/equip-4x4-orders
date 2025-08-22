@@ -309,6 +309,16 @@ export default {
 						transform: 'rotate(360deg) scale(1)',
 						filter: 'blur(8px)'
 					}
+				},
+				'gradient-x': {
+					'0%, 100%': {
+						'background-size': '200% 200%',
+						'background-position': 'left center'
+					},
+					'50%': {
+						'background-size': '200% 200%',
+						'background-position': 'right center'
+					}
 				}
 			},
 			animation: {
@@ -319,7 +329,9 @@ export default {
 				'cloud-reverse': 'cloud-drift-reverse 10s ease-in-out infinite',
 				'aura-breathe': 'aura-breathing 4s ease-in-out infinite',
 				'aura-pulse-slow': 'aura-pulse 6s ease-in-out infinite',
-				'aura-drift-slow': 'aura-drift 15s linear infinite'
+				'aura-drift-slow': 'aura-drift 15s linear infinite',
+				'gradient-x': 'gradient-x 3s linear infinite',
+				'spin-slow': 'spin 8s linear infinite'
 			}
 		}
 	},
