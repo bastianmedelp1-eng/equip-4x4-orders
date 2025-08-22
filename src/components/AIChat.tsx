@@ -160,56 +160,55 @@ Responde siempre en español y de manera útil, enfocándote en cómo el sistema
 
   return (
     <>
-      {/* Floating AI Assistant Button - Cloud-like Siri Style */}
+      {/* Floating AI Assistant Button - Siri Style */}
       {isMinimized && (
         <div 
           className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 cursor-pointer"
           onClick={onToggleMinimize}
         >
-          <div className="relative animate-cloud-float">
-            {/* Outer cloud aura - floating slowly */}
-            <div className="absolute -inset-12 rounded-full bg-gradient-to-r from-gray-900/15 via-orange-900/8 via-gray-500/15 to-gray-900/15 animate-cloud-breathe blur-3xl"></div>
+          <div className="relative">
+            {/* Outer glow - Siri breathing effect */}
+            <div className="absolute -inset-12 rounded-full bg-gradient-to-r from-blue-500/20 via-purple-500/20 via-pink-500/20 to-orange-500/20 animate-pulse blur-2xl"></div>
             
-            {/* Middle cloud aura - orbiting */}
-            <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-gray-800/25 via-orange-800/15 via-gray-400/25 via-gray-600/25 to-gray-800/25 animate-cloud-orbit blur-xl"></div>
+            {/* Middle aura - Color shifting */}
+            <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-cyan-400/30 via-blue-500/30 via-purple-500/30 via-pink-500/30 to-orange-400/30 animate-spin-slow blur-lg"></div>
             
-            {/* Inner cloud aura - gentle breathing */}
-            <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-gray-700/35 via-orange-700/20 via-gray-300/35 to-gray-700/35 animate-cloud-float blur-lg" style={{animationDuration: '6s', animationDelay: '1s'}}></div>
+            {/* Inner aura - Siri wave effect */}
+            <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-blue-400/40 via-purple-400/40 via-pink-400/40 to-orange-400/40 animate-bounce blur-md" style={{animationDuration: '3s'}}></div>
             
-            {/* Main Siri button - cloud-like movement */}
-            <div className="relative h-20 w-20 rounded-full bg-gradient-to-br from-gray-900 via-gray-800 via-orange-900/30 via-gray-600 to-black shadow-2xl transform transition-all duration-700 hover:scale-110 hover:shadow-[0_0_80px_rgba(255,125,0,0.4)] group overflow-hidden animate-cloud-breathe">
-              {/* Inner gradient overlay - cloud shimmer */}
-              <div className="absolute inset-1 rounded-full bg-gradient-to-br from-white/8 via-orange-400/4 via-transparent to-black/15 animate-cloud-float" style={{animationDuration: '10s'}}></div>
+            {/* Main Siri button - Colorful circular */}
+            <div className="relative h-20 w-20 rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 via-purple-500 via-pink-500 to-orange-400 shadow-2xl transform transition-all duration-500 hover:scale-110 hover:shadow-[0_0_60px_rgba(59,130,246,0.6)] group overflow-hidden animate-gradient-x">
+              {/* Inner gradient overlay - Siri shimmer */}
+              <div className="absolute inset-1 rounded-full bg-gradient-to-br from-white/20 via-transparent to-black/10 animate-pulse"></div>
               
-              {/* Cloud-like wave rings */}
+              {/* Siri wave rings */}
               <div className="absolute inset-2 rounded-full overflow-hidden">
-                {/* Outer floating ring */}
-                <div className="absolute inset-0 rounded-full border-2 border-gray-300/25 animate-cloud-float" style={{animationDuration: '7s'}}></div>
+                {/* Outer wave ring */}
+                <div className="absolute inset-0 rounded-full border-2 border-white/30 animate-ping" style={{animationDuration: '2s'}}></div>
                 
-                {/* Middle orbiting ring with orange hint */}
-                <div className="absolute inset-2 rounded-full border border-orange-400/15 animate-cloud-orbit" style={{animationDuration: '15s', animationDelay: '2s'}}></div>
+                {/* Middle wave ring */}
+                <div className="absolute inset-2 rounded-full border border-white/40 animate-ping" style={{animationDuration: '2.5s', animationDelay: '0.5s'}}></div>
                 
-                {/* Inner breathing ring */}
-                <div className="absolute inset-4 rounded-full border border-white/40 animate-cloud-breathe" style={{animationDuration: '9s', animationDelay: '1s'}}></div>
+                {/* Inner wave ring */}
+                <div className="absolute inset-4 rounded-full border border-white/50 animate-ping" style={{animationDuration: '3s', animationDelay: '1s'}}></div>
                 
-                {/* Central cloud pulse */}
-                <div className="absolute inset-6 rounded-full bg-gradient-to-br from-gray-200/15 to-orange-400/8 animate-cloud-float" style={{animationDuration: '11s'}}></div>
+                {/* Central pulse */}
+                <div className="absolute inset-6 rounded-full bg-white/20 animate-pulse"></div>
               </div>
               
-              {/* Cloud-like voice wave visualization */}
-              <div className="absolute inset-0 flex items-center justify-center animate-cloud-float" style={{animationDuration: '5s'}}>
+              {/* Siri voice wave visualization */}
+              <div className="absolute inset-0 flex items-center justify-center">
                 <div className="flex items-center space-x-1">
-                  <div className="w-1 bg-white/85 rounded-full animate-cloud-float" style={{height: '8px', animationDelay: '0s', animationDuration: '4s'}}></div>
-                  <div className="w-1 bg-orange-300/55 rounded-full animate-cloud-float" style={{height: '12px', animationDelay: '0.8s', animationDuration: '5s'}}></div>
-                  <div className="w-1 bg-white/85 rounded-full animate-cloud-float" style={{height: '16px', animationDelay: '1.6s', animationDuration: '6s'}}></div>
-                  <div className="w-1 bg-orange-300/55 rounded-full animate-cloud-float" style={{height: '12px', animationDelay: '2.4s', animationDuration: '5s'}}></div>
-                  <div className="w-1 bg-white/85 rounded-full animate-cloud-float" style={{height: '8px', animationDelay: '3.2s', animationDuration: '4s'}}></div>
+                  <div className="w-1 bg-white/80 rounded-full animate-bounce" style={{height: '8px', animationDelay: '0s', animationDuration: '1.5s'}}></div>
+                  <div className="w-1 bg-white/80 rounded-full animate-bounce" style={{height: '12px', animationDelay: '0.2s', animationDuration: '1.5s'}}></div>
+                  <div className="w-1 bg-white/80 rounded-full animate-bounce" style={{height: '16px', animationDelay: '0.4s', animationDuration: '1.5s'}}></div>
+                  <div className="w-1 bg-white/80 rounded-full animate-bounce" style={{height: '12px', animationDelay: '0.6s', animationDuration: '1.5s'}}></div>
+                  <div className="w-1 bg-white/80 rounded-full animate-bounce" style={{height: '8px', animationDelay: '0.8s', animationDuration: '1.5s'}}></div>
                 </div>
               </div>
               
-              {/* Cloud-like pulsing borders */}
-              <div className="absolute inset-0 rounded-full border border-gray-400/25 animate-cloud-breathe"></div>
-              <div className="absolute inset-0 rounded-full border border-orange-400/12 animate-cloud-orbit" style={{animationDelay: '3s', animationDuration: '18s'}}></div>
+              {/* Subtle pulsing border */}
+              <div className="absolute inset-0 rounded-full border border-white/30 animate-pulse"></div>
             </div>
           </div>
         </div>
