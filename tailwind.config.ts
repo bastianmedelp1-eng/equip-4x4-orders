@@ -319,6 +319,72 @@ export default {
 						'background-size': '200% 200%',
 						'background-position': 'right center'
 					}
+				},
+				'cloud-float': {
+					'0%': {
+						transform: 'translateY(0px) translateX(0px) scale(1)',
+						opacity: '0.3'
+					},
+					'25%': {
+						transform: 'translateY(-3px) translateX(2px) scale(1.02)',
+						opacity: '0.5'
+					},
+					'50%': {
+						transform: 'translateY(-1px) translateX(-1px) scale(0.98)',
+						opacity: '0.7'
+					},
+					'75%': {
+						transform: 'translateY(2px) translateX(1px) scale(1.01)',
+						opacity: '0.4'
+					},
+					'100%': {
+						transform: 'translateY(0px) translateX(0px) scale(1)',
+						opacity: '0.3'
+					}
+				},
+				'cloud-breathe': {
+					'0%': {
+						transform: 'scale(1) rotate(0deg)',
+						opacity: '0.4',
+						filter: 'blur(8px)'
+					},
+					'33%': {
+						transform: 'scale(1.08) rotate(1deg)',
+						opacity: '0.6',
+						filter: 'blur(6px)'
+					},
+					'66%': {
+						transform: 'scale(0.95) rotate(-1deg)',
+						opacity: '0.8',
+						filter: 'blur(10px)'
+					},
+					'100%': {
+						transform: 'scale(1) rotate(0deg)',
+						opacity: '0.4',
+						filter: 'blur(8px)'
+					}
+				},
+				'cloud-orbit': {
+					'0%': {
+						transform: 'rotate(0deg) translateX(20px) rotate(0deg) scale(1)',
+						opacity: '0.3'
+					},
+					'25%': {
+						transform: 'rotate(90deg) translateX(22px) rotate(-90deg) scale(1.05)',
+						opacity: '0.5'
+					},
+					'50%': {
+						transform: 'rotate(180deg) translateX(18px) rotate(-180deg) scale(0.95)',
+						opacity: '0.7'
+					},
+					'75%': {
+						transform: 'rotate(270deg) translateX(21px) rotate(-270deg) scale(1.02)',
+						opacity: '0.4'
+					},
+					'100%': {
+						transform: 'rotate(360deg) translateX(20px) rotate(-360deg) scale(1)',
+						opacity: '0.3'
+					}
 				}
 			},
 			animation: {
@@ -331,7 +397,10 @@ export default {
 				'aura-pulse-slow': 'aura-pulse 6s ease-in-out infinite',
 				'aura-drift-slow': 'aura-drift 15s linear infinite',
 				'gradient-x': 'gradient-x 3s linear infinite',
-				'spin-slow': 'spin 8s linear infinite'
+				'spin-slow': 'spin 8s linear infinite',
+				'cloud-float': 'cloud-float 8s ease-in-out infinite',
+				'cloud-breathe': 'cloud-breathe 12s ease-in-out infinite',
+				'cloud-orbit': 'cloud-orbit 20s linear infinite'
 			}
 		}
 	},
