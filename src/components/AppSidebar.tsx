@@ -46,33 +46,45 @@ export function AppSidebar() {
   const isActive = (path: string) => currentPath === path;
 
   return (
-    <Sidebar className="bg-sidebar-background border-r border-sidebar-border" collapsible="icon">
-      <SidebarHeader className="p-4 relative">
+    <Sidebar 
+      className={`
+        bg-sidebar-background border-r border-sidebar-border transition-all duration-300 ease-out
+        ${isCollapsed ? 'w-12' : 'w-64'}
+        relative overflow-hidden
+      `} 
+      collapsible="icon"
+    >
+      {/* Samsung Edge style header */}
+      <SidebarHeader className="p-3 relative border-b border-sidebar-border/50">
         <div className="flex items-center justify-between">
-          {!isCollapsed && (
-            <h1 className="text-xl font-bold text-sidebar-foreground">MarketPulse</h1>
-          )}
+          <div className={`
+            transition-all duration-300 ease-out overflow-hidden
+            ${isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'}
+          `}>
+            <h1 className="text-lg font-bold text-sidebar-foreground whitespace-nowrap">
+              MarketPulse
+            </h1>
+          </div>
           
-          {/* Collapse/Expand Button */}
+          {/* Edge-style toggle button */}
           <Button
             variant="ghost"
             size="sm"
             onClick={toggleSidebar}
             className={`
-              h-8 w-8 p-0 text-sidebar-foreground hover:bg-sidebar-accent
-              ${isCollapsed ? 'absolute top-4 left-1/2 -translate-x-1/2' : ''}
+              h-6 w-6 p-0 text-sidebar-foreground/70 hover:text-sidebar-foreground
+              hover:bg-sidebar-accent/50 rounded-full transition-all duration-200
+              ${isCollapsed ? 'mx-auto' : 'flex-shrink-0'}
             `}
           >
-            {isCollapsed ? (
-              <ChevronRight className="h-4 w-4" />
-            ) : (
-              <ChevronLeft className="h-4 w-4" />
-            )}
+            <div className={`transition-transform duration-300 ${isCollapsed ? 'rotate-180' : ''}`}>
+              <ChevronLeft className="h-3 w-3" />
+            </div>
           </Button>
         </div>
       </SidebarHeader>
 
-      <SidebarContent className="px-4">
+      <SidebarContent className="px-2 py-2">
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
@@ -83,43 +95,84 @@ export function AppSidebar() {
                     <SidebarMenuButton 
                       asChild
                       className={`
-                        w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors
+                        group relative w-full rounded-xl transition-all duration-300 ease-out
+                        ${isCollapsed ? 'h-10 w-10 p-0 mx-auto' : 'h-10 px-3'}
                         ${itemIsActive 
-                          ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
-                          : 'text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground'
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground shadow-sm' 
+                          : 'text-sidebar-foreground hover:bg-sidebar-accent/30 hover:text-sidebar-accent-foreground'
                         }
                       `}
                     >
                       <NavLink 
                         to={item.url} 
                         end={item.url === "/"}
+                        className="flex items-center justify-center w-full h-full"
                       >
-                        <item.icon className="mr-3 h-4 w-4" />
-                        {!isCollapsed && <span>{item.title}</span>}
+                        <item.icon className={`
+                          h-4 w-4 transition-all duration-200
+                          ${isCollapsed ? 'mx-auto' : 'mr-3 flex-shrink-0'}
+                        `} />
+                        
+                        <span className={`
+                          text-sm font-medium transition-all duration-300 ease-out overflow-hidden whitespace-nowrap
+                          ${isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'}
+                        `}>
+                          {item.title}
+                        </span>
+                        
+                        {/* Samsung-style active indicator */}
+                        {itemIsActive && (
+                          <div className={`
+                            absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-primary rounded-r-full
+                            transition-all duration-300 ease-out
+                            ${isCollapsed ? 'opacity-100' : 'opacity-0'}
+                          `} />
+                        )}
                       </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
               })}
               
-              {/* Settings at the bottom */}
-              <SidebarMenuItem className="mt-8">
-                <SidebarMenuButton 
-                  asChild
-                  className={`
-                    w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors
-                    ${isActive('/settings')
-                      ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
-                      : 'text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground'
-                    }
-                  `}
-                >
-                  <NavLink to="/settings">
-                    <Settings className="mr-3 h-4 w-4" />
-                    {!isCollapsed && <span>Settings</span>}
-                  </NavLink>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {/* Settings at the bottom with separator */}
+              <div className="mt-6 pt-4 border-t border-sidebar-border/30">
+                <SidebarMenuItem>
+                  <SidebarMenuButton 
+                    asChild
+                    className={`
+                      group relative w-full rounded-xl transition-all duration-300 ease-out
+                      ${isCollapsed ? 'h-10 w-10 p-0 mx-auto' : 'h-10 px-3'}
+                      ${isActive('/settings')
+                        ? 'bg-sidebar-accent text-sidebar-accent-foreground shadow-sm' 
+                        : 'text-sidebar-foreground hover:bg-sidebar-accent/30 hover:text-sidebar-accent-foreground'
+                      }
+                    `}
+                  >
+                    <NavLink to="/settings" className="flex items-center justify-center w-full h-full">
+                      <Settings className={`
+                        h-4 w-4 transition-all duration-200
+                        ${isCollapsed ? 'mx-auto' : 'mr-3 flex-shrink-0'}
+                      `} />
+                      
+                      <span className={`
+                        text-sm font-medium transition-all duration-300 ease-out overflow-hidden whitespace-nowrap
+                        ${isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'}
+                      `}>
+                        Settings
+                      </span>
+                      
+                      {/* Samsung-style active indicator */}
+                      {isActive('/settings') && (
+                        <div className={`
+                          absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-primary rounded-r-full
+                          transition-all duration-300 ease-out
+                          ${isCollapsed ? 'opacity-100' : 'opacity-0'}
+                        `} />
+                      )}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </div>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

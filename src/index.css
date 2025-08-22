@@ -62,9 +62,11 @@ All colors MUST be HSL.
     --shadow-lg: 0 10px 15px -3px hsl(220 13% 18% / 0.1), 0 4px 6px -2px hsl(220 13% 18% / 0.05);
     --shadow-xl: 0 20px 25px -5px hsl(220 13% 18% / 0.1), 0 10px 10px -5px hsl(220 13% 18% / 0.04);
 
-    /* Animations */
-    --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Professional Animations - Samsung Edge style */
+    --transition-base: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --transition-colors: color 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --radius: 0.75rem;
 
