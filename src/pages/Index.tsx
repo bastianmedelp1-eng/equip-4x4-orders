@@ -12,7 +12,7 @@ const Index = () => {
       <div className="min-h-screen flex w-full">
         <AppSidebar />
         
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col ml-12 sidebar-open:ml-64 transition-all duration-300">
           {/* Header with sidebar trigger */}
           <header className="h-16 flex items-center justify-between px-6 border-b border-border bg-background">
             <div className="flex items-center gap-4">

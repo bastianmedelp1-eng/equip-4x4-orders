@@ -51,7 +51,7 @@ export function AppSidebar() {
       className={`
         bg-sidebar-background border-r border-sidebar-border transition-all duration-300 ease-out
         ${isCollapsed ? 'w-12' : 'w-64'}
-        relative overflow-hidden
+        fixed top-0 left-0 h-screen z-50 overflow-hidden shadow-lg
       `} 
       collapsible="icon"
     >
