@@ -217,6 +217,77 @@ const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-12">
+      {/* Expanded Section Content - Above Dock */}
+      {expandedSection && (
+        <div className="animate-fade-in">
+          {(() => {
+            const section = dashboardSections.find(s => s.id === expandedSection);
+            return section ? (
+              <div className="mb-8">
+                {/* Section Header */}
+                <div className="text-center mb-6">
+                  <div className="flex items-center justify-center gap-3 mb-3">
+                    <span className="text-3xl">{section.icon}</span>
+                    <h3 className="text-2xl font-light text-gray-900 dark:text-white">{section.title}</h3>
+                  </div>
+                </div>
+                
+                {/* Section Items Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-w-4xl">
+                  {section.items.map((item) => (
+                    <div key={item.id} className="group">
+                      <div 
+                        className="cursor-pointer transition-all duration-300 hover:scale-105"
+                        onClick={() => handleItemClick(item.id, item)}
+                      >
+                        <div className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-lg hover:bg-white/15 hover:shadow-xl transition-all duration-300">
+                          <div className="mb-2">
+                            {item.icon ? (
+                              <img 
+                                src={item.icon} 
+                                alt={item.title}
+                                className="h-8 w-8 object-contain filter drop-shadow-sm"
+                              />
+                            ) : item.lucideIcon ? (
+                              <item.lucideIcon className="h-8 w-8 text-gray-700 dark:text-gray-300 filter drop-shadow-sm" />
+                            ) : null}
+                          </div>
+                          <p className="text-xs font-medium text-gray-800 dark:text-gray-200 text-center leading-tight">
+                            {item.title}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      {/* Sub-items */}
+                      {expandedItem === item.id && item.subItems && (
+                        <div className="mt-3 ml-4 space-y-2 animate-fade-in">
+                          {item.subItems.map((subItem) => (
+                            <div 
+                              key={subItem.id}
+                              className="cursor-pointer transition-all duration-300 hover:scale-105"
+                              onClick={() => handleItemClick(subItem.id)}
+                            >
+                              <div className="flex items-center gap-2 p-2 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+                                {subItem.lucideIcon && (
+                                  <subItem.lucideIcon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                                )}
+                                <p className="text-xs font-medium text-gray-700 dark:text-gray-300">
+                                  {subItem.title}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null;
+          })()}
+        </div>
+      )}
+
       {/* macOS Dock */}
       <div className="relative">
         {/* Dock Container */}
@@ -241,14 +312,14 @@ const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
               >
                 <div className={`relative flex flex-col items-center justify-center w-16 h-16 rounded-xl transition-all duration-300 ${
                   isExpanded 
-                    ? 'bg-white/20 shadow-lg ring-2 ring-white/30' 
+                    ? 'bg-white/25 shadow-lg ring-2 ring-white/40' 
                     : 'bg-white/10 hover:bg-white/15'
                 }`}>
                   <span className="text-2xl filter drop-shadow-sm">{section.icon}</span>
                   
                   {/* Tooltip */}
-                  {isHovered && (
-                    <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900/90 text-white text-xs rounded-md whitespace-nowrap backdrop-blur-sm">
+                  {isHovered && !expandedSection && (
+                    <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900/90 text-white text-xs rounded-md whitespace-nowrap backdrop-blur-sm animate-fade-in">
                       {section.title}
                       <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900/90"></div>
                     </div>
@@ -256,7 +327,7 @@ const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
                   
                   {/* Active indicator */}
                   {isExpanded && (
-                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full"></div>
+                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full animate-scale-in"></div>
                   )}
                 </div>
               </div>
@@ -264,85 +335,6 @@ const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
           })}
         </div>
       </div>
-
-      {/* Expanded Section Content */}
-      {expandedSection && (
-        <div className="space-y-6 mt-8">
-          {(() => {
-            const section = dashboardSections.find(s => s.id === expandedSection);
-            return section ? (
-              <>
-                <div className="flex items-center gap-3 pb-4 border-b border-border">
-                  <span className="text-2xl">{section.icon}</span>
-                  <h3 className="text-xl font-semibold text-foreground">{section.title}</h3>
-                </div>
-                
-                 {/* Section Items Grid */}
-                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-                   {section.items.map((item) => (
-                     <div key={item.id} className="space-y-4">
-                       <Card 
-                         className="group cursor-pointer transition-all duration-200 hover:shadow-lg border-0 shadow-card bg-card hover:shadow-md"
-                         onClick={() => handleItemClick(item.id, item)}
-                       >
-                         <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
-                           <div className="flex-shrink-0 relative">
-                             {item.icon ? (
-                               <img 
-                                 src={item.icon} 
-                                 alt={item.title}
-                                 className="h-12 w-12 object-contain"
-                               />
-                             ) : item.lucideIcon ? (
-                               <item.lucideIcon className="h-12 w-12 text-neutral-600 group-hover:text-accent transition-colors duration-200" />
-                             ) : null}
-                             {item.subItems && item.subItems.length > 0 && (
-                               <div className="absolute -bottom-1 -right-1 bg-accent rounded-full p-1">
-                                 {expandedItem === item.id ? (
-                                   <ChevronDown className="h-3 w-3 text-accent-foreground" />
-                                 ) : (
-                                   <ChevronRight className="h-3 w-3 text-accent-foreground" />
-                                 )}
-                               </div>
-                             )}
-                           </div>
-                           <p className="text-sm font-medium text-foreground leading-tight">
-                             {item.title}
-                           </p>
-                         </CardContent>
-                       </Card>
-                       
-                       {/* Sub-items */}
-                       {expandedItem === item.id && item.subItems && (
-                         <div className="ml-4 space-y-3">
-                           {item.subItems.map((subItem) => (
-                             <Card 
-                               key={subItem.id}
-                               className="group cursor-pointer transition-all duration-200 hover:shadow-md border-0 shadow-sm bg-secondary"
-                               onClick={() => handleItemClick(subItem.id)}
-                             >
-                               <CardContent className="p-4 flex items-center gap-3">
-                                 <div className="flex-shrink-0">
-                                   {subItem.lucideIcon && (
-                                     <subItem.lucideIcon className="h-6 w-6 text-neutral-600 group-hover:text-accent transition-colors duration-200" />
-                                   )}
-                                 </div>
-                                 <p className="text-sm font-medium text-foreground">
-                                   {subItem.title}
-                                 </p>
-                               </CardContent>
-                             </Card>
-                           ))}
-                         </div>
-                       )}
-                     </div>
-                   ))}
-                 </div>
-              </>
-            ) : null;
-          })()}
-        </div>
-      )}
     </div>
   );
 };
