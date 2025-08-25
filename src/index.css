@@ -8,67 +8,73 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 220 15% 97%;
-    --foreground: 220 13% 18%;
+    /* Modern neutral palette inspired by the reference */
+    --background: 0 0% 98%;
+    --foreground: 216 12% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 13% 18%;
+    --card-foreground: 216 12% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 18%;
+    --popover-foreground: 216 12% 15%;
 
-    --primary: 220 70% 50%;
+    --primary: 216 12% 15%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 220 13% 18%;
+    --secondary: 220 9% 96%;
+    --secondary-foreground: 216 12% 15%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 8.9% 46.1%;
+    --muted: 220 9% 96%;
+    --muted-foreground: 216 8% 45%;
 
-    --accent: 25 95% 53%;
+    --accent: 142 76% 36%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 220 70% 50%;
+    --ring: 216 12% 15%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    /* Professional business colors */
-    --navy: 220 70% 50%;
-    --navy-dark: 220 85% 25%;
-    --navy-light: 220 50% 95%;
-    --orange: 25 95% 53%;
-    --orange-light: 25 90% 95%;
-    --gray-50: 220 14% 96%;
-    --gray-100: 220 13% 91%;
-    --gray-200: 220 9% 85%;
-    --gray-700: 220 13% 35%;
-    --gray-800: 220 13% 25%;
-    --gray-900: 220 13% 18%;
+    /* Clean modern colors */
+    --neutral-50: 0 0% 98%;
+    --neutral-100: 220 9% 96%;
+    --neutral-200: 220 9% 89%;
+    --neutral-300: 220 9% 82%;
+    --neutral-400: 216 8% 45%;
+    --neutral-500: 216 12% 35%;
+    --neutral-600: 216 12% 25%;
+    --neutral-700: 216 12% 18%;
+    --neutral-800: 216 12% 12%;
+    --neutral-900: 216 12% 8%;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--navy)) 0%, hsl(var(--navy-dark)) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(var(--orange)) 0%, hsl(25 90% 45%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--gray-50)) 100%);
+    --success: 142 76% 36%;
+    --success-light: 142 76% 95%;
+    --warning: 43 74% 66%;
+    --warning-light: 43 74% 95%;
 
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 hsl(220 13% 18% / 0.05);
-    --shadow-md: 0 4px 6px -1px hsl(220 13% 18% / 0.1), 0 2px 4px -1px hsl(220 13% 18% / 0.06);
-    --shadow-lg: 0 10px 15px -3px hsl(220 13% 18% / 0.1), 0 4px 6px -2px hsl(220 13% 18% / 0.05);
-    --shadow-xl: 0 20px 25px -5px hsl(220 13% 18% / 0.1), 0 10px 10px -5px hsl(220 13% 18% / 0.04);
+    /* Subtle gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--neutral-50)) 0%, hsl(var(--neutral-100)) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(var(--success)) 0%, hsl(142 70% 45%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--neutral-100)) 100%);
 
-    /* Professional Animations - Samsung Edge style */
-    --transition-base: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --transition-colors: color 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Modern shadows - more subtle */
+    --shadow-sm: 0 1px 2px 0 hsl(216 12% 15% / 0.05);
+    --shadow-md: 0 1px 3px 0 hsl(216 12% 15% / 0.1), 0 1px 2px -1px hsl(216 12% 15% / 0.1);
+    --shadow-lg: 0 4px 6px -1px hsl(216 12% 15% / 0.1), 0 2px 4px -1px hsl(216 12% 15% / 0.06);
+    --shadow-xl: 0 10px 15px -3px hsl(216 12% 15% / 0.1), 0 4px 6px -2px hsl(216 12% 15% / 0.05);
+    --shadow-card: 0 1px 3px 0 hsl(216 12% 15% / 0.1), 0 1px 2px -1px hsl(216 12% 15% / 0.1);
+
+    /* Smooth animations */
+    --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-colors: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
     --sidebar-background: 220 13% 18%;
     --sidebar-foreground: 220 14% 96%;

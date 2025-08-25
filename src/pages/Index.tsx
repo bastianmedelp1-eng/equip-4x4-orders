@@ -12,9 +12,9 @@ const Index = () => {
       <div className="min-h-screen flex w-full">
         <AppSidebar />
         
-        <div className="flex-1 flex flex-col ml-12 sidebar-open:ml-64 transition-all duration-300">
+        <div className="flex-1 flex flex-col ml-12 sidebar-open:ml-64 transition-all duration-300 bg-gradient-subtle">
           {/* Header with sidebar trigger */}
-          <header className="h-16 flex items-center justify-between px-6 border-b border-border bg-background">
+          <header className="h-16 flex items-center justify-between px-6 border-b border-border bg-card shadow-sm">
             <div className="flex items-center gap-4">
               <div>
                 <h1 className="text-xl font-semibold text-foreground">Dashboard</h1>
@@ -25,11 +25,11 @@ const Index = () => {
 
           {/* Main content */}
           <main className="flex-1 p-6">
-            <div className="text-center py-8">
-              <h2 className="text-3xl font-bold text-foreground mb-2">
+            <div className="text-center py-8 mb-8">
+              <h2 className="text-3xl font-bold text-foreground mb-3">
                 Equipers 4x4 - Sistema de Pedidos
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground text-lg">
                 Gestiona tu negocio de equipamiento 4x4 de manera profesional
               </p>
             </div>
@@ -42,7 +42,7 @@ const Index = () => {
             onToggleMinimize={() => setIsChatMinimized(!isChatMinimized)}
           />
           
-          <footer className="text-center py-6 text-sm text-muted-foreground border-t border-border">
+          <footer className="text-center py-6 text-sm text-muted-foreground border-t border-border bg-card">
             © 2024 Equipers 4x4. Todos los derechos reservados.
           </footer>
         </div>
