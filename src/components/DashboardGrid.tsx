@@ -129,9 +129,10 @@ const dashboardSections: DashboardSection[] = [
 
 interface DashboardGridProps {
   isCompact?: boolean;
+  isVertical?: boolean;
 }
 
-const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
+const DashboardGrid = ({ isCompact = false, isVertical = false }: DashboardGridProps) => {
   const navigate = useNavigate();
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
@@ -214,6 +215,106 @@ const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
         break;
     }
   };
+
+  // Render vertical dock for sidebar
+  if (isVertical) {
+    return (
+      <div className="h-full flex flex-col items-center justify-center py-4">
+        {/* Vertical Dock Container */}
+        <div className="flex flex-col items-center gap-3 p-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl">
+          {dashboardSections.map((section, index) => {
+            const isHovered = hoveredSection === section.id;
+            const isExpanded = expandedSection === section.id;
+            
+            return (
+              <div
+                key={section.id}
+                className={`group cursor-pointer transition-all duration-300 ease-out transform ${
+                  isHovered 
+                    ? 'scale-125 -translate-x-2' 
+                    : hoveredSection && Math.abs(dashboardSections.findIndex(s => s.id === hoveredSection) - index) === 1
+                    ? 'scale-110 -translate-x-1'
+                    : 'scale-100'
+                }`}
+                onMouseEnter={() => setHoveredSection(section.id)}
+                onMouseLeave={() => setHoveredSection(null)}
+                onClick={() => toggleSection(section.id)}
+              >
+                <div className={`relative flex flex-col items-center justify-center w-12 h-12 rounded-xl transition-all duration-300 ${
+                  isExpanded 
+                    ? 'bg-white/25 shadow-lg ring-2 ring-white/40' 
+                    : 'bg-white/10 hover:bg-white/15'
+                }`}>
+                  <span className="text-lg filter drop-shadow-sm">{section.icon}</span>
+                  
+                  {/* Tooltip */}
+                  {isHovered && (
+                    <div className="absolute left-16 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-900/90 text-white text-xs rounded-md whitespace-nowrap backdrop-blur-sm animate-fade-in z-50">
+                      {section.title}
+                      <div className="absolute right-full top-1/2 transform -translate-y-1/2 w-0 h-0 border-t-4 border-b-4 border-r-4 border-transparent border-r-gray-900/90"></div>
+                    </div>
+                  )}
+                  
+                  {/* Active indicator */}
+                  {isExpanded && (
+                    <div className="absolute -right-1 top-1/2 transform -translate-y-1/2 w-1 h-1 bg-white rounded-full animate-scale-in"></div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        
+        {/* Expanded Section Content for Vertical */}
+        {expandedSection && (
+          <div className="fixed left-24 top-1/2 transform -translate-y-1/2 z-40 animate-fade-in">
+            {(() => {
+              const section = dashboardSections.find(s => s.id === expandedSection);
+              return section ? (
+                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 shadow-2xl max-w-sm">
+                  {/* Section Header */}
+                  <div className="text-center mb-4">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <span className="text-xl">{section.icon}</span>
+                      <h3 className="text-lg font-light text-gray-900 dark:text-white">{section.title}</h3>
+                    </div>
+                  </div>
+                  
+                  {/* Section Items */}
+                  <div className="space-y-2">
+                    {section.items.map((item) => (
+                      <div 
+                        key={item.id}
+                        className="cursor-pointer transition-all duration-300 hover:scale-105"
+                        onClick={() => handleItemClick(item.id, item)}
+                      >
+                        <div className="flex items-center gap-3 p-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 hover:shadow-lg transition-all duration-300">
+                          <div className="flex-shrink-0">
+                            {item.icon ? (
+                              <img 
+                                src={item.icon} 
+                                alt={item.title}
+                                className="h-6 w-6 object-contain filter drop-shadow-sm"
+                              />
+                            ) : item.lucideIcon ? (
+                              <item.lucideIcon className="h-6 w-6 text-gray-700 dark:text-gray-300 filter drop-shadow-sm" />
+                            ) : null}
+                          </div>
+                          <p className="text-sm font-medium text-gray-800 dark:text-gray-200 flex-1">
+                            {item.title}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null;
+            })()}
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-12">
