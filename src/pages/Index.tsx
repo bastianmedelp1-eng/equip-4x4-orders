@@ -24,13 +24,13 @@ const Index = () => {
           </header>
 
           {/* Main content */}
-          <main className="flex-1 p-6">
-            <div className="text-center py-8 mb-8">
-              <h2 className="text-3xl font-bold text-foreground mb-3">
-                Equipers 4x4 - Sistema de Pedidos
-              </h2>
-              <p className="text-muted-foreground text-lg">
-                Gestiona tu negocio de equipamiento 4x4 de manera profesional
+          <main className="flex-1 flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+            <div className="text-center mb-16 space-y-4">
+              <h1 className="text-5xl font-thin text-gray-900 dark:text-white tracking-tight">
+                Equipers 4x4
+              </h1>
+              <p className="text-gray-600 dark:text-gray-300 text-lg font-light">
+                Sistema de gestión profesional
               </p>
             </div>
             <DashboardGrid isCompact={!isChatMinimized} />

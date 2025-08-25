@@ -135,6 +135,7 @@ const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
   const navigate = useNavigate();
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
+  const [hoveredSection, setHoveredSection] = useState<string | null>(null);
 
   const toggleSection = (sectionId: string) => {
     setExpandedSection(prev => prev === sectionId ? null : sectionId);
@@ -215,63 +216,50 @@ const DashboardGrid = ({ isCompact = false }: DashboardGridProps) => {
   };
 
   return (
-    <div className="container mx-auto px-6 py-8 space-y-8">
-      {/* Category Buttons Grid */}
-      <div className="space-y-6">
-        {/* First row - 4 buttons */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {dashboardSections.slice(0, 4).map((section) => {
+    <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-12">
+      {/* macOS Dock */}
+      <div className="relative">
+        {/* Dock Container */}
+        <div className="flex items-end justify-center gap-2 p-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl">
+          {dashboardSections.map((section, index) => {
+            const isHovered = hoveredSection === section.id;
             const isExpanded = expandedSection === section.id;
             
             return (
-              <Card
+              <div
                 key={section.id}
-                className={`group cursor-pointer transition-all duration-200 hover:shadow-lg border-0 shadow-card bg-card ${
-                  isExpanded ? 'ring-2 ring-accent shadow-lg' : 'hover:shadow-md'
+                className={`group cursor-pointer transition-all duration-300 ease-out transform ${
+                  isHovered 
+                    ? 'scale-125 -translate-y-2' 
+                    : hoveredSection && Math.abs(dashboardSections.findIndex(s => s.id === hoveredSection) - index) === 1
+                    ? 'scale-110 -translate-y-1'
+                    : 'scale-100'
                 }`}
+                onMouseEnter={() => setHoveredSection(section.id)}
+                onMouseLeave={() => setHoveredSection(null)}
                 onClick={() => toggleSection(section.id)}
               >
-                <CardContent className={`${isCompact ? 'p-4' : 'p-6'} flex flex-col items-center justify-center text-center space-y-3`}>
-                  <div className="flex items-center gap-3">
-                    <span className={`${isCompact ? 'text-xl' : 'text-2xl'}`}>{section.icon}</span>
-                    <span className={`${isCompact ? 'text-sm' : 'text-base'} font-medium text-foreground`}>{section.title}</span>
-                  </div>
-                  {isExpanded ? (
-                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
-                  ) : (
-                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                <div className={`relative flex flex-col items-center justify-center w-16 h-16 rounded-xl transition-all duration-300 ${
+                  isExpanded 
+                    ? 'bg-white/20 shadow-lg ring-2 ring-white/30' 
+                    : 'bg-white/10 hover:bg-white/15'
+                }`}>
+                  <span className="text-2xl filter drop-shadow-sm">{section.icon}</span>
+                  
+                  {/* Tooltip */}
+                  {isHovered && (
+                    <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900/90 text-white text-xs rounded-md whitespace-nowrap backdrop-blur-sm">
+                      {section.title}
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900/90"></div>
+                    </div>
                   )}
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-
-        {/* Second row - 3 buttons */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {dashboardSections.slice(4, 7).map((section) => {
-            const isExpanded = expandedSection === section.id;
-            
-            return (
-              <Card
-                key={section.id}
-                className={`group cursor-pointer transition-all duration-200 hover:shadow-lg border-0 shadow-card bg-card ${
-                  isExpanded ? 'ring-2 ring-accent shadow-lg' : 'hover:shadow-md'
-                }`}
-                onClick={() => toggleSection(section.id)}
-              >
-                <CardContent className={`${isCompact ? 'p-4' : 'p-6'} flex flex-col items-center justify-center text-center space-y-3`}>
-                  <div className="flex items-center gap-3">
-                    <span className={`${isCompact ? 'text-xl' : 'text-2xl'}`}>{section.icon}</span>
-                    <span className={`${isCompact ? 'text-sm' : 'text-base'} font-medium text-foreground`}>{section.title}</span>
-                  </div>
-                  {isExpanded ? (
-                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
-                  ) : (
-                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  
+                  {/* Active indicator */}
+                  {isExpanded && (
+                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full"></div>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             );
           })}
         </div>
